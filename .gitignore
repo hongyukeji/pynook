@@ -1,0 +1,16 @@
+unpackage
+/unpackage
+/.DS_Store
+.DS_Store
+node_modules
+/node_modules
+/.vuepress/dist
+
+### Project common ###
+**/.idea/
+**/.vscode/
+**/node_modules/
+**/__MACOSX/
+.DS_Store
+._.DS_Store
+/runtime/

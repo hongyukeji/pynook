@@ -11,21 +11,21 @@
 							label-width="120">
 							<uni-forms-item :label="$t('business.form.business-name')" required name="name">
 								<uni-easyinput v-model="formData.name"
-									:placeholder="$t('business.form.business-name')+$t('business.form.business-name')" />
+									:placeholder="$t('business.form.please-enter')+' '+$t('business.form.business-name')" />
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.business-type')" required name="type">
 								<!-- <uni-easyinput v-model="formData.type" placeholder="Please enter business type" /> -->
 								<uni-data-select v-model="formData.type"
-									:placeholder="$t('business.form.business-name')+$t('business.form.business-type')"
+									:placeholder="$t('business.form.please-enter')+' '+$t('business.form.business-type')"
 									emptyTips="No options" :localdata="typeOptions" @change="change"></uni-data-select>
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.location')" required name="location">
 								<uni-easyinput v-model="formData.location"
-									:placeholder="$t('business.form.business-name')+$t('business.form.location')" />
+									:placeholder="$t('business.form.please-enter')+' '+$t('business.form.location')" />
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.business-introduction')" name="introduction">
 								<uni-easyinput type="textarea" v-model="formData.introduction"
-									:placeholder="$t('business.form.business-name')+$t('business.form.business-introduction')"
+									:placeholder="$t('business.form.please-enter')+' '+$t('business.form.business-introduction')"
 									trim autoHeight maxlength="255" />
 							</uni-forms-item>
 						</uni-forms>
@@ -146,21 +146,21 @@
 					name: {
 						rules: [{
 							required: true,
-							errorMessage: this.$t('business.form.business-name') + this.$t(
+							errorMessage: this.$t('business.form.please-enter') + ' ' + this.$t(
 								'business.form.business-name')
 						}]
 					},
 					type: {
 						rules: [{
 							required: true,
-							errorMessage: this.$t('business.form.business-name') + this.$t(
+							errorMessage: this.$t('business.form.please-enter') + ' ' + this.$t(
 								'business.form.business-type')
 						}]
 					},
 					location: {
 						rules: [{
 							required: true,
-							errorMessage: this.$t('business.form.business-name') + this.$t(
+							errorMessage: this.$t('business.form.please-enter') + ' ' + this.$t(
 								'business.form.location')
 						}]
 					},

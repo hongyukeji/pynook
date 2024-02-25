@@ -1,31 +1,54 @@
 <template>
-	<!--@author: 鸿宇 @email: 1527200768@qq.com-->
-	<view class="fui-wrap">
-		<image src="/static/images/logo.png" class="fui-logo"></image>
-		<view class="fui-text">Hello FirstUI ！</view>
-        <!-- <fui-icon custom-prefix="fui-custom-icon" name="icon-fabulous"></fui-icon> -->
-		<view class="fui-btn__box">
-			<fui-button :text="isLogin?'退出登录':'登录'" @click="btnLogin"></fui-button>
+	<view class="page-wrap">
+		<view class="page-hedaer">
+			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
+			<view class="page-hedaer-left">
+				<uni-icons type="scan" size="24" color="$uni-color-main"></uni-icons>
+			</view>
+			<view class="page-hedaer-center">
+				<view class="page-hedaer-logo" style="">
+					<image class="logo-image" src="@/static/images/logo.png" :mode="'heightFix'" style="height: 100%;">
+					</image>
+				</view>
+				<span class="page-hedaer-name">{{ title }}</span>
+			</view>
+			<view class="page-hedaer-right">
+				<view class="btn-locale" @click="onLocale">
+					<uni-icons class="page-hedaer-icon" custom-prefix="iconfont" type="icon-global" size="24"
+						color="$uni-color-main"></uni-icons>
+				</view>
+			</view>
 		</view>
-
+		<view class="page-body" style="flex: 1;">
+			<business-map></business-map>
+		</view>
+		<view class="page-footer">
+		</view>
 	</view>
 </template>
 
 <script>
+	import businessMap from '@/components/business/map.vue';
 	import {
 		mapState,
 		mapMutations
 	} from 'vuex';
 	export default {
+		components: {
+			businessMap
+		},
 		//登录状态
 		computed: mapState(['isLogin']),
 		data() {
 			return {
-
+				title: 'PyNook 派诺客',
+				languageList: [],
 			}
 		},
 		onLoad() {
-
+			uni.setNavigationBarTitle({
+				title: 'PyNook 派诺客',
+			})
 		},
 		methods: {
 			...mapMutations(['login', 'logout']),
@@ -44,35 +67,92 @@
 					this.logout()
 					this.fui.toast('退出登录成功！')
 				}
-			}
+			},
+			search(e) {
+				//输入框值
+				console.log(e.detail.value)
+				//搜索逻辑自行处理
+				const key = e.detail.value;
+				uni.showToast({
+					title: '搜索：' + key,
+					icon: 'none'
+				})
+			},
+			onLocale(){
+				uni.navigateTo({
+					url: '/pages/locale/locale'
+				});
+			},
 		}
 	}
 </script>
 
-<style>
-	.fui-wrap {
+<style lang="scss" scoped>
+	page {
 		width: 100%;
+		height: 100%;
+	}
+
+	.page-wrap {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.page-hedaer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		box-sizing: border-box;
+		padding: 10px 15px;
+		color: rgb(51, 51, 51);
+		font-size: 22px;
+		background-color: #ffffff;
+		line-height: 24px;
+	}
+
+	.page-hedaer-left {
+		display: flex;
+		align-items: center;
+	}
+
+	.page-hedaer-center {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		flex-direction: column;
-		padding: 0 32rpx;
+		flex: 1;
+	}
+
+	.page-hedaer-right {
+		display: flex;
+		align-items: center;
+	}
+
+	.page-hedaer-name {
+		font-weight: bold;
+		font-size: 18px;
+		color: rgb(51, 51, 51);
+		color: $uni-color-main;
+	}
+
+	.page-hedaer-logo {
+		width: auto;
+		height: 24px;
+		max-width: 120px;
 		box-sizing: border-box;
+		margin: 0 5px;
 	}
 
-	.fui-logo {
-		width: 200rpx;
-		height: 200rpx;
-		border-radius: 24rpx;
-		margin: 96rpx 0 32rpx;
+	.page-hedaer-icon {
+		/* font-size: 22px; */
+		/* color: rgb(51, 51, 51); */
+		color: $uni-color-main;
 	}
 
-	.fui-text {
-		font-size: 40rpx;
-		text-align: center;
-		padding-bottom: 64rpx;
+	.page-body {
+		position: relative;
 	}
-	.fui-btn__box{
-		width: 100%;
-	}
+
+	.page-footer {}
 </style>

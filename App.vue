@@ -32,10 +32,16 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
-	@import './common/fui-app.css';
-	@import './components/firstui/fui-theme/fui-theme.css';
+	@import '@/uni_modules/uni-scss/index.scss';
+	@import '@/common/fui-app.css';
+	@import '@/components/firstui/fui-theme/fui-theme.css';
 	/*自定义字体css */
-	@import './static/icon/fui-custom-icon.css';
+	@import '@/static/icon/fui-custom-icon.css';
+	/* 阿里字体库css */
+	@import "@/static/font/iconfont.css";
+	/* 在线引用阿里字体库 */
+	/* @import url(//at.alicdn.com/t/c/font_4443434_ms10k34ajl8.css); */
+	/*每个页面公共css */
 </style>

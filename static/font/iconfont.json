@@ -1,0 +1,72 @@
+{
+  "id": "4443434",
+  "name": "pimall",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "30438",
+      "name": "shop",
+      "font_class": "shop",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "31354",
+      "name": "shop_fill",
+      "font_class": "shopfill",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "32471",
+      "name": "cart",
+      "font_class": "cart",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
+      "icon_id": "33516",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "33517",
+      "name": "cart_fill",
+      "font_class": "cartfill",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    },
+    {
+      "icon_id": "33519",
+      "name": "home_fill",
+      "font_class": "homefill",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
+      "icon_id": "330201",
+      "name": "my",
+      "font_class": "my",
+      "unicode": "e78b",
+      "unicode_decimal": 59275
+    },
+    {
+      "icon_id": "330204",
+      "name": "my_fill",
+      "font_class": "myfill",
+      "unicode": "e78c",
+      "unicode_decimal": 59276
+    },
+    {
+      "icon_id": "34453220",
+      "name": "global",
+      "font_class": "global",
+      "unicode": "e857",
+      "unicode_decimal": 59479
+    }
+  ]
+}

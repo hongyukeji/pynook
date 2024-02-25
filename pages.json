@@ -5,7 +5,7 @@
 				// #ifdef H5
 				"titleNView": false,
 				// #endif
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "%page.index%"
 			}
 		},
 		{
@@ -74,7 +74,7 @@
 		{
 			"path": "pages/payment/payment",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "支付",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -214,7 +214,42 @@
 			}
 		},
 		{
-			"path" : "pages/merchant/merchant",
+			"path": "pages/merchant/merchant",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/business",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/apply",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/common/code/code",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/locale/locale",
+			"style": {
+				"navigationBarTitleText": "%index.language%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/message/message",
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
@@ -243,32 +278,66 @@
 		}
 	},
 	"tabBar": {
-		"color": "#333333",
-		"selectedColor": "#465CFF",
+		"color": "#090C49",
+		"selectedColor": "#FAD09E",
 		"backgroundColor": "#FFFFFF",
+		"height": "50px",
+		"fontSize": "12px",
+		"iconWidth": "24px",
+		"spacing": "3px",
+		// https://uniapp.dcloud.net.cn/collocation/pages.html#%E9%85%8D%E7%BD%AE%E9%A1%B9%E5%88%97%E8%A1%A8
+		"iconfontSrc": "static/font/iconfont.ttf", // app tabbar 字体.ttf文件路径 app 3.4.4+
 		"list": [{
 				"pagePath": "pages/index/index",
-				"text": "home",
+				"text": "%tabbar.home%",
 				"iconPath": "static/images/tabbar/assembly_default_3x.png",
-				"selectedIconPath": "static/images/tabbar/assembly_selected_3x.png"
+				"selectedIconPath": "static/images/tabbar/assembly_selected_3x.png",
+				"iconfont": {
+					"text": "\ue6b8", // 开头 &#xe 改为 \ue , 例如: &#xe6b8; 改为 \ue6b8
+					"selectedText": "\ue6bb",
+					// "fontSize": "22px",
+					"color": "#090C49",
+					"selectedColor": "#FAD09E"
+				}
 			},
 			{
 				"pagePath": "pages/store/store",
-				"text": "store",
+				"text": "%tabbar.store%",
 				"iconPath": "static/images/tabbar/layout_default_3x.png",
-				"selectedIconPath": "static/images/tabbar/layout_selected_3x.png"
+				"selectedIconPath": "static/images/tabbar/layout_selected_3x.png",
+				"iconfont": {
+					"text": "\ue676",
+					"selectedText": "\ue697",
+					// "fontSize": "22px",
+					"color": "#090C49",
+					"selectedColor": "#FAD09E"
+				}
 			},
 			{
 				"pagePath": "pages/cart/cart",
-				"text": "cart",
+				"text": "%tabbar.cart%",
 				"iconPath": "static/images/tabbar/mod_default_3x.png",
-				"selectedIconPath": "static/images/tabbar/mod_selected_3x.png"
+				"selectedIconPath": "static/images/tabbar/mod_selected_3x.png",
+				"iconfont": {
+					"text": "\ue6af",
+					"selectedText": "\ue6b9",
+					// "fontSize": "22px",
+					"color": "#090C49",
+					"selectedColor": "#FAD09E"
+				}
 			},
 			{
 				"pagePath": "pages/user/user",
-				"text": "user",
+				"text": "%tabbar.user%",
 				"iconPath": "static/images/tabbar/my_default_3x.png",
-				"selectedIconPath": "static/images/tabbar/my_selected_3x.png"
+				"selectedIconPath": "static/images/tabbar/my_selected_3x.png",
+				"iconfont": {
+					"text": "\ue78b",
+					"selectedText": "\ue78c",
+					"fontSize": "22px",
+					"color": "#090C49",
+					"selectedColor": "#FAD09E"
+				}
 			}
 		]
 	}

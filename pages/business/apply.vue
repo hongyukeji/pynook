@@ -87,28 +87,35 @@
 					location: '',
 					introduction: '',
 				},
-				rules: {
+				/*rules: {
 					// 对name字段进行必填验证
 					name: {
 						rules: [{
 								required: true,
-								errorMessage: '请输入姓名',
+								errorMessage: '请输入名称',
 							},
 							{
-								minLength: 3,
-								maxLength: 5,
-								errorMessage: '姓名长度在 {minLength} 到 {maxLength} 个字符',
+								minLength: 4,
+								maxLength: 32,
+								errorMessage: '名称长度在 {minLength} 到 {maxLength} 个字符',
 							}
 						]
 					},
 					// 对email字段进行必填验证
-					email: {
+					type: {
 						rules: [{
-							format: 'email',
-							errorMessage: '请输入正确的邮箱地址',
+							format: 'type',
+							errorMessage: '请选择业务类型',
 						}]
 					}
-				},
+					// 对email字段进行必填验证
+					location: {
+						rules: [{
+							format: 'type',
+							errorMessage: '请输入地址位置',
+						}]
+					}
+				},*/
 				typeOptions: [{
 					label: '咖啡店',
 					text: 'Coffee shop',
@@ -139,40 +146,26 @@
 					name: {
 						rules: [{
 							required: true,
-							errorMessage: '姓名不能为空'
+							errorMessage: this.$t('business.form.business-name') + this.$t(
+								'business.form.business-name')
 						}]
 					},
-					age: {
+					type: {
 						rules: [{
 							required: true,
-							errorMessage: '年龄不能为空'
-						}, {
-							format: 'number',
-							errorMessage: '年龄只能输入数字'
-						}]
-					}
-				},
-				// 自定义表单数据
-				customFormData: {
-					name: '',
-					age: '',
-					hobby: []
-				},
-				// 自定义表单校验规则
-				customRules: {
-					name: {
-						rules: [{
-							required: true,
-							errorMessage: '姓名不能为空'
+							errorMessage: this.$t('business.form.business-name') + this.$t(
+								'business.form.business-type')
 						}]
 					},
-					age: {
+					location: {
 						rules: [{
 							required: true,
-							errorMessage: '年龄不能为空'
+							errorMessage: this.$t('business.form.business-name') + this.$t(
+								'business.form.location')
 						}]
 					},
-					hobby: {
+					// 自定义表单校验规则
+					/**hobby: {
 						rules: [{
 								format: 'array'
 							},
@@ -185,7 +178,7 @@
 								}
 							}
 						]
-					}
+					}*/
 				},
 			};
 		},
@@ -261,7 +254,7 @@
 	}
 
 	.uni-forms-item {
-		margin-bottom: 10px;
+		// margin-bottom: 10px;
 	}
 
 	.btn-group {}

@@ -3,7 +3,7 @@
 		<view class="page-hedaer"></view>
 		<view class="page-body">
 			<view class="container">
-				购物车列表
+				内容
 			</view>
 		</view>
 		<view class="page-footer"></view>

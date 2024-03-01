@@ -6,8 +6,9 @@
 			<view class="map-hedaer-search">
 				<!-- 搜索框 -->
 				<uni-search-bar class="map-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
-					textColor="$uni-color-second" :placeholder="$t('business.placeholder.search-business')" @confirm="search"
-					v-model="searchValue" @blur="blur" @focus="focus" @input="input" @cancel="cancel" @clear="clear">
+					textColor="$uni-color-second" :placeholder="$t('business.placeholder.search-business')"
+					@confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input" @cancel="cancel"
+					@clear="clear">
 				</uni-search-bar>
 			</view>
 		</cover-view>
@@ -93,7 +94,7 @@
 					altitude: true, // 高精度定位
 					// 定位成功，更新定位结果
 					success: function(res) {
-						console.log(res)
+						// console.log(res);
 						const longitude = res.longitude;
 						const latitude = res.latitude;
 						console.log("当前位置的经度：", longitude);
@@ -240,6 +241,23 @@
 		border: 1px solid $uni-color-main;
 		padding: 0;
 		border-radius: 5px;
+		color: $uni-color-main !important;
+	}
+
+	.map-hedaer-search-bar ::v-deep .uni-icons.uniui-search {
+		color: $uni-color-main !important;
+	}
+
+	.map-hedaer-search-bar ::v-deep .uni-input-input {
+		color: $uni-color-main !important;
+	}
+
+	.map-hedaer-search-bar ::v-deep .uni-input-placeholder {
+		color: $uni-color-main !important;
+	}
+
+	.map-hedaer-search-bar ::v-deep .uni-searchbar__text-placeholder {
+		color: $uni-color-main !important;
 	}
 
 	.map-toolbar {

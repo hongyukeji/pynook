@@ -10,7 +10,7 @@
 					<image class="logo-image" src="@/static/images/logo.png" :mode="'heightFix'" style="height: 100%;">
 					</image>
 				</view>
-				<span class="page-hedaer-name">{{ title }}</span>
+				<span class="page-hedaer-name">{{ appInfo.name }}</span>
 			</view>
 			<view class="page-hedaer-right">
 				<view class="btn-locale" @click="onLocale">
@@ -31,14 +31,28 @@
 	import businessMap from '@/components/business/map.vue';
 	import {
 		mapState,
-		mapMutations
+		mapGetters,
+		mapMutations,
+		mapActions,
 	} from 'vuex';
 	export default {
 		components: {
 			businessMap
 		},
 		//登录状态
-		computed: mapState(['isLogin']),
+		computed: {
+			// ...mapState(['isLogin']),
+			// ...mapState({appName: state => state.app.name,}),
+			// ...mapGetters('app', ['appInfo']),
+			...mapState({
+				appInfo: state => state.app,
+			}),
+			...mapState({
+				userInfo: state => state.user.userInfo,
+				// isLogin: state => state.user.isLogin,
+				// token: state => state.user.token,
+			}),
+		},
 		data() {
 			return {
 				title: 'PyNook 派诺客',
@@ -46,12 +60,31 @@
 			}
 		},
 		onLoad() {
-			uni.setNavigationBarTitle({
+			/* uni.setNavigationBarTitle({
 				title: 'PyNook 派诺客',
-			})
+			}) */
+			this.getAppInfo();
+			this.getData();
 		},
 		methods: {
-			...mapMutations(['login', 'logout']),
+			// ...mapMutations(['login', 'logout']),
+			...mapMutations('user', ['login', 'logout']),
+			...mapActions('app', ['getAppInfo']),
+			getData() {
+				let that = this;
+				console.log('---> isLogin :', that.$store.state.user.isLogin);
+				this.$api.app.getAppInfo().then((res) => {
+					console.log('---> res :', res);
+					if (res.data.code == 200) {
+						let title = res.data.data.name;
+						console.log('---> title :', title);
+						that.title = title;
+						uni.setNavigationBarTitle({
+							title: title,
+						})
+					}
+				})
+			},
 			btnLogin() {
 				if (!this.isLogin) {
 					//请求接口
@@ -78,7 +111,7 @@
 					icon: 'none'
 				})
 			},
-			onLocale(){
+			onLocale() {
 				uni.navigateTo({
 					url: '/pages/locale/locale'
 				});

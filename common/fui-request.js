@@ -3,20 +3,21 @@ import http from '@/components/firstui/fui-request'
 
 //初始化请求配置项
 http.create({
-	host: 'https://ffa.firstui.cn',
+	host: 'http://localhost:8000',
 	header: {
-		// 'content-type': 'application/x-www-form-urlencoded'
+		// 'content-type': 'application/x-www-form-urlencoded',
+		'Content-Type': 'application/json;charset=UTF-8'
 	}
 })
 //请求拦截
 http.interceptors.request.use(config => {
 	//请求之前可在请求头中加入token等信息
-	let token = uni.getStorageSync('firstui_token') || 'testToken';
+	let token = uni.getStorageSync('token') || '';
 	if (config.header) {
-		config.header['token'] = token
+		config.header['Authorization'] = token
 	} else {
 		config.header = {
-			'token': token
+			'Authorization': token
 		}
 	}
 	return config
@@ -25,6 +26,9 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
 	//TODO
 	return response
+}, (err) => {
+	//错误响应：断网、错误域名等
+	return Promise.reject(err)
 })
 
 export default http

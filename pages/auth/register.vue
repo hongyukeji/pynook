@@ -15,13 +15,13 @@
 									v-model="formData.password" type="password"></fui-input>
 							</fui-form-item>
 							<view class="form-btn-wrap">
-								<fui-button text="注册" bold @click="submit"></fui-button>
+								<fui-button :text="$t('common.register')" bold @click="submit"></fui-button>
 							</view>
 						</fui-form>
 						<view class="form-link-wrap">
 							<!-- <uni-link href="/pages/auth/register" text="注册" :showUnderLine="false"></uni-link> -->
-							<navigator class="form-link-btn" :url="'/pages/auth/login'">登陆</navigator>
-							<!-- <navigator class="form-link-btn" :url="'/pages/auth/register'">注册</navigator> -->
+							<navigator class="form-link-btn" :url="'/pages/auth/login'">{{$t('common.login')}}</navigator>
+							<!-- <navigator class="form-link-btn" :url="'/pages/auth/register'">{{$t('common.register')}}</navigator> -->
 						</view>
 					</view>
 				</uni-section>

@@ -3,7 +3,7 @@
 		<view class="page-hedaer">
 			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
 			<view class="page-hedaer-left">
-				<uni-icons type="scan" size="24" color="$uni-color-main"></uni-icons>
+				<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
 			</view>
 			<view class="page-hedaer-center">
 				<view class="page-hedaer-logo" style="">
@@ -15,7 +15,7 @@
 			<view class="page-hedaer-right">
 				<view class="btn-locale" @click="onLocale">
 					<uni-icons class="page-hedaer-icon" custom-prefix="iconfont" type="icon-global" size="24"
-						color="$uni-color-main"></uni-icons>
+						color="$uni-color-master"></uni-icons>
 				</view>
 			</view>
 		</view>
@@ -180,7 +180,7 @@
 		font-weight: bold;
 		font-size: 18px;
 		color: rgb(51, 51, 51);
-		color: $uni-color-main;
+		color: $uni-color-master;
 	}
 
 	.page-hedaer-logo {
@@ -194,7 +194,7 @@
 	.page-hedaer-icon {
 		/* font-size: 22px; */
 		/* color: rgb(51, 51, 51); */
-		color: $uni-color-main;
+		color: $uni-color-master;
 	}
 
 	.page-body {

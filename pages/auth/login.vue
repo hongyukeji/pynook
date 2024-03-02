@@ -3,7 +3,10 @@
 		<view class="page-hedaer"></view>
 		<view class="page-body">
 			<view class="container">
-				<uni-section title="请登陆您的帐号" type="line">
+				<view class="logo-wrap">
+					<image class="logo-image" :src="appLogo" :mode="'heightFix'" style="height: 100%;"></image>
+				</view>
+				<uni-section :title="$t('common.login')+$t('common.account')" type="line">
 					<view class="form-wrap" v-if="!isPiBrowser">
 						<fui-form ref="form" top="0" :model="formData" :show="false">
 							<fui-form-item label="用户名" asterisk prop="username">
@@ -19,19 +22,20 @@
 									:scaleRatio="0.9"></fui-switch>
 							</fui-form-item> -->
 							<view class="form-btn-wrap">
-								<fui-button text="登陆" bold @click="submit"></fui-button>
+								<fui-button :text="$t('common.login')" bold @click="submit"></fui-button>
 							</view>
 						</fui-form>
 
 						<view class="form-link-wrap">
 							<!-- <uni-link href="/pages/auth/register" text="注册" :showUnderLine="false"></uni-link> -->
-							<!-- <navigator class="form-link-btn" :url="'/pages/auth/login'">登陆</navigator> -->
-							<navigator class="form-link-btn" :url="'/pages/auth/register'">注册</navigator>
+							<!-- <navigator class="form-link-btn" :url="'/pages/auth/login'">{{$t('common.login')}}</navigator> -->
+							<navigator class="form-link-btn" :url="'/pages/auth/register'">{{$t('common.register')}}
+							</navigator>
 						</view>
 					</view>
 					<view class="form-wrap" v-else>
-						<view class="form-btn-wrap">
-							<fui-button text="Pi登陆" bold @click="piLogin()"></fui-button>
+						<view class="btn-login btn-master-color" @click="piLogin()">
+							π {{$t('common.login')}}
 						</view>
 					</view>
 				</uni-section>
@@ -54,6 +58,8 @@
 		components: {},
 		data() {
 			return {
+				appName: getApp().globalData.app.name || '',
+				appLogo: getApp().globalData.app.logo || '',
 				// 表单数据
 				formData: {
 					username: '',
@@ -112,7 +118,7 @@
 								})
 								return;
 							}
-							// console.log('---> title :', title);
+							// console.log('---> data :', res.data.data);
 							that.login(res.data.data);
 							console.log('userData:', that.userData);
 							uni.showToast({
@@ -211,16 +217,25 @@
 
 							that.$api.pi.login(formData).then((res) => {
 								console.log('---> res :', res);
-								if (res.data.code == 200) {
-									let data = res.data.data;
-									console.log('---> data :', data);
-									that.login(data);
+								const code = res.data?.code;
+								const message = res.data?.message;
+								console.log('---> code :', code);
+								console.log('---> message :', message);
+								if (code != 200) {
 									uni.showToast({
-										title: '登陆成功',
+										title: message || '登陆失败',
 										icon: 'none'
 									})
-									that.$utils.common.toBackPage();
+									return;
 								}
+								const data = res.data?.data;
+								console.log('---> data :', data);
+								that.login(data);
+								uni.showToast({
+									title: '登陆成功',
+									icon: 'none'
+								})
+								that.$utils.common.toBackPage();
 							});
 
 						}).catch(function(err) {
@@ -272,4 +287,31 @@
 	}
 
 	.form-link-btn {}
+
+	.btn-login {
+		padding: $uni-spacing-row-lg;
+		margin: $uni-spacing-col-lg auto;
+		border-radius: $uni-border-radius-lg;
+		color: #ffffff;
+		border-color: $uni-color-master;
+		background-color: $uni-color-master;
+		color: $uni-color-slave;
+		// border-color: #FCD323;
+		// background-color: #FCD323;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.logo-wrap {
+		height: 120px;
+		padding: $uni-spacing-row-lg;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $uni-bg-color;
+	}
+
+	.logo-image {}
 </style>

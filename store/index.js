@@ -1,4 +1,5 @@
 // @author: 鸿宇 @email: 1527200768@qq.com
+// import createPersistedState from 'vuex-persistedstate' // 引入数据持久化插件
 // #ifdef MP
 import http from '../common/fui-request'
 // #endif
@@ -14,29 +15,23 @@ import {
 	createStore
 } from 'vuex'
 const store = createStore({
+	// plugins 插件配置 npm install --save vuex-persistedstate
+	/* plugins: [createPersistedState({
+		// key: "vuex", // 设置存储的名称，可以自定义
+		paths: ['user',],
+		// 设置存储的方式，可以使用本地存储或者其他方式
+		storage: {
+			getItem: key => uni.getStorageSync(key), // 获取
+			setItem: (key, value) => uni.setStorageSync(key, value), // 存储
+			removeItem: key => uni.removeStorageSync(key) // 删除
+		}
+	})], */
 	// #endif
 	state: {
-		//是否登录
-		isLogin: uni.getStorageSync("token") ? true : false
 	},
 	mutations: {
-		//登录
-		login(state, payload) {
-			if (payload) {
-				state.token = payload.token
-				uni.setStorageSync('token',payload.token)
-			}
-			state.isLogin = true
-		},
-		//退出登录
-		logout(state) {
-			state.token = ""
-			state.isLogin = false
-			uni.removeStorageSync('token')
-		}
 	},
 	actions: {
-
 	},
 	// https://zh.uniapp.dcloud.io/tutorial/vue3-vuex.html#module
 	modules: {}

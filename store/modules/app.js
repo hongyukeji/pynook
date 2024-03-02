@@ -1,4 +1,5 @@
 import api from '@/api'
+import globalConfig from '@/config';
 
 // 子模块app路径：store/modules/app.js
 export default {
@@ -9,6 +10,7 @@ export default {
 		...{
 			name: '',
 			version: '',
+			...globalConfig,
 		},
 		// ...uni.getStorageSync('APP_DATA')
 	},

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.btn-master-color {
+	color: #ffffff;
+	border-color: var(--uni-color-master, #090C49);
+	background-color: var(--uni-color-master, #090C49);
+}
+
+.btn-slave-color {
+	color: #ffffff;
+	border-color: var(--uni-color-slave, #FAD09E);
+	background-color: var(--uni-color-slave, #FAD09E);
+}

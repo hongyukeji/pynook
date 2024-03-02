@@ -277,14 +277,14 @@
 		padding: 15px;
 		margin: 20px auto;
 		border-radius: 10px;
-		background-color: $uni-color-second;
+		background-color: $uni-color-slave;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 
 	.btn-item-text {
-		color: $uni-color-main;
+		color: $uni-color-master;
 		text-decoration: none;
 		font-size: 14px;
 		font-weight: 700;
@@ -294,8 +294,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $uni-color-main;
-		border-color: $uni-color-main;
+		background-color: $uni-color-master;
+		border-color: $uni-color-master;
 	}
 
 	.btn-confirm {}

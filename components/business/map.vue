@@ -6,7 +6,7 @@
 			<view class="map-hedaer-search">
 				<!-- 搜索框 -->
 				<uni-search-bar class="map-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
-					textColor="$uni-color-second" :placeholder="$t('business.placeholder.search-business')"
+					textColor="$uni-color-slave" :placeholder="$t('business.placeholder.search-business')"
 					@confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input" @cancel="cancel"
 					@clear="clear">
 				</uni-search-bar>
@@ -31,11 +31,11 @@
 			<!-- 地图底部按钮 -->
 			<view class="map-footer-group" style="">
 				<view class="map-footer-button-item" style="flex: 1;margin-right: 15px;" @click="onAddMyBusiness()">
-					<uni-icons class="map-footer-button-item-icon" type="plus" color="$uni-color-second"
+					<uni-icons class="map-footer-button-item-icon" type="plus" color="$uni-color-slave"
 						size="32"></uni-icons><span>{{$t('business.button.add-my-business')}}</span>
 				</view>
 				<view class="map-footer-button-item border-radius-circle" @click="moveToCurrentlocation()">
-					<uni-icons class="map-footer-button-item-icon" type="location" color="$uni-color-second"
+					<uni-icons class="map-footer-button-item-icon" type="location" color="$uni-color-slave"
 						size="32"></uni-icons>
 				</view>
 			</view>
@@ -238,26 +238,26 @@
 	}
 
 	.map-hedaer-search-bar {
-		border: 1px solid $uni-color-main;
+		border: 1px solid $uni-color-master;
 		padding: 0;
 		border-radius: 5px;
-		color: $uni-color-main !important;
+		color: $uni-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-icons.uniui-search {
-		color: $uni-color-main !important;
+		color: $uni-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-input {
-		color: $uni-color-main !important;
+		color: $uni-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-placeholder {
-		color: $uni-color-main !important;
+		color: $uni-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-searchbar__text-placeholder {
-		color: $uni-color-main !important;
+		color: $uni-color-master !important;
 	}
 
 	.map-toolbar {
@@ -296,12 +296,12 @@
 		align-items: center;
 		justify-content: center;
 		color: #ffffff;
-		background-color: $uni-color-main;
+		background-color: $uni-color-master;
 		border-radius: 5px;
 	}
 
 	.map-footer-button-item-icon {
-		color: $uni-color-second;
+		color: $uni-color-slave;
 		font-size: 32px;
 		width: 45px;
 		height: 45px;

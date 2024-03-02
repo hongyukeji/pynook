@@ -11,11 +11,18 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapGetters,
+		mapMutations,
+		mapActions,
+	} from 'vuex';
 	export default {
 		components: {},
 		data() {
 			return {};
 		},
+		computed: {},
 		onLoad() {},
 		onShow() {},
 		onReady() {},

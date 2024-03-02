@@ -73,5 +73,6 @@
 	@import "@/static/font/iconfont.css";
 	/* 在线引用阿里字体库 */
 	/* @import url(//at.alicdn.com/t/c/font_4443434_ms10k34ajl8.css); */
-	/*每个页面公共css */
+	/* 应用css */
+	@import '@/static/css/app.css';
 </style>

@@ -4,12 +4,12 @@ import api from '@/api'
 export default {
 	namespaced: true,
 	state: {
-		// 用户信息
-		userInfo: {},
 		// 是否登录
 		isLogin: uni.getStorageSync("token") ? true : false,
 		// 令牌
 		token: uni.getStorageSync('token') || '',
+		// 用户信息
+		userInfo: uni.getStorageSync('USER_INFO') || {},
 	},
 	getters: {
 		userData: state => {
@@ -19,8 +19,13 @@ export default {
 	mutations: {
 		// 登录
 		login(state, payload) {
+			console.log('---> login payload :', payload);
 			if (payload) {
+				Object.keys(payload).forEach(key => {
+					state[key] = payload[key];
+				});
 				state.userInfo = payload.userInfo
+				uni.setStorageSync('USER_INFO', payload.userInfo)
 				state.token = payload.token
 				uni.setStorageSync('token', payload.token)
 			}
@@ -30,6 +35,7 @@ export default {
 		logout(state) {
 			state.token = ""
 			state.isLogin = false
+			state.userInfo = {}
 			uni.removeStorageSync('token')
 		},
 		// 设置用户信息
@@ -54,5 +60,5 @@ export default {
 				})
 			})
 		},
-	}
+	},
 }

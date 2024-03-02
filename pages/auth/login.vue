@@ -3,8 +3,8 @@
 		<view class="page-hedaer"></view>
 		<view class="page-body">
 			<view class="container">
-				<uni-section title="密码登陆" type="line">
-					<view class="form-wrap">
+				<uni-section title="请登陆您的帐号" type="line">
+					<view class="form-wrap" v-if="!isPiBrowser">
 						<fui-form ref="form" top="0" :model="formData" :show="false">
 							<fui-form-item label="用户名" asterisk prop="username">
 								<fui-input :borderBottom="false" :padding="[0]" placeholder="用户名/邮箱/手机号"
@@ -22,10 +22,16 @@
 								<fui-button text="登陆" bold @click="submit"></fui-button>
 							</view>
 						</fui-form>
+
 						<view class="form-link-wrap">
 							<!-- <uni-link href="/pages/auth/register" text="注册" :showUnderLine="false"></uni-link> -->
 							<!-- <navigator class="form-link-btn" :url="'/pages/auth/login'">登陆</navigator> -->
 							<navigator class="form-link-btn" :url="'/pages/auth/register'">注册</navigator>
+						</view>
+					</view>
+					<view class="form-wrap" v-else>
+						<view class="form-btn-wrap">
+							<fui-button text="Pi登陆" bold @click="piLogin()"></fui-button>
 						</view>
 					</view>
 				</uni-section>
@@ -37,6 +43,7 @@
 </template>
 
 <script>
+	import pisdk from '@/common/pisdk.js';
 	import {
 		mapState,
 		mapGetters,
@@ -70,6 +77,9 @@
 			};
 		},
 		computed: {
+			isPiBrowser() {
+				return pisdk.isPiBrowser();
+			},
 			...mapState({
 				userData: state => state.user,
 			}),
@@ -117,6 +127,113 @@
 				}).catch(err => {
 					console.log(err)
 				})
+			},
+			/**
+			 * pi登录
+			 */
+			piLogin() {
+				const that = this;
+				pisdk.loadScript()
+					.then(function() {
+						console.log('---> pi loadScript()');
+						console.log('---> pi login()');
+						uni.showLoading({
+							title: "正在唤醒登录授权..."
+						})
+						pisdk.login({
+							onIncompletePaymentFound: async function(payment) {
+								console.log('> pi onIncompletePaymentFound payment: ', payment);
+
+								let paymentId = payment.identifier;
+								let txid = payment.transaction.txid;
+
+								// TODO: 发现未完成付款业务代码...
+								uni.request({
+									url: that.global.url + '/api/pi/complete?lang=' + uni
+										.getStorageSync('lang'),
+									method: 'POST',
+									header: {
+										'content-type': 'application/x-www-form-urlencoded'
+									},
+									data: {
+										"token": uni.getStorageSync("token").token,
+										"paymentId": paymentId,
+										"txid": txid,
+									},
+									success: (res) => {
+										console.log('>>> Pi onIncompletePaymentFound res',
+											res);
+
+										if (!res.data.code != 1) {
+											let err = res?.data?.message;
+											console.log('>>> Pi onIncompletePaymentFound err',
+												err);
+											uni.showToast({
+												icon: 'none',
+												title: `未付款订单处理失败 ${err}`
+											});
+											return;
+										}
+
+										if (res?.data?.data?.transaction?.verified || res?.data
+											?.transaction?.verified) {
+											uni.showToast({
+												icon: 'none',
+												title: '未付款订单处理成功，请重新发起付款'
+											});
+										} else {
+											uni.showToast({
+												icon: 'none',
+												title: '未付款订单处理失败，请稍后再试！'
+											});
+										}
+
+									},
+									fail: (err) => {
+
+									}
+								});
+
+							},
+						}).then(async function(auth) {
+							console.log('> pi login auth:', auth);
+
+							let accessToken = auth.accessToken;
+							// let uid = auth.user.uid;
+							// let username = auth.user.username;
+							// console.log('> pi accessToken', accessToken);
+
+							// TODO: 登录业务代码
+							let formData = {
+								accessToken: accessToken,
+								inviteCode: uni.getStorageSync('INVITE_CODE'),
+							};
+
+							that.$api.pi.login(formData).then((res) => {
+								console.log('---> res :', res);
+								if (res.data.code == 200) {
+									let data = res.data.data;
+									console.log('---> data :', data);
+									that.login(data);
+									uni.showToast({
+										title: '登陆成功',
+										icon: 'none'
+									})
+									that.$utils.common.toBackPage();
+								}
+							});
+
+						}).catch(function(err) {
+							console.error('> pi auth catch:', err);
+						}).finally(function() {
+							uni.hideLoading();
+						});
+
+					})
+					.catch(function(err) {
+						console.error(`> pi 环境加载失败 ${err}`);
+					});
+
 			},
 		},
 	}

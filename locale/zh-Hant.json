@@ -76,6 +76,7 @@
 	"tabbar.store": "店鋪",
 	"common.account": "帳號",
 	"common.login": "登入",
+	"common.logout": "登出",
 	"common.register": "註冊",
 	"tabbar.merchant": "商戶",
 	"common.form.select": "選擇",

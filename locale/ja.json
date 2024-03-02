@@ -77,6 +77,7 @@
 	"tabbar.merchant": "事業者",
 	"common.account": "アカウント",
 	"common.login": "ログイン",
+	"common.logout": "ログアウト",
 	"common.register": "登録",
 	"common.form.select": "選択",
 	"common.form.confirm": "確認",

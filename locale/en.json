@@ -76,6 +76,7 @@
 	"tabbar.merchant": "Merchant",
 	"common.account": "Account",
 	"common.login": "Login",
+	"common.logout": "Logout",
 	"common.register": "Register",
 	"common.form.select": "Select",
 	"common.form.confirm": "Confirm",

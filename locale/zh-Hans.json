@@ -77,6 +77,7 @@
 	"tabbar.merchant": "商户",
 	"common.account": "帐号",
 	"common.login": "登陆",
+	"common.logout": "退出",
 	"common.register": "注册",
 	"common.form.select": "选择",
 	"common.form.confirm": "确定",

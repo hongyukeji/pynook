@@ -296,6 +296,30 @@
 				"navigationBarTitleText": "%pages.business.dashbord%",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/user/vip/vip",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/about/about",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/help/help",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"easycom": {

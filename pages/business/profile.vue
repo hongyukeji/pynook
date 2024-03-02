@@ -9,62 +9,42 @@
 						<!-- 基础表单校验 -->
 						<uni-forms ref="form" :rules="rules" :modelValue="formData" label-position="top"
 							label-width="120">
-							<uni-forms-item :label="$t('business.form.business-name')" required name="name">
-								<uni-easyinput v-model="formData.name"
+							<uni-forms-item :label="$t('business.form.business-name')" required
+								:name="['profile','name']" :rules="rules['profile.name'].rules">
+								<uni-easyinput v-model="formData.profile.name"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-name')" />
 							</uni-forms-item>
-							<uni-forms-item :label="$t('business.form.business-type')" required name="type">
-								<!-- <uni-easyinput v-model="formData.type" placeholder="Please enter business type" /> -->
-								<uni-data-select v-model="formData.type"
-									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-type')"
-									emptyTips="No options" :localdata="typeOptions" @change="change"></uni-data-select>
+							<uni-forms-item :label="$t('business.form.business-type')" required
+								:name="['profile','typeId']" :rules="rules['profile.typeId'].rules">
+								<uni-data-select v-model="formData.profile.typeId"
+									:placeholder="$t('common.form.please-select')+' '+$t('business.form.business-type')"
+									emptyTips="No options" :localdata="typeOptions"
+									@change="typeChange"></uni-data-select>
 							</uni-forms-item>
-							<uni-forms-item :label="$t('business.form.location')" required name="location">
-								<uni-easyinput v-model="formData.location"
-									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.location')" />
+							<uni-forms-item :label="$t('business.form.address')" required :name="['profile','address']"
+								:rules="rules['profile.address'].rules">
+								<uni-easyinput v-model="formData.profile.address"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.address')" />
 							</uni-forms-item>
-							<uni-forms-item :label="$t('business.form.business-introduction')" name="introduction">
-								<uni-easyinput type="textarea" v-model="formData.introduction"
+							<uni-forms-item :label="$t('business.form.business-introduction')"
+								:name="['profile','introduction']">
+								<uni-easyinput type="textarea" v-model="formData.profile.introduction"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-introduction')"
 									trim autoHeight maxlength="255" />
 							</uni-forms-item>
 						</uni-forms>
 
 						<view class="btn-group">
-							<view class="btn-item" @click="onTo()">
+							<view class="btn-item" v-for="(item,index) in menus" :key="index"
+								@click="toRedirect(item, $event)">
 								<view class="btn-item-text">
-									{{$t('business.button.menu')}}
-								</view>
-								<view class="btn-item-icon">
-									<uni-icons type="arrow-right" size="24"></uni-icons>
-								</view>
-							</view>
-							<view class="btn-item" @click="onTo()">
-								<view class="btn-item-text">
-									{{$t('business.button.loyalty-stamps')}}
-								</view>
-								<view class="btn-item-icon">
-									<uni-icons type="arrow-right" size="24"></uni-icons>
-								</view>
-							</view>
-							<view class="btn-item" @click="onTo()">
-								<view class="btn-item-text">
-									{{$t('business.button.business-photos')}}
-								</view>
-								<view class="btn-item-icon">
-									<uni-icons type="arrow-right" size="24"></uni-icons>
-								</view>
-							</view>
-							<view class="btn-item" @click="onTo()">
-								<view class="btn-item-text">
-									{{$t('business.button.get-qr-code')}}
+									{{item.text}}
 								</view>
 								<view class="btn-item-icon">
 									<uni-icons type="arrow-right" size="24"></uni-icons>
 								</view>
 							</view>
 						</view>
-
 
 					</view>
 				</uni-section>
@@ -84,40 +64,17 @@
 		data() {
 			return {
 				formData: {
-					name: '',
-					type: '',
-					location: '',
-					introduction: '',
-				},
-				/*rules: {
-					// 对name字段进行必填验证
-					name: {
-						rules: [{
-								required: true,
-								errorMessage: '请输入名称',
-							},
-							{
-								minLength: 4,
-								maxLength: 32,
-								errorMessage: '名称长度在 {minLength} 到 {maxLength} 个字符',
-							}
-						]
+					profile: {
+						name: '',
+						typeId: '',
+						address: '',
+						introduction: '',
 					},
-					// 对email字段进行必填验证
-					type: {
-						rules: [{
-							format: 'type',
-							errorMessage: '请选择业务类型',
-						}]
-					}
-					// 对email字段进行必填验证
-					location: {
-						rules: [{
-							format: 'type',
-							errorMessage: '请输入地址位置',
-						}]
-					}
-				},*/
+					menu: {},
+					stamps: {},
+					photos: {},
+					qrcode: {},
+				},
 				typeOptions: [{
 					label: '咖啡店',
 					text: 'Coffee shop',
@@ -145,110 +102,162 @@
 				}, ],
 				// 校验规则
 				rules: {
-					name: {
+					"profile.name": {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
 								'business.form.business-name')
 						}]
 					},
-					type: {
+					"profile.typeId": {
 						rules: [{
 							required: true,
-							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+							errorMessage: this.$t('common.form.please-select') + ' ' + this.$t(
 								'business.form.business-type')
 						}]
 					},
-					location: {
+					"profile.address": {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
-								'business.form.location')
+								'business.form.address')
 						}]
 					},
-					// 自定义表单校验规则
-					/**hobby: {
-						rules: [{
-								format: 'array'
-							},
-							{
-								validateFunction: function(rule, value, data, callback) {
-									if (value.length < 2) {
-										callback('请至少勾选两个兴趣爱好')
-									}
-									return true
-								}
-							}
-						]
-					}*/
 				},
+				menus: [{
+					text: this.$t('business.button.menu'),
+					url: '/pages/business/profile/menu'
+				}, {
+					text: this.$t('business.button.loyalty-stamps'),
+					url: '/pages/business/profile/stamps'
+				}, {
+					text: this.$t('business.button.business-photos'),
+					url: '/pages/business/profile/photos'
+				}, {
+					text: this.$t('business.button.get-qrcode'),
+					url: '/pages/business/profile/qrcode'
+				}, ],
 			};
 		},
-		onLoad() {
-			// uni.setNavigationBarTitle({
-			// 	title: this.$t('business.page.business-apply'),
-			// })
+		watch: {
+			formData: {
+				handler(newVal, oldVal) {
+					// console.log("formData--newVal: ", newVal, "formData--oldVal: ", oldVal);
+				},
+				immediate: true, // 初始化绑定时就会执行handler方法
+				deep: true, // 对象中任一属性值发生变化，都会触发handler方法
+			},
 		},
+		onLoad() {},
 		onShow() {},
+		mounted() {
+			this.getData();
+		},
 		methods: {
-			submit() {
+			getData() {
+				const that = this;
+				this.$api.merchant.getMerchantTypeList().then((res) => {
+					// console.log('---> res :', res);
+					if (res.data?.code != 200) {
+						uni.showToast({
+							title: res.data?.message || this.$t('common.request-failed'),
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					let typeOptions = [];
+					Object.keys(data).forEach(function(key) {
+						console.log(key, data[key]);
+						const item = data[key];
+						typeOptions.push({
+							text: item.name,
+							value: item.id,
+						})
+					});
+					that.typeOptions = typeOptions;
+				})
+				this.$api.business.getBusinessData().then((res) => {
+					// console.log('---> res :', res);
+					if (res.data?.code != 200) {
+						uni.showToast({
+							title: res.data?.message || this.$t('common.request-failed'),
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					that.formData = Object.assign(that.formData, data);
+					console.log('---> formData :', that.formData);
+				})
+			},
+			/* submit() {
 				this.$refs.form.validate().then(res => {
 					console.log('表单数据信息：', res);
 				}).catch(err => {
 					console.log('表单错误信息：', err);
 				})
-			},
-			formSubmit: function(e) {
-				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-				var formdata = e.detail.value
-				uni.showModal({
-					content: '表单数据内容：' + JSON.stringify(formdata),
-					showCancel: false
-				});
-			},
-			formReset: function(e) {
-				console.log('清空数据')
-			},
-			onClickItem(e) {
-				console.log(e);
-				this.current = e.currentIndex
-			},
+			}, */
 			submit(ref) {
-				this.$refs[ref].validate().then(res => {
-					console.log('success', res);
+				const that = this;
+				this.$refs[ref].validate().then(formData => {
+					console.log('success formData:', formData);
 					uni.showToast({
 						title: `校验通过`
 					})
+					this.$api.business.setBusinessData(formData).then((res) => {
+						// console.log('---> res :', res);
+						if (res.data?.code != 200) {
+							uni.showToast({
+								title: res.data?.message || this.$t('common.request-failed'),
+								icon: 'none'
+							})
+							return;
+						}
+						const data = res.data?.data;
+						that.formData = Object.assign(that.formData, data);
+						console.log('---> formData :', that.formData);
+						uni.showToast({
+							title: `提交成功`
+						})
+					})
+
 				}).catch(err => {
 					console.log('err', err);
 				})
 			},
-			change(e) {
-				console.log("e:", e);
+			typeChange(val) {
+				console.log("typeChange val:", val);
+				this.formData.profile.typeId = val;
 			},
-			onTo(e) {
-				console.log("e:", e);
-				uni.navigateTo({
-					url: '/pages/common/coding/coding'
-				});
+			toRedirect(item) {
+				console.log("toRedirect item:", item);
+
+				// 判断是否已经开通商户，未开通则不允许跳转
+
+				const url = item.url;
+				this.$utils.common.redirect(url);
 			},
 		},
 	}
 </script>
 
 <style lang="scss" scoped>
-	page {}
+	page {
+		background-color: $uni-background-color;
+	}
 
 	.page-wrap {}
 
 	.page-hedaer {}
 
 	.page-body {
-		background-color: #fff;
+		background-color: $uni-background-color;
 	}
 
 	.container {
 		padding-bottom: 60px;
+		background-color: $uni-background-color;
 	}
 
 	.page-footer {
@@ -257,14 +266,18 @@
 		width: 100%;
 		padding: $uni-spacing-row-lg;
 		box-sizing: border-box;
-		background-color: #fff;
+		background-color: $uni-bg-color;
 	}
 
 	.container {}
 
+	.uni-section ::v-deep .uni-section-header {
+		background-color: $uni-background-color;
+	}
+
 	.form-body {
 		padding: 15px;
-		background-color: #fff;
+		background-color: $uni-background-color;
 	}
 
 	.uni-forms-item {

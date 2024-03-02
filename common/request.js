@@ -7,20 +7,20 @@ http.create({
 	host: globalConfig.app.url || '',
 	header: {
 		// 'content-type': 'application/x-www-form-urlencoded',
-		'content-type': 'application/json'
+		// 'content-type': 'application/json'
 	}
 })
 //请求拦截
 http.interceptors.request.use(config => {
 	//请求之前可在请求头中加入token等信息
+	const tokenPrefix = "Bearer ";
 	let token = uni.getStorageSync('token') || '';
 	if (token && token != '') {
-		token = 'Bearer ' + token;
 		if (config.header) {
-			config.header['Authorization'] = token
+			config.header['Authorization'] = tokenPrefix + token
 		} else {
 			config.header = {
-				'Authorization': token
+				'Authorization': tokenPrefix + token
 			}
 		}
 	}

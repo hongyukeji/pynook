@@ -1,4 +1,5 @@
 import utils from '@/utils'
+import store from '@/store'
 
 // 引入的js文件中使用国际化
 import {
@@ -58,12 +59,8 @@ export default async function() {
 						title: t('pages.auth.please-login') || '请登录',
 						icon: 'none'
 					})
-					// 存储上一页网址
-					uni.setStorageSync("return_url", url)
-					// 跳转至登陆页面
-					uni.navigateTo({
-						url: "/pages/auth/login"
-					})
+					store.commit('user/logout');
+					utils.common.toLoginPage(url);
 					return false
 				}
 				return true
@@ -81,10 +78,13 @@ export default async function() {
 			// request 触发前拼接 url 
 			// args.url = 'https://www.example.com/' + args.url
 		},
-		success(args) {
-			// console.log('interceptor-success', args)
-			// 请求成功后，修改code值为1
-			// args.data.code = 1
+		success(res) {
+			// console.log('interceptor-success', res)
+			if (res.data.code == 401) {
+				// console.log('interceptor-store', store)
+				store.commit('user/logout');
+				utils.common.toLoginPage();
+			}
 		},
 		fail(err) {
 			// console.log('interceptor-fail', err)

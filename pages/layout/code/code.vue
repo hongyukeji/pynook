@@ -26,12 +26,15 @@
 		onLoad() {},
 		onShow() {},
 		onReady() {},
+		mounted() {},
 		methods: {},
 	}
 </script>
 
 <style lang="scss" scoped>
-	page {}
+	page {
+		background-color: $uni-background-color;
+	}
 
 	.page-wrap {}
 

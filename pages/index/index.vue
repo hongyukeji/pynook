@@ -138,6 +138,7 @@
 	page {
 		width: 100%;
 		height: 100%;
+		background-color: $uni-background-color;
 	}
 
 	.page-wrap {
@@ -179,7 +180,7 @@
 	.page-hedaer-name {
 		font-weight: bold;
 		font-size: 18px;
-		color: rgb(51, 51, 51);
+		// color: rgb(51, 51, 51);
 		color: $uni-color-master;
 	}
 

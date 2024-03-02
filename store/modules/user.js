@@ -37,6 +37,7 @@ export default {
 			state.isLogin = false
 			state.userInfo = {}
 			uni.removeStorageSync('token')
+			uni.removeStorageSync('USER_INFO')
 		},
 		// 设置用户信息
 		setUserInfo(state, userInfo) {

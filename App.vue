@@ -1,8 +1,20 @@
 <!--@author: 鸿宇 @email: 1527200768@qq.com-->
 <script>
+	import {
+		mapState,
+		mapGetters,
+		mapMutations,
+		mapActions,
+	} from 'vuex';
+	import globalConfig from '@/config';
 	export default {
+		globalData: {
+			...globalConfig,
+		},
 		onLaunch: function() {
 			console.log('App Launch')
+			// 初始化应用
+			this.initApp();
 			//App2.6.5+ 仅iOS
 			// #ifndef APP-PLUS || H5
 			if (uni.canIUse('getUpdateManager')) {
@@ -24,11 +36,29 @@
 			// #endif
 		},
 		onShow: function() {
-
+			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
+		created() {},
+		methods: {
+			async initApp() {
+				// 初始化操作...
+				await this.initGlobalData();
+			},
+			async initGlobalData() {
+				// 获取公共数据
+				await this.$store.dispatch('common/getCommonData');
+				// 从 Vuex 中获取模块数据
+				const commonData = this.$store.getters['common/commonData'];
+				// 将模块数据挂载到 globalData 中，配置会覆盖本地的配置项
+				// this.globalData.common = commonData;
+				Object.keys(commonData).forEach(key => {
+					this.globalData[key] = Object.assign(this.globalData[key] || {}, commonData[key]);
+				});
+			},
+		},
 	}
 </script>
 

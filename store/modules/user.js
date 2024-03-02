@@ -11,11 +11,16 @@ export default {
 		// 令牌
 		token: uni.getStorageSync('token') || '',
 	},
-	getters: {},
+	getters: {
+		userData: state => {
+			return JSON.parse(JSON.stringify(state));
+		}
+	},
 	mutations: {
 		// 登录
 		login(state, payload) {
 			if (payload) {
+				state.userInfo = payload.userInfo
 				state.token = payload.token
 				uni.setStorageSync('token', payload.token)
 			}
@@ -29,7 +34,7 @@ export default {
 		},
 		// 设置用户信息
 		setUserInfo(state, userInfo) {
-			console.log('---> setUserInfo :', userInfo);
+			// console.log('---> setUserInfo :', userInfo);
 			state.userInfo = userInfo;
 		},
 	},
@@ -41,7 +46,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				api.user.getUserInfo().then(res => {
 					const userInfo = res.data.data;
-					console.log('---> getUserInfo :', userInfo);
+					// console.log('---> getUserInfo :', userInfo);
 					commit('setUserInfo', userInfo);
 					resolve(res)
 				}).catch(error => {

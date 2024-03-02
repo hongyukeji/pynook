@@ -2,10 +2,12 @@
 
 import App from './App'
 import fui from './common/fui-app'
-import http from './common/fui-request.js'
+import http from './common/request.js'
 import store from './store'
 
+import utils from './utils'
 import api from './api'
+import globalConfig from './config'
 import messages from './locale/index'
 
 // mixin混入
@@ -34,7 +36,9 @@ Vue.config.productionTip = false
 Vue.prototype.$store = store
 Vue.prototype.fui = fui
 Vue.prototype.http = http
+Vue.prototype.$utils = utils
 Vue.prototype.$api = api
+Vue.prototype.$globalConfig = globalConfig
 
 Vue.mixin(globalMixin);
 
@@ -70,7 +74,9 @@ export function createApp() {
 	app.use(store)
 	app.config.globalProperties.fui = fui;
 	app.config.globalProperties.http = http;
+	app.config.globalProperties.$utils = utils;
 	app.config.globalProperties.$api = api;
+	app.config.globalProperties.$globalConfig = globalConfig;
 	app.mixin(globalMixin);
 	return {
 		Vuex,

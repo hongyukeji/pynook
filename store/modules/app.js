@@ -10,11 +10,11 @@ export default {
 			name: '',
 			version: '',
 		},
-		// ...uni.getStorageSync('appInfo')
+		// ...uni.getStorageSync('APP_DATA')
 	},
 	// getters 用于对store中的已有数据进行加工处理形成新的数据，如果store中的数据发生变化
 	getters: {
-		appInfo: state => {
+		appData: state => {
 			return JSON.parse(JSON.stringify(state));
 		}
 	},
@@ -22,26 +22,26 @@ export default {
 	// 相当于同步的操作
 	mutations: {
 		// 设置应用信息
-		setAppInfo(state, appInfo) {
-			console.log('---> setAppInfo :', appInfo);
-			Object.keys(appInfo).forEach(key => {
-				state[key] = appInfo[key];
+		setAppData(state, data) {
+			// console.log('---> setAppData :', data);
+			Object.keys(data).forEach(key => {
+				state[key] = data[key];
 			});
-			// uni.setStorageSync('appInfo', appInfo);
+			// uni.setStorageSync('APP_DATA', data);
 		},
 	},
 	// actions 异步变更state数据
 	// 相当于异步的操作,不能直接改变state的值，只能通过触发mutations的方法才能改变
 	actions: {
 		// 获取应用信息
-		getAppInfo({
+		getAppData({
 			commit
 		}) {
 			return new Promise((resolve, reject) => {
-				api.app.appInfo().then(res => {
-					const appInfo = res.data.data;
-					console.log('---> getAppInfo :', appInfo);
-					commit('setAppInfo', appInfo);
+				api.app.getAppData().then(res => {
+					const data = res.data.data;
+					// console.log('---> getAppData :', data);
+					commit('setAppData', data);
 					resolve(res)
 				}).catch(error => {
 					reject(error)

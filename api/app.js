@@ -1,7 +1,7 @@
-import http from '@/common/fui-request.js'
+import http from '@/common/request.js'
 
 export default {
-	getAppInfo: (data) => {
+	getAppData: (data) => {
 		return http.get('/api', {
 			data: data
 		})

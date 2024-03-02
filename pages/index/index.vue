@@ -7,10 +7,10 @@
 			</view>
 			<view class="page-hedaer-center">
 				<view class="page-hedaer-logo" style="">
-					<image class="logo-image" src="@/static/images/logo.png" :mode="'heightFix'" style="height: 100%;">
+					<image class="logo-image" :src="appLogo" :mode="'heightFix'" style="height: 100%;">
 					</image>
 				</view>
-				<span class="page-hedaer-name">{{ appInfo.name }}</span>
+				<span class="page-hedaer-name">{{ appName }}</span>
 			</view>
 			<view class="page-hedaer-right">
 				<view class="btn-locale" @click="onLocale">
@@ -37,7 +37,7 @@
 	} from 'vuex';
 	export default {
 		components: {
-			businessMap
+			businessMap,
 		},
 		//登录状态
 		computed: {
@@ -47,15 +47,20 @@
 			...mapState({
 				appInfo: state => state.app,
 			}),
+			// ...mapState({
+			// 	commonConfig: state => state.common.config,
+			// }),
 			...mapState({
 				userInfo: state => state.user.userInfo,
 				// isLogin: state => state.user.isLogin,
 				// token: state => state.user.token,
 			}),
+			...mapGetters('common', ['commonData']), // 将 common 模块的数据映射到 computed 中
 		},
 		data() {
 			return {
-				title: 'PyNook 派诺客',
+				appName: getApp().globalData.app.name || '',
+				appLogo: getApp().globalData.app.logo || '',
 				languageList: [],
 			}
 		},
@@ -63,21 +68,30 @@
 			/* uni.setNavigationBarTitle({
 				title: 'PyNook 派诺客',
 			}) */
-			this.getAppInfo();
-			this.getData();
+			this.getAppData();
+			// this.getData();
+		},
+		onShow() {
+			// TODO：生产环境注释掉debug方法调用
+			this.debug();
 		},
 		methods: {
 			// ...mapMutations(['login', 'logout']),
 			...mapMutations('user', ['login', 'logout']),
-			...mapActions('app', ['getAppInfo']),
+			...mapActions('app', ['getAppData']),
+			...mapActions('common', ['getCommonConfig']),
+			debug() {
+				const globalData = getApp().globalData;
+				console.log('---> globalData :', JSON.stringify(globalData, null, 2));
+			},
 			getData() {
 				let that = this;
 				console.log('---> isLogin :', that.$store.state.user.isLogin);
-				this.$api.app.getAppInfo().then((res) => {
+				this.$api.app.getAppData().then((res) => {
 					console.log('---> res :', res);
 					if (res.data.code == 200) {
 						let title = res.data.data.name;
-						console.log('---> title :', title);
+						// console.log('---> title :', title);
 						that.title = title;
 						uni.setNavigationBarTitle({
 							title: title,

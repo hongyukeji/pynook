@@ -3,12 +3,7 @@
 		<view class="page-hedaer"></view>
 		<view class="page-body">
 			<view class="container">
-				<view class="tips">
-					<!-- <uni-section title="提示" type="line"> -->
-					<uni-notice-bar text="请先填写您的业务资料，等待管理员审核后为您开通业务" />
-					<!-- </uni-section> -->
-				</view>
-				<business-profile :showMenu="false"></business-profile>
+				内容
 			</view>
 		</view>
 		<view class="page-footer"></view>
@@ -16,11 +11,8 @@
 </template>
 
 <script>
-	import businessProfile from '@/components/business/profile.vue';
 	export default {
-		components: {
-			businessProfile,
-		},
+		components: {},
 		data() {
 			return {};
 		},

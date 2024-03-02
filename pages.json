@@ -114,16 +114,16 @@
 			}
 		},
 		{
-			"path": "pages/auth/login/login",
+			"path": "pages/auth/login",
 			"style": {
-				"navigationBarTitleText": "%pages.auth.login.login%",
+				"navigationBarTitleText": "%pages.auth.login%",
 				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path": "pages/auth/register/register",
+			"path": "pages/auth/register",
 			"style": {
-				"navigationBarTitleText": "%pages.auth.register.register%",
+				"navigationBarTitleText": "%pages.auth.register%",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -228,13 +228,6 @@
 			}
 		},
 		{
-			"path": "pages/business/apply",
-			"style": {
-				"navigationBarTitleText": "%pages.business.apply%",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/layout/code/code",
 			"style": {
 				"navigationBarTitleText": "%pages.layout.code.code%",
@@ -259,6 +252,48 @@
 			"path": "pages/user/integral/integral",
 			"style": {
 				"navigationBarTitleText": "%pages.user.integral.integral%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/profile",
+			"style": {
+				"navigationBarTitleText": "%pages.business.profile%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/profile/menu",
+			"style": {
+				"navigationBarTitleText": "%pages.business.profile.menu%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/profile/stamps",
+			"style": {
+				"navigationBarTitleText": "%pages.business.profile.stamps%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/profile/photos",
+			"style": {
+				"navigationBarTitleText": "%pages.business.profile.photos%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/profile/qrcode",
+			"style": {
+				"navigationBarTitleText": "%pages.business.profile.qrcode%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/business/dashbord",
+			"style": {
+				"navigationBarTitleText": "%pages.business.dashbord%",
 				"enablePullDownRefresh": false
 			}
 		}

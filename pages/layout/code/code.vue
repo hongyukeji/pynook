@@ -34,5 +34,9 @@
 
 	.page-footer {}
 
-	.container {}
+	.container {
+		box-sizing: border-box;
+		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
+		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+	}
 </style>

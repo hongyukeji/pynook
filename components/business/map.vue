@@ -214,7 +214,7 @@
 			},
 			onAddMyBusiness() {
 				uni.navigateTo({
-					url: '/pages/business/apply'
+					url: '/pages/business/profile'
 				});
 			},
 		}

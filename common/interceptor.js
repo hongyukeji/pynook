@@ -98,10 +98,10 @@ export default async function() {
 						icon: 'none'
 					})
 					// 存储上一页网址
-					uni.setStorageSync("back_url", url)
+					uni.setStorageSync("return_url", url)
 					// 跳转至登陆页面
 					uni.navigateTo({
-						url: "/pages/auth/login/login"
+						url: "/pages/auth/login"
 					})
 					return false
 				}

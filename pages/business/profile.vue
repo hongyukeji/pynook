@@ -125,6 +125,9 @@
 					},
 				},
 				menus: [{
+					text: this.$t('pages.business.dashbord'),
+					url: '/pages/business/dashbord'
+				}, {
 					text: this.$t('business.button.menu'),
 					url: '/pages/business/profile/menu'
 				}, {
@@ -191,13 +194,6 @@
 					console.log('---> formData :', that.formData);
 				})
 			},
-			/* submit() {
-				this.$refs.form.validate().then(res => {
-					console.log('表单数据信息：', res);
-				}).catch(err => {
-					console.log('表单错误信息：', err);
-				})
-			}, */
 			submit(ref) {
 				const that = this;
 				this.$refs[ref].validate().then(formData => {
@@ -220,6 +216,9 @@
 						uni.showToast({
 							title: `提交成功`
 						})
+						// todo：跳转至业务仪表盘
+						const url = "/pages/business/dashbord";
+						this.$utils.common.redirect(url);
 					})
 
 				}).catch(err => {
@@ -234,6 +233,13 @@
 				console.log("toRedirect item:", item);
 
 				// 判断是否已经开通商户，未开通则不允许跳转
+				if (this.formData.profile.id <= 0 || !this.formData.profile.id) {
+					uni.showToast({
+						title: this.$t('common.form.please-submit') + " " + this.$t('pages.business.profile'),
+						icon: 'none'
+					})
+					return;
+				}
 
 				const url = item.url;
 				this.$utils.common.redirect(url);

@@ -33,7 +33,11 @@
 
 <style lang="scss" scoped>
 	page {
+		width: 100%;
+		height: 100%;
+		font-weight: normal;
 		background-color: $uni-background-color;
+		box-sizing: border-box;
 	}
 
 	.page-wrap {}
@@ -45,7 +49,6 @@
 	.page-footer {}
 
 	.container {
-		box-sizing: border-box;
 		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
 		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
 	}

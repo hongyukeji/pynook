@@ -4,7 +4,7 @@ import globalConfig from '@/config'
 
 //初始化请求配置项
 http.create({
-	host: globalConfig.app.url || '',
+	host: (process.env.NODE_ENV === 'production' ? globalConfig.app.apiUrl : globalConfig.app.devApiUrl) || '',
 	header: {
 		// 'content-type': 'application/x-www-form-urlencoded',
 		// 'content-type': 'application/json'

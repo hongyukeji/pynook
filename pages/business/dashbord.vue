@@ -126,6 +126,13 @@
 			toRedirect(item) {
 				console.log("toRedirect item:", item);
 				const url = item.page;
+				if (url.startsWith('scan://')) {
+					uni.showToast({
+						title: this.$t('common.developing'),
+						icon: 'none'
+					})
+					return;
+				}
 				this.$utils.common.redirect(url);
 			},
 		},

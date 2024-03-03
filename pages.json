@@ -334,19 +334,17 @@
 			}
 		},
 		{
-			"path" : "pages/business/orders",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+			"path": "pages/business/orders",
+			"style": {
+				"navigationBarTitleText": "%pages.business.orders%",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/business/products",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
+			"path": "pages/business/products",
+			"style": {
+				"navigationBarTitleText": "%pages.business.products%",
+				"enablePullDownRefresh": false
 			}
 		}
 	],

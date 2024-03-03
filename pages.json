@@ -332,6 +332,22 @@
 				"navigationBarTitleText": "%pages.merchant.detail%",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/business/orders",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/business/products",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"easycom": {

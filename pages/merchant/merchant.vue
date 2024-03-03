@@ -10,10 +10,11 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :src="item.image || appLogo" :title="item.name" tag="1km">
+						<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name" tag="1km">
 							<view class="fui-card__content">{{$t('business.form.address')}}: {{item.address}}</view>
 							<view class="fui-card__content">{{$t('business.form.business-introduction')}}:
-								{{item.introduction}}</view>
+								{{item.introduction}}
+							</view>
 						</fui-card>
 					</view>
 				</view>
@@ -162,6 +163,7 @@
 
 	.container {
 		box-sizing: border-box;
+		margin: $uni-spacing-col-lg $uni-spacing-row-lg;
 	}
 
 	.items {}
@@ -170,50 +172,9 @@
 		margin: $uni-spacing-col-lg auto;
 	}
 
-
-	.fui-section__title {
-		margin-left: 32rpx;
-	}
-
 	.fui-card__content {
 		font-size: 28rpx;
 		margin: 20rpx 20rpx;
 		box-sizing: border-box;
-	}
-
-	.fui-padding {
-		padding-left: 32rpx;
-		padding-right: 32rpx;
-	}
-
-	.fui-list__item {
-		width: 100%;
-		height: 385rpx;
-		position: relative;
-		background: #eee;
-	}
-
-	.fui-cover {
-		width: 100%;
-		height: 385rpx;
-		display: block;
-	}
-
-	.fui-list__title {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		color: #fff;
-		font-weight: 500;
-		padding: 24rpx 20rpx;
-		box-sizing: border-box;
-		background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6));
-	}
-
-	.fui-card__title {
-		width: 100%;
-		padding: 32rpx;
-		box-sizing: border-box;
-		font-weight: 500;
 	}
 </style>

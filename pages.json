@@ -357,7 +357,7 @@
 	"globalStyle": {
 		"backgroundTextStyle": "dark",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "App",
+		"navigationBarTitleText": "PyNook 派诺客",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F1F4FA",
 		"backgroundColorTop": "#F1F4FA",

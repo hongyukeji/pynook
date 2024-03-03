@@ -3,7 +3,9 @@
 		<view class="page-hedaer">
 			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
 			<view class="page-hedaer-left">
-				<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
+				<view class="btn-scan" @click="scan">
+					<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
+				</view>
 			</view>
 			<view class="page-hedaer-center">
 				<view class="page-hedaer-logo" style="">
@@ -99,21 +101,11 @@
 					}
 				})
 			},
-			btnLogin() {
-				if (!this.isLogin) {
-					//请求接口
-					//....
-					let token = 'testToken';
-					//保存登录信息，修改状态
-					this.login({
-						token
-					});
-					this.fui.toast('登录成功！')
-				} else {
-					//退出登录
-					this.logout()
-					this.fui.toast('退出登录成功！')
-				}
+			scan() {
+				uni.showToast({
+					title: this.$t('common.developing'),
+					icon: 'none'
+				})
 			},
 			search(e) {
 				//输入框值

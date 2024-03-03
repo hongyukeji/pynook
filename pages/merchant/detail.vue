@@ -4,19 +4,27 @@
 		<view class="page-body">
 			<view class="container">
 				<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name" tag="1km">
-					<view class="fui-card__content">{{$t('business.form.address')}}: {{item.address}}</view>
-					<view class="fui-card__content">{{$t('business.form.business-introduction')}}:
+					<view class="fui-card__content">
+						<uni-icons class="" type="location" color="$uni-color-slave" size="18"></uni-icons>
+						{{item.address}}
+					</view>
+					<view class="fui-card__content">
+						<uni-icons class="" type="home" color="$uni-color-slave" size="18"></uni-icons>
 						{{item.introduction}}
 					</view>
 				</fui-card>
 
-				<view class="banner-wrap">
+				<view class="banner-wrap" v-if="banners && banners.length > 0">
 					<fui-swiper-dot :styles="styles" :items="banners" :current="current2">
-						<swiper previous-margin="60rpx" next-margin="60rpx" class="fui-banner__box" @change="change2"
-							circular :indicator-dots="false" autoplay :interval="5000" :duration="150">
+						<swiper class="fui-banner__box" @change="change2" circular :indicator-dots="false" autoplay
+							:interval="5000" :duration="150">
 							<swiper-item v-for="(item,index) in banners" :key="index">
 								<view class="fui-banner__cell" :class="{'fui-item__scale':current2!==index}"
-									:style="{background:item.background}">{{item.title}}</view>
+									:style="{background: '#fff',padding: '0px','box-sizing': 'border-box',}">
+									<image class="image" :src="item" :mode="'heightFix'"
+										style="width: 100%;height: 100%;">
+									</image>
+								</view>
 							</swiper-item>
 						</swiper>
 					</fui-swiper-dot>
@@ -96,16 +104,7 @@
 				items: ['会员券', '菜单', ],
 				current: 1,
 				current2: 0,
-				banners: [{
-					background: '#09BE4F',
-					title: '相册1'
-				}, {
-					background: '#FFB703',
-					title: '相册2'
-				}, {
-					background: '#B2B2B2',
-					title: '相册3'
-				}],
+				banners: [],
 				styles: {
 					width: 12,
 					height: 12,
@@ -190,6 +189,9 @@
 					}
 					const data = res.data?.data;
 					that.item = data;
+					if (data.images) {
+						that.banners = data.images.split(",");
+					}
 				})
 			},
 			onClickItem(e) {

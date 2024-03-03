@@ -1,10 +1,10 @@
 // @author: 鸿宇 @email: 1527200768@qq.com
 import http from '@/components/firstui/fui-request'
-import globalConfig from '@/config'
+import utils from '@/utils'
 
 //初始化请求配置项
 http.create({
-	host: (process.env.NODE_ENV === 'production' ? globalConfig.app.apiUrl : globalConfig.app.devApiUrl) || '',
+	host: utils.common.getApiUrl() || '',
 	header: {
 		// 'content-type': 'application/x-www-form-urlencoded',
 		// 'content-type': 'application/json'
@@ -13,14 +13,15 @@ http.create({
 //请求拦截
 http.interceptors.request.use(config => {
 	//请求之前可在请求头中加入token等信息
-	const tokenPrefix = "Bearer ";
-	let token = uni.getStorageSync('token') || '';
+	// const tokenPrefix = "Bearer ";
+	// const token = uni.getStorageSync('token') || '';
+	const token = utils.common.getToken();
 	if (token && token != '') {
 		if (config.header) {
-			config.header['Authorization'] = tokenPrefix + token
+			config.header['Authorization'] = token
 		} else {
 			config.header = {
-				'Authorization': tokenPrefix + token
+				'Authorization': token
 			}
 		}
 	}

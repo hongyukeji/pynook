@@ -1,4 +1,19 @@
+import globalConfig from '@/config'
+
 export default {
+	getApiUrl() {
+		const url = (process.env.NODE_ENV === 'production' ? globalConfig.app.apiUrl : globalConfig.app.devApiUrl) ||
+			'';
+		return url;
+	},
+	getToken() {
+		const tokenPrefix = "Bearer ";
+		const token = uni.getStorageSync('token') || '';
+		if (token && token != '' && !this.isEmpty(token)) {
+			return tokenPrefix + token;
+		}
+		return '';
+	},
 	toBackPage() {
 		const url = uni.getStorageSync("RETURN_URL")
 		console.log('RETURN_URL:', url)
@@ -133,6 +148,37 @@ export default {
 		plus.runtime.openWeb(url);
 		return;
 		// #endif
-
 	},
+	uploadFile(url, file, options = {}) {
+		//上传的文件信息
+		console.log('upload file', file)
+		// 文件上传的函数，返回一个promise
+		//上传成功后返回上传后的图片地址，上传失败则返回false即可
+		return new Promise((resolve, reject) => {
+			//调用api上传，所有需要参数自行补充
+			uni.uploadFile({
+				url: url,
+				name: 'file',
+				// header: {},
+				// formData:{},
+				filePath: file.path,
+				success: (res) => {
+					//以下成功或失败逻辑根据接口自行处理
+					const data = JSON.parse(res.data.replace(/\ufeff/g, "") || "{}")
+					if (data.statusCode === 200) {
+						//返回上传成功后的图片
+						resolve(data.data.url)
+					} else {
+						//上传失败
+						reject(false)
+					}
+				},
+				fail: (err) => {
+					//上传失败
+					reject(false)
+				},
+				...options,
+			})
+		})
+	}
 }

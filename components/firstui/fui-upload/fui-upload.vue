@@ -232,7 +232,8 @@
 					status: status,
 					urls: this.urls,
 					action: action,
-					param: this.param
+					param: this.param,
+					// files: this.tempFiles,
 				})
 			},
 			_success(res) {

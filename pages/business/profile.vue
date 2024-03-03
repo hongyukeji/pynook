@@ -10,25 +10,25 @@
 						<uni-forms ref="form" :rules="rules" :modelValue="formData" label-position="top"
 							label-width="120">
 							<uni-forms-item :label="$t('business.form.business-name')" required
-								:name="['profile','name']" :rules="rules['profile.name'].rules">
-								<uni-easyinput v-model="formData.profile.name"
+								:name="['merchant','name']" :rules="rules['merchant.name'].rules">
+								<uni-easyinput v-model="formData.merchant.name"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-name')" />
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.business-type')" required
-								:name="['profile','typeId']" :rules="rules['profile.typeId'].rules">
-								<uni-data-select v-model="formData.profile.typeId"
+								:name="['merchant','typeId']" :rules="rules['merchant.typeId'].rules">
+								<uni-data-select v-model="formData.merchant.typeId"
 									:placeholder="$t('common.form.please-select')+' '+$t('business.form.business-type')"
 									emptyTips="No options" :localdata="typeOptions"
 									@change="typeChange"></uni-data-select>
 							</uni-forms-item>
-							<uni-forms-item :label="$t('business.form.address')" required :name="['profile','address']"
-								:rules="rules['profile.address'].rules">
-								<uni-easyinput v-model="formData.profile.address"
+							<uni-forms-item :label="$t('business.form.address')" required :name="['merchant','address']"
+								:rules="rules['merchant.address'].rules">
+								<uni-easyinput v-model="formData.merchant.address"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.address')" />
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.business-introduction')"
-								:name="['profile','introduction']">
-								<uni-easyinput type="textarea" v-model="formData.profile.introduction"
+								:name="['merchant','introduction']">
+								<uni-easyinput type="textarea" v-model="formData.merchant.introduction"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-introduction')"
 									trim autoHeight maxlength="255" />
 							</uni-forms-item>
@@ -64,16 +64,12 @@
 		data() {
 			return {
 				formData: {
-					profile: {
+					merchant: {
 						name: '',
 						typeId: '',
 						address: '',
 						introduction: '',
 					},
-					menu: {},
-					stamps: {},
-					photos: {},
-					qrcode: {},
 				},
 				typeOptions: [{
 					label: '咖啡店',
@@ -102,21 +98,21 @@
 				}, ],
 				// 校验规则
 				rules: {
-					"profile.name": {
+					"merchant.name": {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
 								'business.form.business-name')
 						}]
 					},
-					"profile.typeId": {
+					"merchant.typeId": {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('common.form.please-select') + ' ' + this.$t(
 								'business.form.business-type')
 						}]
 					},
-					"profile.address": {
+					"merchant.address": {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
@@ -169,16 +165,16 @@
 						return;
 					}
 					const data = res.data?.data;
-					let typeOptions = [];
+					let items = [];
 					Object.keys(data).forEach(function(key) {
 						console.log(key, data[key]);
 						const item = data[key];
-						typeOptions.push({
+						items.push({
 							text: item.name,
 							value: item.id,
 						})
 					});
-					that.typeOptions = typeOptions;
+					that.typeOptions = items;
 				})
 				this.$api.business.getBusinessData().then((res) => {
 					// console.log('---> res :', res);
@@ -190,11 +186,13 @@
 						return;
 					}
 					const data = res.data?.data;
-					that.formData = Object.assign(that.formData, data);
-					console.log('---> formData :', that.formData);
+					const formData = Object.assign({}, that.formData, data);
+					console.log('---> formData :', formData);
+					that.formData = formData;
+					console.log('---> this.formData :', that.formData);
 				})
 			},
-			submit(ref) {
+			submit(ref = 'form') {
 				const that = this;
 				this.$refs[ref].validate().then(formData => {
 					console.log('success formData:', formData);
@@ -214,7 +212,7 @@
 						that.formData = Object.assign(that.formData, data);
 						console.log('---> formData :', that.formData);
 						uni.showToast({
-							title: `提交成功`
+							title: this.$t('common.form.submit-successful')
 						})
 						// todo：跳转至业务仪表盘
 						const url = "/pages/business/dashbord";
@@ -227,13 +225,15 @@
 			},
 			typeChange(val) {
 				console.log("typeChange val:", val);
-				this.formData.profile.typeId = val;
+				this.formData.merchant.typeId = val;
 			},
 			toRedirect(item) {
 				console.log("toRedirect item:", item);
 
 				// 判断是否已经开通商户，未开通则不允许跳转
-				if (this.formData.profile.id <= 0 || !this.formData.profile.id) {
+				if (this.formData.merchant.id <= 0 || !this.formData.merchant.id) {
+					this.submit();
+					return;
 					uni.showToast({
 						title: this.$t('common.form.please-submit') + " " + this.$t('pages.business.profile'),
 						icon: 'none'

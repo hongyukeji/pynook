@@ -6,4 +6,9 @@ export default {
 			data: data
 		})
 	},
+	uploadFile: (data) => {
+		return http.post('/api/common/uploadFile', {
+			data: data
+		})
+	},
 }

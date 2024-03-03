@@ -9,10 +9,10 @@
 				</view>
 				<view class="fui-vip__btn fui-flex__center" @tap="href('/pages/user/vip/vip')">
 					<!-- #ifdef MP-BAIDU || MP-QQ || MP-TOUTIAO -->
-					{{status==0?'会员权益':'立即开通'}}
+					{{status==0?$t('common.vip.privilege'):$t('common.vip.open')}}
 					<!-- #endif -->
 					<!-- #ifndef MP-BAIDU || MP-QQ || MP-TOUTIAO -->
-					立即开通
+					{{$t('common.vip.open')}}
 					<!-- #endif -->
 				</view>
 			</view>
@@ -76,44 +76,48 @@
 				appLogo: getApp().globalData.app.logo || '',
 				resUrl: '/static/images',
 				menus: [{
-					text: '余额',
+					text: this.$t('common.balance'),
 					background: '#FFFBF2',
 					src: 'appreciate',
 					page: '/pages/user/balance/balance'
 				}, {
-					text: '账单',
+					text: this.$t('common.bill'),
 					background: '#F6F7FF',
 					src: 'proposal',
 					page: '/pages/user/bill/bill'
 				}, {
-					text: '通证',
+					text: this.$t('common.token'),
 					background: '#FFF4F4',
 					src: 'cooperation',
 					page: '/pages/user/token/token'
 				}, {
-					text: '邀请',
+					text: this.$t('common.invite'),
 					background: '#F2FCF6',
 					src: 'share',
 					page: '/pages/user/invite/invite'
 				}, ],
 				list: [{
-					text: '订单',
+					text: this.$t('common.order'),
 					src: 'edition',
 					page: '/pages/user/order/order'
 				}, {
-					text: '消息',
+					text: this.$t('tabbar.message'),
 					src: 'address',
 					page: '/pages/user/message/message'
 				}, {
-					text: '签到',
+					text: this.$t('common.sign'),
 					src: 'partner',
 					page: '/pages/user/sign/sign'
 				}, {
-					text: '帮助中心',
+					text: this.$t('common.locale'),
+					src: 'partner',
+					page: '/pages/locale/locale'
+				}, {
+					text: this.$t('common.help'),
 					src: 'help',
 					page: '/pages/help/help'
 				}, {
-					text: '关于我们',
+					text: this.$t('common.about'),
 					src: 'aboutus',
 					page: '/pages/about/about'
 				}]
@@ -347,8 +351,7 @@
 		padding: 5px;
 	}
 
-	.avatar {
-	}
+	.avatar {}
 
 	.username {
 		color: $uni-color-master;

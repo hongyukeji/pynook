@@ -33,7 +33,6 @@
 </template>
 
 <script>
-	import businessMap from '@/components/business/map.vue';
 	import {
 		mapState,
 		mapGetters,
@@ -41,9 +40,7 @@
 		mapActions,
 	} from 'vuex';
 	export default {
-		components: {
-			businessMap,
-		},
+		components: {},
 		data() {
 			return {
 				appName: getApp().globalData.app.name || '',
@@ -57,9 +54,10 @@
 				appInfo: state => state.app,
 			}),
 			...mapState({
+				// token: state => state.user.token,
 				userInfo: state => state.user.userInfo,
 				isLogin: state => state.user.isLogin,
-				// token: state => state.user.token,
+				isMerchant: state => state.user.isMerchant,
 			}),
 			...mapGetters('common', ['commonData']), // 将 common 模块的数据映射到 computed 中
 			// ...mapState({
@@ -77,8 +75,10 @@
 			// this.getData();
 		},
 		onShow() {
-			// TODO：生产环境注释掉debug方法调用
-			this.debug();
+			if (process.env.NODE_ENV !== 'production') {
+				// TODO：生产环境注释掉debug方法调用
+				this.debug();
+			}
 		},
 		methods: {
 			// ...mapMutations(['login', 'logout']),
@@ -88,6 +88,8 @@
 			debug() {
 				const globalData = getApp().globalData;
 				console.log('---> globalData :', JSON.stringify(globalData, null, 2));
+				console.log('---> isLogin :', this.isLogin);
+				console.log('---> isMerchant :', this.isMerchant);
 			},
 			getData() {
 				let that = this;

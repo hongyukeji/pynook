@@ -66,6 +66,12 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapGetters,
+		mapMutations,
+		mapActions,
+	} from 'vuex';
 	export default {
 		components: {},
 		data() {
@@ -157,6 +163,12 @@
 				],
 			};
 		},
+		computed: {
+			...mapState({
+				isLogin: state => state.user.isLogin,
+				isMerchant: state => state.user.isMerchant,
+			}),
+		},
 		watch: {
 			formData: {
 				handler(newVal, oldVal) {
@@ -172,6 +184,7 @@
 			this.getData();
 		},
 		methods: {
+			...mapActions('user', ['syncUserBusinessInfo']),
 			getData() {
 				const that = this;
 				this.$api.merchant.getMerchantTypeList().then((res) => {
@@ -219,9 +232,7 @@
 				const that = this;
 				this.$refs[ref].validate().then(formData => {
 					console.log('success formData:', formData);
-					uni.showToast({
-						title: `校验通过`
-					})
+					// uni.showToast({title: `校验通过`})
 					this.$api.business.setBusinessData(formData).then((res) => {
 						// console.log('---> res :', res);
 						if (res.data?.code != 200) {
@@ -232,14 +243,22 @@
 							return;
 						}
 						const data = res.data?.data;
+
+						// 同步用户业务信息
+						if (this.formData.merchantId != data.merchantId) {
+							this.syncUserBusinessInfo();
+						}
+
 						that.formData = Object.assign(that.formData, data);
 						console.log('---> formData :', that.formData);
 						uni.showToast({
 							title: this.$t('common.form.submit-successful')
 						})
+
 						// todo：跳转至业务仪表盘
-						const url = "/pages/business/dashbord";
-						this.$utils.common.redirect(url);
+						// const url = "/pages/business/dashbord";
+						// this.$utils.common.redirect(url);
+
 					})
 
 				}).catch(err => {

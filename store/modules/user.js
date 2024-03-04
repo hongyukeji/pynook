@@ -10,6 +10,8 @@ export default {
 		token: uni.getStorageSync('token') || '',
 		// 用户信息
 		userInfo: uni.getStorageSync('USER_INFO') || {},
+		// 是否商户
+		isMerchant: uni.getStorageSync("IS_MERCHANT") ? true : false,
 	},
 	getters: {
 		userData: state => {
@@ -29,20 +31,30 @@ export default {
 				state.token = payload.token
 				uni.setStorageSync('token', payload.token)
 			}
-			state.isLogin = true
+			state.isLogin = true;
+			// 同步用户业务信息
+			this.dispatch('user/syncUserBusinessInfo');
 		},
 		// 退出登录
 		logout(state) {
-			state.token = ""
 			state.isLogin = false
-			state.userInfo = {}
+			state.token = ""
 			uni.removeStorageSync('token')
+			state.userInfo = {}
 			uni.removeStorageSync('USER_INFO')
+			state.isMerchant = false
+			uni.removeStorageSync('IS_MERCHANT')
 		},
 		// 设置用户信息
 		setUserInfo(state, userInfo) {
 			// console.log('---> setUserInfo :', userInfo);
 			state.userInfo = userInfo;
+		},
+		// 设置用户业务信息
+		setUserMerchantInfo(state, isMerchant) {
+			// console.log('---> setUserMerchantInfo isMerchant :', isMerchant);
+			state.isMerchant = isMerchant;
+			uni.setStorageSync('IS_MERCHANT', isMerchant);
 		},
 	},
 	actions: {
@@ -58,6 +70,38 @@ export default {
 					resolve(res)
 				}).catch(error => {
 					reject(error)
+				})
+			})
+		},
+		// 同步用户业务信息
+		syncUserBusinessInfo({
+			state,
+			commit
+		}) {
+			return new Promise((resolve, reject) => {
+				// 未登陆清除用户业务信息标记
+				if (!state.isLogin) {
+					uni.removeStorageSync('IS_MERCHANT');
+					return null;
+				}
+				api.business.getBusinessData().then((res) => {
+					// console.log('---> res :', res);
+					if (res.data?.code != 200) {
+						uni.showToast({
+							title: res.data?.message || this.$t('common.request-failed'),
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					// 判断是否是商户
+					let isMerchant = false;
+					if (data.merchantId && data.merchantId > 0) {
+						isMerchant = true
+					} else {
+						isMerchant = false
+					}
+					commit('setUserMerchantInfo', isMerchant);
 				})
 			})
 		},

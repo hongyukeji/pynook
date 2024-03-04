@@ -50,6 +50,12 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapGetters,
+		mapMutations,
+		mapActions,
+	} from 'vuex';
 	export default {
 		name: "business-map",
 		data() {
@@ -76,33 +82,26 @@
 				mapPolyline: [], // 路线
 				distance: 0, // 距离
 				searchValue: '',
-				isMerchant: false,
+				// isMerchant: false,
 			};
+		},
+		computed: {
+			...mapState({
+				isLogin: state => state.user.isLogin,
+				isMerchant: state => state.user.isMerchant,
+			}),
 		},
 		created() {
 			this.loadData();
 			this.getCurrentLocation();
 		},
 		methods: {
+			...mapActions('user', ['syncUserBusinessInfo']),
 			loadData() {
-				console.log('---> isLogin :', this.$store.state.user.isLogin);
-				const isLogin = this.$store.state.user.isLogin;
-				if (isLogin) {
-					this.$api.business.getBusinessData().then((res) => {
-						// console.log('---> res :', res);
-						if (res.data?.code != 200) {
-							uni.showToast({
-								title: res.data?.message || this.$t('common.request-failed'),
-								icon: 'none'
-							})
-							return;
-						}
-						const data = res.data?.data;
-						if (data.merchantId && data.merchantId > 0) {
-							this.isMerchant = true;
-						}
-					})
-				}
+				// console.log('---> isLogin :', this.$store.state.user.isLogin);
+				// const isLogin = this.$store.state.user.isLogin;
+				// 同步用户业务信息
+				this.syncUserBusinessInfo();
 			},
 			getCurrentLocation() {
 				// 文档: https://uniapp.dcloud.net.cn/api/location/location.html

@@ -21,4 +21,9 @@ export default {
 			data: data
 		})
 	},
+	getMerchantProductList: (data) => {
+		return http.get('/api/merchant/product/list', {
+			data: data
+		})
+	},
 }

@@ -85,6 +85,7 @@
 			...mapMutations('user', ['login', 'logout']),
 			...mapActions('app', ['getAppData']),
 			...mapActions('common', ['getCommonConfig']),
+			...mapActions('user', ['syncUserBusinessInfo']),
 			debug() {
 				const globalData = getApp().globalData;
 				console.log('---> globalData :', JSON.stringify(globalData, null, 2));

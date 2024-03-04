@@ -100,8 +100,10 @@
 			loadData() {
 				// console.log('---> isLogin :', this.$store.state.user.isLogin);
 				// const isLogin = this.$store.state.user.isLogin;
-				// 同步用户业务信息
-				this.syncUserBusinessInfo();
+				if (this.isLogin) {
+					// 同步用户业务信息
+					this.syncUserBusinessInfo();
+				}
 			},
 			getCurrentLocation() {
 				// 文档: https://uniapp.dcloud.net.cn/api/location/location.html

@@ -244,9 +244,11 @@
 						}
 						const data = res.data?.data;
 
+						// 是否同步状态
+						let isSyncStatus = false;
 						// 同步用户业务信息
 						if (this.formData.merchantId != data.merchantId) {
-							this.syncUserBusinessInfo();
+							isSyncStatus = true;
 						}
 
 						that.formData = Object.assign(that.formData, data);
@@ -258,6 +260,10 @@
 						// todo：跳转至业务仪表盘
 						// const url = "/pages/business/dashbord";
 						// this.$utils.common.redirect(url);
+
+						if (isSyncStatus) {
+							this.syncUserBusinessInfo();
+						}
 
 					})
 

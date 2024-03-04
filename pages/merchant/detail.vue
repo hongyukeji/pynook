@@ -9,7 +9,7 @@
 						{{item.address}}
 					</view>
 					<view class="fui-card__content">
-						<uni-icons class="" type="home" color="$uni-color-slave" size="18"></uni-icons>
+						<uni-icons class="" type="info" color="$uni-color-slave" size="18"></uni-icons>
 						{{item.introduction}}
 					</view>
 				</fui-card>

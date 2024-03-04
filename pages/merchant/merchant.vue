@@ -3,7 +3,7 @@
 		<view class="page-hedaer">
 			<uni-search-bar class="page-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
 				textColor="$uni-color-slave" :placeholder="$t('common.search')" @confirm="search"
-				v-model="params.keyword" @blur="blur" @focus="focus" @input="input" @cancel="cancel" @clear="clear">
+				v-model="params.keyword">
 			</uni-search-bar>
 		</view>
 		<view class="page-body">
@@ -21,7 +21,7 @@
 			</view>
 		</view>
 		<view class="page-footer">
-			<uni-load-more :status="status"></uni-load-more>
+			<uni-load-more :status="loadStatus"></uni-load-more>
 		</view>
 	</view>
 </template>
@@ -49,7 +49,7 @@
 			};
 		},
 		computed: {
-			status() {
+			loadStatus() {
 				switch (this.loading) {
 					case 0:
 						return "more";
@@ -141,8 +141,9 @@
 	page {
 		width: 100%;
 		height: 100%;
-		background-color: $uni-background-color;
 		font-weight: normal;
+		background-color: $uni-background-color;
+		box-sizing: border-box;
 	}
 
 	.page-wrap {

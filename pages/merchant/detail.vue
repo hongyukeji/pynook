@@ -200,10 +200,10 @@
 				}
 			},
 			onClick(e) {
-				uni.showToast({
+				/* uni.showToast({
 					title: `点击${e.content.text}`,
 					icon: 'none'
-				})
+				}) */
 				const url = e.content.url;
 				this.$utils.common.redirect(url);
 			},

@@ -4,15 +4,55 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="fui-section__title">{{$t('business.common.loyalty-card')}}</view>
-				<fui-list-cell :highlight="false" :padding="['28rpx','32rpx']">
-					<view class="fui-cells">
-						<text class="fui-text">{{$t('business.common.loyalty-card')+' '+$t('common.status')}}</text>
-						<fui-switch @change="change" :checked="formData?.loyaltyCardStatus == 1">
-							<text
-								class="fui-switch--text">{{formData?.loyaltyCardStatus == 1 ?$t('common.on'):$t('common.off')}}</text>
-						</fui-switch>
+
+				<view class="content">
+					<fui-list-cell :highlight="false" :padding="['28rpx','32rpx']">
+						<view class="fui-cells">
+							<text class="fui-text">{{$t('business.common.loyalty-card')+' '+$t('common.status')}}</text>
+							<fui-switch @change="change" :checked="formData?.loyaltyCardStatus == 1">
+								<text
+									class="fui-switch--text">{{formData?.loyaltyCardStatus == 1 ?$t('common.on'):$t('common.off')}}</text>
+							</fui-switch>
+						</view>
+					</fui-list-cell>
+				</view>
+
+				<view class="content" v-if="formData?.loyaltyCardStatus == 1">
+					<view class="form-body">
+						<!-- 基础表单校验 -->
+						<uni-forms ref="form" :rules="rules" :modelValue="formData" label-position="top"
+							label-width="120">
+							<uni-forms-item :label="$t('business.form.free-item-name')" required
+								:name="['freeItemName']">
+								<uni-easyinput v-model="formData.freeItemName"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.free-item-name')" />
+							</uni-forms-item>
+							<uni-forms-item :label="$t('business.form.free-item-number')" required
+								:name="['freeItemNumber']">
+								<uni-easyinput type="number" v-model="formData.freeItemNumber"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.free-item-number')" />
+							</uni-forms-item>
+							<uni-forms-item :label="$t('business.form.free-item-needed-stamp-number')" required
+								:name="['freeItemNeededStampNumber']">
+								<uni-easyinput type="number" v-model="formData.freeItemNeededStampNumber"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.free-item-needed-stamp-number')" />
+							</uni-forms-item>
+						</uni-forms>
 					</view>
-				</fui-list-cell>
+					<view class="preview-wrap">
+						<view class="preview-icon">
+							<view class="preview-number">
+								{{formData.freeItemNeededStampNumber}}
+							</view>
+							<view class="preview-text">
+								{{$t('business.common.stamps')}}
+							</view>
+						</view>
+						<view class="preview-desc">
+							{{$t('business.common.exchange')}} {{formData.freeItemNumber}} {{formData.freeItemName}}
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<view class="page-footer">
@@ -108,6 +148,10 @@
 		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
 	}
 
+	.content {
+		padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+	}
+
 	.btn-main {
 		color: #ffffff;
 		background-color: $uni-color-master;
@@ -139,5 +183,38 @@
 	.fui-icon--img {
 		width: 40rpx;
 		height: 40rpx;
+	}
+
+	.preview-wrap {
+		margin: $uni-spacing-row-lg;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.preview-icon {
+		padding: 15px 30px;
+		background-color: $uni-color-master;
+		border-radius: $uni-border-radius-lg;
+	}
+
+	.preview-number {
+		font-size: 30px;
+		color: $uni-color-slave;
+		text-align: center;
+	}
+
+	.preview-text {
+		font-size: 14px;
+		color: #ffffff;
+		text-align: center;
+	}
+
+	.preview-desc {
+		font-size: 18px;
+		font-weight: bold;
+		padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+		color: $uni-color-master;
 	}
 </style>

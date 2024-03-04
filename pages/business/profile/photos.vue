@@ -6,7 +6,7 @@
 			<view class="fui-page__desc"></view>
 		</view>
 		<view class="fui-page__bd fui-page__spacing">
-			<view class="fui-section__title">相册</view>
+			<view class="fui-section__title">{{$t('common.photo')}}</view>
 			<view class="fui-btn__box">
 				<fui-button type="success" btn-size="medium" :text="$t('common.form.save')" bold @click="submit"
 					background="#090C49" color="#FFFFFF"></fui-button>

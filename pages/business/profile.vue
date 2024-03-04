@@ -231,7 +231,7 @@
 				console.log("toRedirect item:", item);
 
 				// 判断是否已经开通商户，未开通则不允许跳转
-				if (this.formData.merchant.id <= 0 || !this.formData.merchant.id) {
+				if (this.formData.merchantId <= 0 || !this.formData.merchantId) {
 					this.submit();
 					return;
 					uni.showToast({
@@ -293,7 +293,7 @@
 	.btn-group {}
 
 	.btn-item {
-		padding: 15px;
+		padding: 15px 15px;
 		margin: 20px auto;
 		border-radius: 10px;
 		background-color: $uni-color-slave;
@@ -305,7 +305,7 @@
 	.btn-item-text {
 		color: $uni-color-master;
 		text-decoration: none;
-		font-size: 14px;
+		font-size: 16px;
 		font-weight: 700;
 	}
 

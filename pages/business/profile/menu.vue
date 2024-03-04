@@ -4,15 +4,19 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="fui-section__title">{{$t('common.menu')}}</view>
-				<fui-list-cell :highlight="false" :padding="['28rpx','32rpx']">
-					<view class="fui-cells">
-						<text class="fui-text">{{$t('common.menu')+' '+$t('common.status')}}</text>
-						<fui-switch @change="change" :checked="formData?.menuStatus == 1">
-							<text
-								class="fui-switch--text">{{formData?.menuStatus == 1 ?$t('common.on'):$t('common.off')}}</text>
-						</fui-switch>
-					</view>
-				</fui-list-cell>
+
+				<view class="content">
+					<fui-list-cell :highlight="false" :padding="['28rpx','32rpx']">
+						<view class="fui-cells">
+							<text class="fui-text">{{$t('common.menu')+' '+$t('common.status')}}</text>
+							<fui-switch @change="change" :checked="formData?.menuStatus == 1">
+								<text
+									class="fui-switch--text">{{formData?.menuStatus == 1 ?$t('common.on'):$t('common.off')}}</text>
+							</fui-switch>
+						</view>
+					</fui-list-cell>
+				</view>
+
 			</view>
 		</view>
 		<view class="page-footer">
@@ -106,6 +110,10 @@
 		box-sizing: border-box;
 		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
 		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+	}
+
+	.content {
+		padding: $uni-spacing-col-lg $uni-spacing-row-lg;
 	}
 
 	.btn-main {

@@ -32,6 +32,13 @@
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-introduction')"
 									trim autoHeight maxlength="255" />
 							</uni-forms-item>
+							<uni-forms-item :label="$t('business.form.logo')" :name="['merchant','image']">
+								<upload-file v-model="formData.merchant.image"></upload-file>
+							</uni-forms-item>
+							<uni-forms-item :label="$t('business.form.telephone')" :name="['merchant','telephone']">
+								<uni-easyinput v-model="formData.merchant.telephone"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.telephone')" />
+							</uni-forms-item>
 						</uni-forms>
 
 						<view class="btn-group">
@@ -120,22 +127,34 @@
 						}]
 					},
 				},
-				menus: [{
-					text: this.$t('pages.business.dashbord'),
-					url: '/pages/business/dashbord'
-				}, {
-					text: this.$t('business.button.menu'),
-					url: '/pages/business/profile/menu'
-				}, {
-					text: this.$t('business.button.loyalty-stamps'),
-					url: '/pages/business/profile/stamps'
-				}, {
-					text: this.$t('business.button.business-photos'),
-					url: '/pages/business/profile/photos'
-				}, {
-					text: this.$t('business.button.get-qrcode'),
-					url: '/pages/business/profile/qrcode'
-				}, ],
+				menus: [
+					/* 
+					{
+						text: this.$t('pages.business.orders'),
+						url: '/pages/business/orders'
+					}, {
+						text: this.$t('pages.business.products'),
+						url: '/pages/business/products'
+					}, 
+					*/
+					{
+						text: this.$t('pages.business.dashbord'),
+						url: '/pages/business/dashbord'
+					},
+					{
+						text: this.$t('business.button.menu'),
+						url: '/pages/business/profile/menu'
+					}, {
+						text: this.$t('business.button.loyalty-stamps'),
+						url: '/pages/business/profile/stamps'
+					}, {
+						text: this.$t('business.button.business-photos'),
+						url: '/pages/business/profile/photos'
+					}, {
+						text: this.$t('business.button.get-qrcode'),
+						url: '/pages/business/profile/qrcode'
+					},
+				],
 			};
 		},
 		watch: {
@@ -167,7 +186,7 @@
 					const data = res.data?.data;
 					let items = [];
 					Object.keys(data).forEach(function(key) {
-						console.log(key, data[key]);
+						// console.log(key, data[key]);
 						const item = data[key];
 						items.push({
 							text: item.name,
@@ -187,9 +206,13 @@
 					}
 					const data = res.data?.data;
 					const formData = Object.assign({}, that.formData, data);
-					console.log('---> formData :', formData);
+					// console.log('---> formData :', formData);
 					that.formData = formData;
-					console.log('---> this.formData :', that.formData);
+					// console.log('---> this.formData :', that.formData);
+
+					// this.uploadFileFileList.push(this.formData?.merchant?.image)
+					// this.uploadFileFileList[0] = this.formData?.merchant?.image;
+					// this.$refs.upload.initData(this.uploadFileFileList)
 				})
 			},
 			submit(ref = 'form') {

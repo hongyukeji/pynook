@@ -30,9 +30,15 @@
 		<cover-view class="map-footer">
 			<!-- 地图底部按钮 -->
 			<view class="map-footer-group" style="">
-				<view class="map-footer-button-item" style="flex: 1;margin-right: 15px;" @click="onAddMyBusiness()">
+				<view v-if="!isMerchant" class="map-footer-button-item" style="flex: 1;margin-right: 15px;"
+					@click="onAddMyBusiness()">
 					<uni-icons class="map-footer-button-item-icon" type="plus" color="$uni-color-slave"
 						size="32"></uni-icons><span>{{$t('business.button.add-my-business')}}</span>
+				</view>
+				<view v-if="isMerchant" class="map-footer-button-item" style="flex: 1;margin-right: 15px;"
+					@click="onToMyBusiness()">
+					<uni-icons class="map-footer-button-item-icon" type="gear" color="$uni-color-slave"
+						size="32"></uni-icons><span>{{$t('business.button.manage-my-business')}}</span>
 				</view>
 				<view class="map-footer-button-item border-radius-circle" @click="moveToCurrentlocation()">
 					<uni-icons class="map-footer-button-item-icon" type="location" color="$uni-color-slave"
@@ -70,12 +76,34 @@
 				mapPolyline: [], // 路线
 				distance: 0, // 距离
 				searchValue: '',
+				isMerchant: false,
 			};
 		},
 		created() {
+			this.loadData();
 			this.getCurrentLocation();
 		},
 		methods: {
+			loadData() {
+				console.log('---> isLogin :', this.$store.state.user.isLogin);
+				const isLogin = this.$store.state.user.isLogin;
+				if (isLogin) {
+					this.$api.business.getBusinessData().then((res) => {
+						// console.log('---> res :', res);
+						if (res.data?.code != 200) {
+							uni.showToast({
+								title: res.data?.message || this.$t('common.request-failed'),
+								icon: 'none'
+							})
+							return;
+						}
+						const data = res.data?.data;
+						if (data.merchantId && data.merchantId > 0) {
+							this.isMerchant = true;
+						}
+					})
+				}
+			},
 			getCurrentLocation() {
 				// 文档: https://uniapp.dcloud.net.cn/api/location/location.html
 				let that = this;
@@ -217,6 +245,11 @@
 					url: '/pages/business/profile'
 				});
 			},
+			onToMyBusiness() {
+				uni.navigateTo({
+					url: '/pages/business/dashbord'
+				});
+			},
 		}
 	}
 </script>
@@ -233,7 +266,7 @@
 	.map-hedaer {}
 
 	.map-hedaer-search {
-		margin: 15px;
+		margin: 30px;
 		margin-bottom: 0;
 	}
 

@@ -141,7 +141,7 @@
         }
     },
     "h5" : {
-        "title" : "App",
+        "title" : "PyNook 派诺客",
         "router" : {
             "mode" : "hash",
             "base" : ""

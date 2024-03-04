@@ -32,17 +32,11 @@
 					background: '#FFF7E5',
 					page: '/pages/business/orders'
 				}, {
-					cn: this.$t('business.button.award-stamps'),
-					en: 'Award Stamps',
-					src: 'gateway',
+					cn: this.$t('common.products'),
+					en: 'Products',
+					src: 'shopping_mall',
 					background: '#FFF4F4',
-					page: 'scan://'
-				}, {
-					cn: this.$t('common.map'),
-					en: 'Map',
-					src: 'vote',
-					background: '#FFF4F4',
-					page: '/'
+					page: '/pages/business/products'
 				}, {
 					cn: this.$t('pages.business.profile'),
 					en: 'Business Profile',
@@ -50,11 +44,17 @@
 					background: '#F2FCF6',
 					page: '/pages/business/profile'
 				}, {
-					cn: this.$t('common.products'),
-					en: 'Products',
-					src: 'shopping_mall',
+					cn: this.$t('common.map'),
+					en: 'Map',
+					src: 'vote',
+					background: '#FFF4F4',
+					page: '/'
+				}, {
+					cn: this.$t('business.button.award-stamps'),
+					en: 'Award Stamps',
+					src: 'short_video',
 					background: '#F6F7FF',
-					page: '/pages/business/products'
+					page: 'scan://'
 				}, ],
 				templateData: [{
 					cn: '商城',

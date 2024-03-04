@@ -3,9 +3,9 @@
 		<view class="page-hedaer">
 			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
 			<view class="page-hedaer-left">
-				<view class="btn-scan" @click="scan">
+				<!-- <view class="btn-icon btn-scan" @click="scan">
 					<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
-				</view>
+				</view> -->
 			</view>
 			<view class="page-hedaer-center">
 				<view class="page-hedaer-logo" style="">
@@ -15,7 +15,10 @@
 				<span class="page-hedaer-name">{{ appName }}</span>
 			</view>
 			<view class="page-hedaer-right">
-				<view class="btn-locale" @click="onLocale">
+				<view class="btn-icon btn-scan" @click="scan">
+					<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
+				</view>
+				<view class="btn-icon btn-locale" @click="onLocale">
 					<uni-icons class="page-hedaer-icon" custom-prefix="iconfont" type="icon-global" size="24"
 						color="$uni-color-master"></uni-icons>
 				</view>
@@ -41,30 +44,30 @@
 		components: {
 			businessMap,
 		},
-		//登录状态
-		computed: {
-			// ...mapState(['isLogin']),
-			// ...mapState({appName: state => state.app.name,}),
-			// ...mapGetters('app', ['appInfo']),
-			...mapState({
-				appInfo: state => state.app,
-			}),
-			// ...mapState({
-			// 	commonConfig: state => state.common.config,
-			// }),
-			...mapState({
-				userInfo: state => state.user.userInfo,
-				// isLogin: state => state.user.isLogin,
-				// token: state => state.user.token,
-			}),
-			...mapGetters('common', ['commonData']), // 将 common 模块的数据映射到 computed 中
-		},
 		data() {
 			return {
 				appName: getApp().globalData.app.name || '',
 				appLogo: getApp().globalData.app.logo || '',
 				languageList: [],
 			}
+		},
+		//登录状态
+		computed: {
+			...mapState({
+				appInfo: state => state.app,
+			}),
+			...mapState({
+				userInfo: state => state.user.userInfo,
+				isLogin: state => state.user.isLogin,
+				// token: state => state.user.token,
+			}),
+			...mapGetters('common', ['commonData']), // 将 common 模块的数据映射到 computed 中
+			// ...mapState({
+			// 	commonConfig: state => state.common.config,
+			// }),
+			// ...mapState(['isLogin']),
+			// ...mapState({appName: state => state.app.name,}),
+			// ...mapGetters('app', ['appInfo']),
 		},
 		onLoad() {
 			/* uni.setNavigationBarTitle({
@@ -88,7 +91,7 @@
 			},
 			getData() {
 				let that = this;
-				console.log('---> isLogin :', that.$store.state.user.isLogin);
+				// console.log('---> isLogin :', that.$store.state.user.isLogin);
 				this.$api.app.getAppData().then((res) => {
 					console.log('---> res :', res);
 					if (res.data.code == 200) {
@@ -145,7 +148,7 @@
 		align-items: center;
 		justify-content: space-between;
 		box-sizing: border-box;
-		padding: 10px 15px;
+
 		color: rgb(51, 51, 51);
 		font-size: 22px;
 		background-color: #ffffff;
@@ -158,10 +161,12 @@
 	}
 
 	.page-hedaer-center {
+		flex: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		flex: 1;
+		// line-height: 50px;
+		justify-content: normal;
 	}
 
 	.page-hedaer-right {
@@ -178,10 +183,15 @@
 
 	.page-hedaer-logo {
 		width: auto;
-		height: 24px;
+		height: 40px;
 		max-width: 120px;
 		box-sizing: border-box;
-		margin: 0 5px;
+		margin: 5px 5px;
+		margin-left: 15px;
+	}
+
+	.btn-icon {
+		padding: 10px 15px;
 	}
 
 	.page-hedaer-icon {

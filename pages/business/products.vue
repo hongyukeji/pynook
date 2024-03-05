@@ -13,29 +13,65 @@
 						产品列表
 					</view>
 				</view>
-
 			</view>
 
-			<fui-fab :zIndex="10" :position="'left'" background="var(--app-color-master)" @click="addItem">
-				<fui-icon name="plussign" color="#fff"></fui-icon>
-			</fui-fab>
-			<fui-fab background="var(--app-color-master)" :isDrag="true" :mask="false"
-				:position="'right'" :fabs="fabs" @click="handleClick">
+			<fui-fab background="var(--app-color-master)" :isDrag="true" :mask="true" :maskClosable="true"
+				:position="'left'" :fabs="fabs" @click="handleClickPopup">
 				<fui-icon name="plussign" color="#fff"></fui-icon>
 			</fui-fab>
 
-			<uni-popup ref="popup" type="center" :animation="true" :mask-click="false">
-				<view class="form-wrap" style="">
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
-					<view class="">添加商品表单</view>
+			<uni-popup ref="popup" type="center" :animation="true" :mask-click="true">
+				<view class="popup-body">
+					<view class="form-wrap">
+						<view class="form-header">
+							<view class="form-title">
+								{{$t('common.add.product')}}
+							</view>
+							<view class="btn-close-popup" @click="closePopup">
+								<uni-icons class="btn-icon" type="close" color="#656D76" size="24"></uni-icons>
+							</view>
+						</view>
+						<view class="form-body">
+							<!-- <scroll-view class="form-scroll" :show-scrollbar="true" scroll-y> -->
+							<!-- 基础表单校验 -->
+							<uni-forms ref="form" :rules="rules" :modelValue="formData" label-position="top"
+								label-width="120">
+								<uni-forms-item :label="$t('common.product.name')" required :name="['name']">
+									<uni-easyinput v-model="formData.name"
+										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.name')" />
+								</uni-forms-item>
+								<uni-forms-item :label="$t('common.product.price')" required :name="['price']">
+									<uni-easyinput type="digit" v-model="formData.price"
+										@change="(val)=>{formData.price = val.replace(/[^\d.]/g, '');}"
+										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.price')" />
+								</uni-forms-item>
+								<uni-forms-item :label="$t('common.product.image')" required :name="['image']">
+									<upload-file v-model="formData.image"></upload-file>
+								</uni-forms-item>
+								<uni-forms-item :label="$t('common.product.description')" required
+									:name="['description']">
+									<uni-easyinput type="textarea" v-model="formData.description" trim autoHeight
+										maxlength="255"
+										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.description')" />
+								</uni-forms-item>
+								<uni-forms-item :label="$t('common.product.stock')" required :name="['stock']">
+									<uni-easyinput type="number" trim v-model="formData.stock"
+										@change="(val)=>{formData.stock = val.replace(/\.(\d*)/, '').replace(/[^\d]/g, '');}"
+										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.stock')" />
+								</uni-forms-item>
+								<uni-forms-item :label="$t('common.product.delivery-time')" required
+									:name="['deliveryTime']">
+									<uni-easyinput v-model="formData.deliveryTime"
+										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.delivery-time')" />
+								</uni-forms-item>
+							</uni-forms>
+							<!-- </scroll-view> -->
+						</view>
+						<view class="form-footer">
+							<button class="btn-submit" type="default"
+								@click="submit()">{{$t('common.form.submit')}}</button>
+						</view>
+					</view>
 				</view>
 			</uni-popup>
 		</view>
@@ -65,17 +101,52 @@
 				loading: 0, // 加载状态: 0-加载前more，1-加载中loading，2-没有更多数据noMore
 				fabs: [{
 					name: 'plus',
-					text: '添加商品',
-					color: 'var(--app-color-master)',
+					text: this.$t('common.add.product'),
+					link: 'method://addItem',
+					// color: 'var(--app-color-master)',
 				}, {
 					name: 'setup',
-					text: '仪表盘',
-					color: 'var(--app-color-master)',
+					text: this.$t('pages.business.dashbord'),
+					link: '/pages/business/dashbord',
+					// color: 'var(--app-color-master)',
 				}, {
 					name: 'home',
-					text: '首页',
-					color: 'var(--app-color-master)',
+					text: this.$t('tabbar.home'),
+					link: '/',
+					// color: 'var(--app-color-master)',
 				}],
+				formData: {},
+				// 校验规则
+				rules: {
+					"name": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'common.product.name')
+						}]
+					},
+					"stock": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'common.product.stock')
+						}]
+					},
+					"price": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'common.product.price')
+						}]
+					},
+					"image": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'common.product.image')
+						}]
+					},
+				},
 			};
 		},
 		computed: {
@@ -145,8 +216,7 @@
 				}
 			},
 			toRedirect(item) {
-				return;
-				const url = "/pages/merchant/detail?id=" + item.id;
+				const url = "/pages/product/detail?id=" + item.id;
 				this.$utils.common.redirect(url);
 			},
 			addItem() {
@@ -159,9 +229,17 @@
 			closePopup() {
 				this.$refs.popup.close()
 			},
-			handleClick(e) {
+			handleClickPopup(e) {
 				console.log(e)
-				this.fui.toast(`您点击了【${this.fabs[e.index].text}】按钮~`)
+				console.log(`您点击了【${this.fabs[e.index].text}】按钮~`)
+				const link = this.fabs[e.index].link;
+				if (link.startsWith('method://')) {
+					const method = link.substring('method://'.length);
+					console.log(method); // 输出: addItem
+					this[method]();
+					return;
+				}
+				this.$utils.common.redirect(link);
 			},
 		},
 		// 下拉刷新
@@ -183,7 +261,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
@@ -215,14 +293,63 @@
 	}
 
 	::v-deep .uni-popup .uni-popup__wrapper {
-		width: 100%;
-		// height: 100%;
+		// width: 100%;
+		// height: 80%;
+		// height: 80%;
+		// max-height: 80%;
+	}
+
+	.popup-body {
+		width: 100vw;
+		height: 90vh;
+		padding: $uni-spacing-row-lg;
+		box-sizing: border-box;
 	}
 
 	.form-wrap {
-		background-color: $uni-bg-color;
-		margin: $uni-spacing-row-lg;
-		padding: $uni-spacing-row-lg;
+		// margin: $uni-spacing-row-lg;
+		background-color: var(--app-bg-color);
 		border-radius: $uni-border-radius-lg;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-header {
+		padding: $uni-spacing-row-base;
+	}
+
+	.form-footer {
+		padding: $uni-spacing-row-base;
+	}
+
+	.form-body {
+		flex: 1;
+		// width: 100%;
+		height: 100%;
+		overflow-y: auto;
+		padding: $uni-spacing-row-base;
+	}
+
+	.scroll {}
+
+	.form-title {
+		font-size: 18px;
+		text-align: center;
+	}
+
+	.btn-close-popup {
+		display: flex;
+		position: absolute;
+		top: $uni-spacing-col-base;
+		right: $uni-spacing-col-base;
+	}
+
+	.btn-submit {
+		color: var(--app-text-color-white);
+		border-color: var(--app-color-master);
+		background-color: var(--app-color-master);
 	}
 </style>

@@ -272,26 +272,26 @@
 	}
 
 	.map-hedaer-search-bar {
-		border: 1px solid $app-color-master;
+		border: 1px solid var(--app-color-master);
 		padding: 0;
 		border-radius: 5px;
-		color: $app-color-master !important;
+		color: var(--app-color-master) !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-icons.uniui-search {
-		color: $app-color-master !important;
+		color: var(--app-color-master) !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-input {
-		color: $app-color-master !important;
+		color: var(--app-color-master) !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-placeholder {
-		color: $app-color-master !important;
+		color: var(--app-color-master) !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-searchbar__text-placeholder {
-		color: $app-color-master !important;
+		color: var(--app-color-master) !important;
 	}
 
 	.map-toolbar {
@@ -330,12 +330,12 @@
 		align-items: center;
 		justify-content: center;
 		color: #ffffff;
-		background-color: $app-color-master;
+		background-color: var(--app-color-master);
 		border-radius: 5px;
 	}
 
 	.map-footer-button-item-icon {
-		color: $app-color-slave;
+		color: var(--app-color-slave);
 		font-size: 32px;
 		width: 45px;
 		height: 45px;

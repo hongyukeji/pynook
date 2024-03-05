@@ -131,7 +131,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
@@ -162,8 +162,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $app-color-master;
-		border-color: $app-color-master;
+		background-color: var(--app-color-master);
+		border-color: var(--app-color-master);
 	}
 
 	.fui-section__title {
@@ -200,7 +200,7 @@
 	}
 
 	.btn-product-add {
-		background-color: $app-color-master;
+		background-color: var(--app-color-master);
 		display: inline-flex;
 		padding: $uni-spacing-row-lg;
 		border-radius: $uni-border-radius-circle;

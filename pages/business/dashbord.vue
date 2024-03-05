@@ -144,7 +144,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
@@ -157,8 +157,7 @@
 	.page-footer {}
 
 	.container {
-		margin: $uni-spacing-row-lg;
-		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+		padding: $uni-spacing-row-lg;
 	}
 
 	.fui-page-bd {

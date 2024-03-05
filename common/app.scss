@@ -6,6 +6,8 @@ uni-page-body {
 	--app-color-slave: #FAD09E;
 	/* 背景颜色 */
 	--app-bg-color: #F1F7FF;
+	/* 文字基本颜色 */
+	--app-text-color-white: #FFFFFF;
 }
 
 page {
@@ -17,7 +19,7 @@ page {
 }
 
 .btn-master-color {
-	color: #ffffff;
+	color: var(--app-text-color-white, #FFFFFF);
 	border-color: var(--app-color-master, #090C49);
 	background-color: var(--app-color-master, #090C49);
 }

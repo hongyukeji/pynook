@@ -21,6 +21,21 @@ export default {
 			data: data
 		})
 	},
+	addMerchantProduct: (data) => {
+		return http.post('/api/pi/business/addMerchantProduct', {
+			data: data
+		})
+	},
+	updateMerchantProduct: (data) => {
+		return http.post('/api/pi/business/updateMerchantProduct', {
+			data: data
+		})
+	},
+	deleteMerchantProduct: (data) => {
+		return http.post('/api/pi/business/deleteMerchantProduct', {
+			data: data
+		})
+	},
 	getMerchantOrderList: (data) => {
 		return http.get('/api/pi/business/getMerchantOrderList', {
 			data: data

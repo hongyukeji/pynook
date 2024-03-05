@@ -1,9 +1,9 @@
 <template>
-	<fui-upload background="#eee" radius="20" :fileList="uploadFileFileList" :max="1" :immediate="true"
+	<fui-upload background="var(--app-color-slave)" radius="20" :fileList="uploadFileFileList" :max="1" :immediate="true"
 		:url="uploadFileUrl" ref="upload" :header="uploadFileHeader" :formData="uploadFileFormData"
 		@success="uploadFileSuccess" @error="uploadFileError" @complete="uploadFileComplete"
 		@preview="uploadFilePreview" v-bind="$attrs">
-		<fui-icon name="plussign" color="#fff"></fui-icon>
+		<fui-icon name="plussign" color="var(--app-color-master)"></fui-icon>
 	</fui-upload>
 </template>
 

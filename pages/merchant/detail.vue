@@ -233,7 +233,7 @@
 	page {
 		width: 100%;
 		height: 100%;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		font-weight: normal;
 	}
 
@@ -277,7 +277,7 @@
 	.uni-padding-wrap {}
 
 	::v-deep .segmented-control__item--button {
-		border-color: $app-color-master !important;
+		border-color: var(--app-color-master) !important;
 	}
 
 	.content {

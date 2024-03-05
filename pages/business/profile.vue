@@ -28,11 +28,11 @@
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.business-introduction')"
 								:name="['merchant','introduction']">
-								<uni-easyinput type="textarea" v-model="formData.merchant.introduction"
-									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-introduction')"
-									trim autoHeight maxlength="255" />
+								<uni-easyinput type="textarea" v-model="formData.merchant.introduction" trim autoHeight
+									maxlength="255"
+									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.business-introduction')" />
 							</uni-forms-item>
-							<uni-forms-item :label="$t('business.form.logo')" :name="['merchant','image']">
+							<uni-forms-item :label="$t('business.form.image')" :name="['merchant','image']">
 								<upload-file v-model="formData.merchant.image"></upload-file>
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.telephone')" :name="['merchant','telephone']">
@@ -289,8 +289,8 @@
 					return;
 				}
 
-				const url = item.url;
-				this.$utils.common.redirect(url);
+				const link = item.url;
+				this.$utils.common.redirect(link);
 			},
 		},
 	}
@@ -298,7 +298,7 @@
 
 <style lang="scss" scoped>
 	page {
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.page-wrap {}
@@ -306,12 +306,12 @@
 	.page-hedaer {}
 
 	.page-body {
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.container {
 		padding-bottom: 60px;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.page-footer {
@@ -326,12 +326,12 @@
 	.container {}
 
 	.uni-section ::v-deep .uni-section-header {
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.form-body {
 		padding: 15px;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.uni-forms-item {
@@ -344,14 +344,14 @@
 		padding: 15px 15px;
 		margin: 20px auto;
 		border-radius: 10px;
-		background-color: $app-color-slave;
+		background-color: var(--app-color-slave);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 
 	.btn-item-text {
-		color: $app-color-master;
+		color: var(--app-color-master);
 		text-decoration: none;
 		font-size: 16px;
 		font-weight: 700;
@@ -361,8 +361,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $app-color-master;
-		border-color: $app-color-master;
+		background-color: var(--app-color-master);
+		border-color: var(--app-color-master);
 	}
 
 	.btn-confirm {}

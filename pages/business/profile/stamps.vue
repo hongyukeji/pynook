@@ -30,11 +30,13 @@
 							<uni-forms-item :label="$t('business.form.free-item-number')" required
 								:name="['freeItemNumber']">
 								<uni-easyinput type="number" v-model="formData.freeItemNumber"
+									@change="(val)=>{formData.freeItemNumber = val.replace(/\.(\d*)/, '').replace(/[^\d]/g, '');}"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.free-item-number')" />
 							</uni-forms-item>
 							<uni-forms-item :label="$t('business.form.free-item-needed-stamp-number')" required
 								:name="['freeItemNeededStampNumber']">
 								<uni-easyinput type="number" v-model="formData.freeItemNeededStampNumber"
+									@change="(val)=>{formData.freeItemNeededStampNumber = val.replace(/\.(\d*)/, '').replace(/[^\d]/g, '');}"
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.free-item-needed-stamp-number')" />
 							</uni-forms-item>
 						</uni-forms>
@@ -67,6 +69,30 @@
 		data() {
 			return {
 				formData: {},
+				// 校验规则
+				rules: {
+					"freeItemName": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'business.form.free-item-name')
+						}]
+					},
+					"freeItemNumber": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'business.form.free-item-number')
+						}]
+					},
+					"freeItemNeededStampNumber": {
+						rules: [{
+							required: true,
+							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+								'business.form.free-item-needed-stamp-number')
+						}]
+					},
+				},
 			};
 		},
 		onLoad() {},
@@ -123,7 +149,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
@@ -154,8 +180,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $app-color-master;
-		border-color: $app-color-master;
+		background-color: var(--app-color-master);
+		border-color: var(--app-color-master);
 	}
 
 	.fui-section__title {
@@ -195,13 +221,13 @@
 
 	.preview-icon {
 		padding: 15px 30px;
-		background-color: $app-color-master;
+		background-color: var(--app-color-master);
 		border-radius: $uni-border-radius-lg;
 	}
 
 	.preview-number {
 		font-size: 30px;
-		color: $app-color-slave;
+		color: var(--app-color-slave);
 		text-align: center;
 	}
 
@@ -215,6 +241,6 @@
 		font-size: 18px;
 		font-weight: bold;
 		padding: $uni-spacing-col-lg $uni-spacing-row-lg;
-		color: $app-color-master;
+		color: var(--app-color-master);
 	}
 </style>

@@ -73,7 +73,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
@@ -86,7 +86,7 @@
 	.page-footer {}
 
 	.container {
-		color: $app-color-master;
+		color: var(--app-color-master);
 	}
 
 	.header {

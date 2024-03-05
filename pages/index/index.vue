@@ -136,7 +136,7 @@
 	page {
 		width: 100%;
 		height: 100%;
-		background-color: $app-bg-color;
+		background-color: var(--app-bg-color);
 	}
 
 	.page-wrap {
@@ -181,7 +181,7 @@
 		font-weight: bold;
 		font-size: 18px;
 		// color: rgb(51, 51, 51);
-		color: $app-color-master;
+		color: var(--app-color-master);
 	}
 
 	.page-hedaer-logo {
@@ -200,7 +200,7 @@
 	.page-hedaer-icon {
 		/* font-size: 22px; */
 		/* color: rgb(51, 51, 51); */
-		color: $app-color-master;
+		color: var(--app-color-master);
 	}
 
 	.page-body {

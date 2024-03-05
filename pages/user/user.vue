@@ -346,7 +346,7 @@
 		border-radius: $uni-border-radius-lg;
 		overflow: hidden;
 		margin-right: $uni-spacing-row-lg;
-		border: 1px solid $app-color-slave;
+		border: 1px solid var(--app-color-slave);
 		// border: 1px solid #EEEEEE;
 		padding: 5px;
 	}
@@ -354,7 +354,7 @@
 	.avatar {}
 
 	.username {
-		color: $app-color-master;
+		color: var(--app-color-master);
 	}
 
 	.login-wrap {
@@ -363,6 +363,6 @@
 	}
 
 	.btn-item {
-		color: $app-color-slave;
+		color: var(--app-color-slave);
 	}
 </style>

@@ -293,9 +293,9 @@
 		margin: $uni-spacing-col-lg auto;
 		border-radius: $uni-border-radius-lg;
 		color: #ffffff;
-		border-color: $app-color-master;
-		background-color: $app-color-master;
-		color: $app-color-slave;
+		border-color: var(--app-color-master);
+		background-color: var(--app-color-master);
+		color: var(--app-color-slave);
 		// border-color: #FCD323;
 		// background-color: #FCD323;
 		text-align: center;

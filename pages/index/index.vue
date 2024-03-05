@@ -4,7 +4,7 @@
 			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
 			<view class="page-hedaer-left">
 				<!-- <view class="btn-icon btn-scan" @click="scan">
-					<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
+					<uni-icons type="scan" size="24" color="var(--app-color-master)"></uni-icons>
 				</view> -->
 			</view>
 			<view class="page-hedaer-center">
@@ -16,11 +16,11 @@
 			</view>
 			<view class="page-hedaer-right">
 				<view class="btn-icon btn-scan" @click="scan">
-					<uni-icons type="scan" size="24" color="$uni-color-master"></uni-icons>
+					<uni-icons type="scan" size="24" color="var(--app-color-master)"></uni-icons>
 				</view>
 				<view class="btn-icon btn-locale" @click="onLocale">
 					<uni-icons class="page-hedaer-icon" custom-prefix="iconfont" type="icon-global" size="24"
-						color="$uni-color-master"></uni-icons>
+						color="var(--app-color-master)"></uni-icons>
 				</view>
 			</view>
 		</view>
@@ -136,7 +136,7 @@
 	page {
 		width: 100%;
 		height: 100%;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.page-wrap {
@@ -181,7 +181,7 @@
 		font-weight: bold;
 		font-size: 18px;
 		// color: rgb(51, 51, 51);
-		color: $uni-color-master;
+		color: $app-color-master;
 	}
 
 	.page-hedaer-logo {
@@ -200,7 +200,7 @@
 	.page-hedaer-icon {
 		/* font-size: 22px; */
 		/* color: rgb(51, 51, 51); */
-		color: $uni-color-master;
+		color: $app-color-master;
 	}
 
 	.page-body {

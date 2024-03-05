@@ -5,11 +5,11 @@
 			<view class="container">
 				<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name" tag="1km">
 					<view class="fui-card__content">
-						<uni-icons class="" type="location" color="$uni-color-slave" size="18"></uni-icons>
+						<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>
 						{{item.address}}
 					</view>
 					<view class="fui-card__content">
-						<uni-icons class="" type="info" color="$uni-color-slave" size="18"></uni-icons>
+						<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
 						{{item.introduction}}
 					</view>
 				</fui-card>
@@ -32,7 +32,7 @@
 
 				<view class="uni-padding-wrap uni-common-mt">
 					<uni-segmented-control :current="current" :values="items" :style-type="styleType"
-						active-color="#090C49" @clickItem="onClickItem" />
+						active-color="var(--app-color-master)" @clickItem="onClickItem" />
 				</view>
 
 				<view class="content">
@@ -109,7 +109,7 @@
 					width: 12,
 					height: 12,
 					activeWidth: 24,
-					activeBackground: '#090C49',
+					activeBackground: 'var(--app-color-master)',
 				},
 				options: [{
 						icon: 'home',
@@ -135,7 +135,7 @@
 				buttonGroup: [{
 					text: '立即购买',
 					// backgroundColor: 'linear-gradient(90deg, #FAD09E, #090C49)',
-					backgroundColor: 'linear-gradient(90deg, #090C49, #090C49)',
+					backgroundColor: 'linear-gradient(90deg, var(--app-color-master), var(--app-color-master))',
 					color: '#fff'
 				}],
 				productList: [{
@@ -233,7 +233,7 @@
 	page {
 		width: 100%;
 		height: 100%;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 		font-weight: normal;
 	}
 
@@ -277,7 +277,7 @@
 	.uni-padding-wrap {}
 
 	::v-deep .segmented-control__item--button {
-		border-color: $uni-color-master !important;
+		border-color: $app-color-master !important;
 	}
 
 	.content {

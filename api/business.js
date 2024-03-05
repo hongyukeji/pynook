@@ -11,4 +11,24 @@ export default {
 			data: data
 		})
 	},
+	getMerchantProductList: (data) => {
+		return http.get('/api/pi/business/getMerchantProductList', {
+			data: data
+		})
+	},
+	getMerchantProductDetail: (data) => {
+		return http.get('/api/pi/business/getMerchantProductDetail', {
+			data: data
+		})
+	},
+	getMerchantOrderList: (data) => {
+		return http.get('/api/pi/business/getMerchantOrderList', {
+			data: data
+		})
+	},
+	getMerchantOrderDetail: (data) => {
+		return http.get('/api/pi/business/getMerchantOrderDetail', {
+			data: data
+		})
+	},
 }

@@ -2,7 +2,7 @@
 	<view class="page-wrap">
 		<view class="page-hedaer">
 			<uni-search-bar class="page-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
-				textColor="$uni-color-slave" :placeholder="$t('common.search')" @confirm="search"
+				textColor="var(app-color-slave)" :placeholder="$t('common.search')" @confirm="search"
 				v-model="params.keyword">
 			</uni-search-bar>
 		</view>
@@ -10,7 +10,8 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name" tag="1km">
+						<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name"
+							:tag="index + 'km'">
 							<view class="fui-card__content">{{$t('business.form.address')}}: {{item.address}}</view>
 							<view class="fui-card__content">{{$t('business.form.business-introduction')}}:
 								{{item.introduction}}
@@ -142,7 +143,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 		box-sizing: border-box;
 	}
 

@@ -298,7 +298,7 @@
 
 <style lang="scss" scoped>
 	page {
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.page-wrap {}
@@ -306,12 +306,12 @@
 	.page-hedaer {}
 
 	.page-body {
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.container {
 		padding-bottom: 60px;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.page-footer {
@@ -326,12 +326,12 @@
 	.container {}
 
 	.uni-section ::v-deep .uni-section-header {
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.form-body {
 		padding: 15px;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.uni-forms-item {
@@ -344,14 +344,14 @@
 		padding: 15px 15px;
 		margin: 20px auto;
 		border-radius: 10px;
-		background-color: $uni-color-slave;
+		background-color: $app-color-slave;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 
 	.btn-item-text {
-		color: $uni-color-master;
+		color: $app-color-master;
 		text-decoration: none;
 		font-size: 16px;
 		font-weight: 700;
@@ -361,8 +361,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $uni-color-master;
-		border-color: $uni-color-master;
+		background-color: $app-color-master;
+		border-color: $app-color-master;
 	}
 
 	.btn-confirm {}

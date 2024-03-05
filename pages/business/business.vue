@@ -33,7 +33,7 @@
 
 <style lang="scss" scoped>
 	page {
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 	}
 
 	.page-wrap {}

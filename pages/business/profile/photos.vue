@@ -8,7 +8,7 @@
 			<view class="fui-section__title">{{$t('common.photo')}}</view>
 			<view class="fui-btn__box">
 				<fui-button type="success" btn-size="medium" :text="$t('common.form.save')" bold @click="submit"
-					background="#090C49" color="#FFFFFF"></fui-button>
+					background="var(--app-color-master)" color="#FFFFFF"></fui-button>
 			</view>
 			<upload-file v-model="uploadFileUrls" :max="10"></upload-file>
 		</view>

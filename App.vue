@@ -63,6 +63,7 @@
 </script>
 
 <style lang="scss">
+	/*@import '@/uni.scss';*/
 	/*每个页面公共css */
 	@import '@/uni_modules/uni-scss/index.scss';
 	@import '@/common/fui-app.css';
@@ -74,5 +75,5 @@
 	/* 在线引用阿里字体库 */
 	/* @import url(//at.alicdn.com/t/c/font_4443434_ms10k34ajl8.css); */
 	/* 应用css */
-	@import '@/static/css/app.css';
+	@import '@/common/app.scss';
 </style>

@@ -73,7 +73,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 		box-sizing: border-box;
 	}
 
@@ -86,7 +86,7 @@
 	.page-footer {}
 
 	.container {
-		color: $uni-color-master;
+		color: $app-color-master;
 	}
 
 	.header {

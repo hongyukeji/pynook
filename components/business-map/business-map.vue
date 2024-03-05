@@ -6,7 +6,7 @@
 			<view class="map-hedaer-search">
 				<!-- 搜索框 -->
 				<uni-search-bar class="map-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
-					textColor="$uni-color-slave" :placeholder="$t('business.placeholder.search-business')"
+					textColor="var(--app-color-slave)" :placeholder="$t('business.placeholder.search-business')"
 					@confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input" @cancel="cancel"
 					@clear="clear">
 				</uni-search-bar>
@@ -32,16 +32,16 @@
 			<view class="map-footer-group" style="">
 				<view v-if="!isMerchant" class="map-footer-button-item" style="flex: 1;margin-right: 15px;"
 					@click="onAddMyBusiness()">
-					<uni-icons class="map-footer-button-item-icon" type="plus" color="$uni-color-slave"
+					<uni-icons class="map-footer-button-item-icon" type="plus" color="var(--app-color-slave)"
 						size="32"></uni-icons><span>{{$t('business.button.add-my-business')}}</span>
 				</view>
 				<view v-if="isMerchant" class="map-footer-button-item" style="flex: 1;margin-right: 15px;"
 					@click="onToMyBusiness()">
-					<uni-icons class="map-footer-button-item-icon" type="gear" color="$uni-color-slave"
+					<uni-icons class="map-footer-button-item-icon" type="gear" color="var(--app-color-slave)"
 						size="32"></uni-icons><span>{{$t('business.button.manage-my-business')}}</span>
 				</view>
 				<view class="map-footer-button-item border-radius-circle" @click="moveToCurrentlocation()">
-					<uni-icons class="map-footer-button-item-icon" type="location" color="$uni-color-slave"
+					<uni-icons class="map-footer-button-item-icon" type="location" color="var(--app-color-slave)"
 						size="32"></uni-icons>
 				</view>
 			</view>
@@ -272,26 +272,26 @@
 	}
 
 	.map-hedaer-search-bar {
-		border: 1px solid $uni-color-master;
+		border: 1px solid $app-color-master;
 		padding: 0;
 		border-radius: 5px;
-		color: $uni-color-master !important;
+		color: $app-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-icons.uniui-search {
-		color: $uni-color-master !important;
+		color: $app-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-input {
-		color: $uni-color-master !important;
+		color: $app-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-input-placeholder {
-		color: $uni-color-master !important;
+		color: $app-color-master !important;
 	}
 
 	.map-hedaer-search-bar ::v-deep .uni-searchbar__text-placeholder {
-		color: $uni-color-master !important;
+		color: $app-color-master !important;
 	}
 
 	.map-toolbar {
@@ -330,12 +330,12 @@
 		align-items: center;
 		justify-content: center;
 		color: #ffffff;
-		background-color: $uni-color-master;
+		background-color: $app-color-master;
 		border-radius: 5px;
 	}
 
 	.map-footer-button-item-icon {
-		color: $uni-color-slave;
+		color: $app-color-slave;
 		font-size: 32px;
 		width: 45px;
 		height: 45px;

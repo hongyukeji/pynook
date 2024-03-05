@@ -2,8 +2,8 @@
 	<view class="page-wrap">
 		<view class="page-hedaer">
 			<uni-search-bar class="page-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
-				textColor="$uni-color-slave" :placeholder="$t('common.search')" @confirm="search"
-				v-model="params.keyword" >
+				textColor="var(--app-color-slave)" :placeholder="$t('common.search')" @confirm="search"
+				v-model="params.keyword">
 			</uni-search-bar>
 		</view>
 		<view class="page-body">
@@ -13,7 +13,31 @@
 						产品列表
 					</view>
 				</view>
+
 			</view>
+
+			<fui-fab :zIndex="10" :position="'left'" background="var(--app-color-master)" @click="addItem">
+				<fui-icon name="plussign" color="#fff"></fui-icon>
+			</fui-fab>
+			<fui-fab background="var(--app-color-master)" :isDrag="true" :mask="false"
+				:position="'right'" :fabs="fabs" @click="handleClick">
+				<fui-icon name="plussign" color="#fff"></fui-icon>
+			</fui-fab>
+
+			<uni-popup ref="popup" type="center" :animation="true" :mask-click="false">
+				<view class="form-wrap" style="">
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+					<view class="">添加商品表单</view>
+				</view>
+			</uni-popup>
 		</view>
 		<view class="page-footer">
 			<uni-load-more :status="loadStatus"></uni-load-more>
@@ -39,6 +63,19 @@
 				},
 				items: [], // 列表数据数组
 				loading: 0, // 加载状态: 0-加载前more，1-加载中loading，2-没有更多数据noMore
+				fabs: [{
+					name: 'plus',
+					text: '添加商品',
+					color: 'var(--app-color-master)',
+				}, {
+					name: 'setup',
+					text: '仪表盘',
+					color: 'var(--app-color-master)',
+				}, {
+					name: 'home',
+					text: '首页',
+					color: 'var(--app-color-master)',
+				}],
 			};
 		},
 		computed: {
@@ -84,7 +121,7 @@
 				this.params.current++;
 				this.loading = 1;
 				// 发送请求获取数据
-				await this.$api.merchant.getMerchantList(this.params).then((res) => {
+				await this.$api.business.getMerchantProductList(this.params).then((res) => {
 					// console.log('---> res :', res);
 					if (res.data?.code != 200) {
 						uni.showToast({
@@ -99,11 +136,7 @@
 					if (data.current >= data.pages) {
 						that.loading = 2;
 					}
-					let items = data.records;
-					// 开发测试
-					for (var i = 0; i < 50; i++) {
-						// items.push(items[0] || that.items[0]);
-					}
+					const items = data.records;
 					// 将数据追加到 items 数组中
 					that.items = that.items.concat(items);
 				});
@@ -115,6 +148,20 @@
 				return;
 				const url = "/pages/merchant/detail?id=" + item.id;
 				this.$utils.common.redirect(url);
+			},
+			addItem() {
+				console.log('---> addItem :', '添加商品');
+				this.openPopup();
+			},
+			openPopup() {
+				this.$refs.popup.open()
+			},
+			closePopup() {
+				this.$refs.popup.close()
+			},
+			handleClick(e) {
+				console.log(e)
+				this.fui.toast(`您点击了【${this.fabs[e.index].text}】按钮~`)
 			},
 		},
 		// 下拉刷新
@@ -136,7 +183,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 		box-sizing: border-box;
 	}
 
@@ -165,5 +212,17 @@
 
 	.items .item {
 		margin: $uni-spacing-col-lg auto;
+	}
+
+	::v-deep .uni-popup .uni-popup__wrapper {
+		width: 100%;
+		// height: 100%;
+	}
+
+	.form-wrap {
+		background-color: $uni-bg-color;
+		margin: $uni-spacing-row-lg;
+		padding: $uni-spacing-row-lg;
+		border-radius: $uni-border-radius-lg;
 	}
 </style>

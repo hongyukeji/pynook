@@ -123,7 +123,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: normal;
-		background-color: $uni-background-color;
+		background-color: $app-bg-color;
 		box-sizing: border-box;
 	}
 
@@ -154,8 +154,8 @@
 
 	.btn-main {
 		color: #ffffff;
-		background-color: $uni-color-master;
-		border-color: $uni-color-master;
+		background-color: $app-color-master;
+		border-color: $app-color-master;
 	}
 
 	.fui-section__title {
@@ -195,13 +195,13 @@
 
 	.preview-icon {
 		padding: 15px 30px;
-		background-color: $uni-color-master;
+		background-color: $app-color-master;
 		border-radius: $uni-border-radius-lg;
 	}
 
 	.preview-number {
 		font-size: 30px;
-		color: $uni-color-slave;
+		color: $app-color-slave;
 		text-align: center;
 	}
 
@@ -215,6 +215,6 @@
 		font-size: 18px;
 		font-weight: bold;
 		padding: $uni-spacing-col-lg $uni-spacing-row-lg;
-		color: $uni-color-master;
+		color: $app-color-master;
 	}
 </style>

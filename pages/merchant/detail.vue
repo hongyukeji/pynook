@@ -26,7 +26,7 @@
 							<swiper-item v-for="(item,index) in banners" :key="index">
 								<view class="fui-banner__cell" :class="{'fui-item__scale':bannerCurrent!==index}"
 									:style="{background: '#fff',padding: '0px','box-sizing': 'border-box',}">
-									<image class="image" :src="item" :mode="'heightFix'"
+									<image class="image" :src="item" :mode="'aspectFill'"
 										style="width: 100%;height: 100%;">
 									</image>
 								</view>

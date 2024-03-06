@@ -1,6 +1,6 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer"></view>
+		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
 				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="merchant.image || appLogo"
@@ -8,6 +8,10 @@
 					<view class="fui-card__content">
 						<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>
 						{{merchant.address}}
+					</view>
+					<view class="fui-card__content">
+						<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
+						{{merchant.telephone}}
 					</view>
 					<view class="fui-card__content">
 						<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
@@ -300,7 +304,7 @@
 		flex-direction: column;
 	}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {
 		position: relative;

@@ -1,6 +1,6 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer"></view>
+		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
 				功能开发中，敬请期待！
@@ -32,17 +32,11 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		width: 100%;
-		min-height: 100%;
-		font-weight: normal;
-		background-color: var(--app-bg-color);
-		box-sizing: border-box;
-	}
+	page {}
 
 	.page-wrap {}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {}
 

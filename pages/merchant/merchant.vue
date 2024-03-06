@@ -1,7 +1,7 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer">
-			<uni-search-bar class="page-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
+		<view class="page-header">
+			<uni-search-bar class="page-header-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
 				textColor="var(app-color-slave)" :placeholder="$t('common.search')" @confirm="search"
 				v-model="params.keyword">
 			</uni-search-bar>
@@ -16,6 +16,10 @@
 								<uni-icons class="" type="location" color="var(--app-color-slave)"
 									size="18"></uni-icons>
 								{{item.address}}
+							</view>
+							<view class="fui-card__content">
+								<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
+								{{item.telephone}}
 							</view>
 							<view class="fui-card__content">
 								<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
@@ -144,13 +148,7 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		width: 100%;
-		min-height: 100%;
-		font-weight: normal;
-		background-color: var(--app-bg-color);
-		box-sizing: border-box;
-	}
+	page {}
 
 	.page-wrap {
 		width: 100%;
@@ -160,7 +158,7 @@
 		flex-direction: column;
 	}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {
 		position: relative;

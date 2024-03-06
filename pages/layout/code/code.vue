@@ -1,6 +1,6 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer"></view>
+		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
 				功能开发中，敬请期待！
@@ -46,7 +46,7 @@
 		background-color: var(--app-bg-color);
 	}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {}
 

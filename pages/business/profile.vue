@@ -1,6 +1,6 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer"></view>
+		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
 
@@ -299,13 +299,11 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		background-color: var(--app-bg-color);
-	}
+	page {}
 
 	.page-wrap {}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {
 		background-color: var(--app-bg-color);

@@ -204,9 +204,7 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		background-color: #FFFFFF;
-	}
+	page {}
 
 	.fui-banner__box {
 		width: 100%;

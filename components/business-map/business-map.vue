@@ -2,10 +2,10 @@
 	<map :id="mapId" :ref="mapId" class="map-wrap" :longitude="longitude" :latitude="latitude" show-location
 		enable-rotate :scale="15" :markers="mapMarkers" :circles="mapCircles" :polyline="mapPolyline"
 		:style="{width:mapWidth,height:mapHeight}">
-		<cover-view class="map-hedaer">
-			<view class="map-hedaer-search">
+		<cover-view class="map-header">
+			<view class="map-header-search">
 				<!-- 搜索框 -->
-				<uni-search-bar class="map-hedaer-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
+				<uni-search-bar class="map-header-search-bar" clearButton="auto" cancelButton="none" bgColor="#FFFFFF"
 					textColor="var(--app-color-slave)" :placeholder="$t('business.placeholder.search-business')"
 					@confirm="search" v-model="searchValue" @blur="blur" @focus="focus" @input="input" @cancel="cancel"
 					@clear="clear">
@@ -264,33 +264,33 @@
 		//height: 100vh;
 	}
 
-	.map-hedaer {}
+	.map-header {}
 
-	.map-hedaer-search {
+	.map-header-search {
 		margin: 30px;
 		margin-bottom: 0;
 	}
 
-	.map-hedaer-search-bar {
+	.map-header-search-bar {
 		border: 1px solid var(--app-color-master);
 		padding: 0;
 		border-radius: 5px;
 		color: var(--app-color-master) !important;
 	}
 
-	.map-hedaer-search-bar ::v-deep .uni-icons.uniui-search {
+	.map-header-search-bar ::v-deep .uni-icons.uniui-search {
 		color: var(--app-color-master) !important;
 	}
 
-	.map-hedaer-search-bar ::v-deep .uni-input-input {
+	.map-header-search-bar ::v-deep .uni-input-input {
 		color: var(--app-color-master) !important;
 	}
 
-	.map-hedaer-search-bar ::v-deep .uni-input-placeholder {
+	.map-header-search-bar ::v-deep .uni-input-placeholder {
 		color: var(--app-color-master) !important;
 	}
 
-	.map-hedaer-search-bar ::v-deep .uni-searchbar__text-placeholder {
+	.map-header-search-bar ::v-deep .uni-searchbar__text-placeholder {
 		color: var(--app-color-master) !important;
 	}
 

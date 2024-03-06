@@ -1,25 +1,25 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer">
+		<view class="page-header">
 			<!-- <uni-nav-bar left-text="logo" right-text="language" :title="title" :border="false"></uni-nav-bar> -->
-			<view class="page-hedaer-left">
+			<view class="page-header-left">
 				<!-- <view class="btn-icon btn-scan" @click="scan">
 					<uni-icons type="scan" size="24" color="var(--app-color-master)"></uni-icons>
 				</view> -->
 			</view>
-			<view class="page-hedaer-center">
-				<view class="page-hedaer-logo" style="">
+			<view class="page-header-center">
+				<view class="page-header-logo" style="">
 					<image class="logo-image" :src="appLogo" :mode="'heightFix'" style="height: 100%;">
 					</image>
 				</view>
-				<span class="page-hedaer-name">{{ appName }}</span>
+				<span class="page-header-name">{{ appName }}</span>
 			</view>
-			<view class="page-hedaer-right">
+			<view class="page-header-right">
 				<view class="btn-icon btn-scan" @click="scan">
 					<uni-icons type="scan" size="24" color="var(--app-color-master)"></uni-icons>
 				</view>
 				<view class="btn-icon btn-locale" @click="onLocale">
-					<uni-icons class="page-hedaer-icon" custom-prefix="iconfont" type="icon-global" size="24"
+					<uni-icons class="page-header-icon" custom-prefix="iconfont" type="icon-global" size="24"
 						color="var(--app-color-master)"></uni-icons>
 				</view>
 			</view>
@@ -151,7 +151,7 @@
 		flex-direction: column;
 	}
 
-	.page-hedaer {
+	.page-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -163,12 +163,12 @@
 		line-height: 24px;
 	}
 
-	.page-hedaer-left {
+	.page-header-left {
 		display: flex;
 		align-items: center;
 	}
 
-	.page-hedaer-center {
+	.page-header-center {
 		flex: 1;
 		display: flex;
 		align-items: center;
@@ -177,19 +177,19 @@
 		justify-content: normal;
 	}
 
-	.page-hedaer-right {
+	.page-header-right {
 		display: flex;
 		align-items: center;
 	}
 
-	.page-hedaer-name {
+	.page-header-name {
 		font-weight: bold;
 		font-size: 18px;
 		// color: rgb(51, 51, 51);
 		color: var(--app-color-master);
 	}
 
-	.page-hedaer-logo {
+	.page-header-logo {
 		width: auto;
 		height: 40px;
 		max-width: 120px;
@@ -202,7 +202,7 @@
 		padding: 10px 15px;
 	}
 
-	.page-hedaer-icon {
+	.page-header-icon {
 		/* font-size: 22px; */
 		/* color: rgb(51, 51, 51); */
 		color: var(--app-color-master);

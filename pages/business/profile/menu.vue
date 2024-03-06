@@ -1,6 +1,6 @@
 <template>
 	<view class="page-wrap">
-		<view class="page-hedaer"></view>
+		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
 				<view class="fui-section__title">{{$t('common.menu')}}</view>
@@ -127,17 +127,11 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		width: 100%;
-		min-height: 100%;
-		font-weight: normal;
-		background-color: var(--app-bg-color);
-		box-sizing: border-box;
-	}
+	page {}
 
 	.page-wrap {}
 
-	.page-hedaer {}
+	.page-header {}
 
 	.page-body {}
 

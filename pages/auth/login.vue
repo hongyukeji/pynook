@@ -4,7 +4,7 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="logo-wrap">
-					<image class="logo-image" :src="appLogo" :mode="'heightFix'" style="height: 100%;"></image>
+					<image class="logo-image" :src="globalConfig.app.logo" :mode="'heightFix'" style="height: 100%;"></image>
 				</view>
 				<uni-section :title="$t('common.login')+$t('common.account')" type="line">
 					<view class="form-wrap" v-if="!isPiBrowser">
@@ -58,8 +58,6 @@
 		components: {},
 		data() {
 			return {
-				appName: getApp().globalData.app.name || '',
-				appLogo: getApp().globalData.app.logo || '',
 				// 表单数据
 				formData: {
 					username: '',

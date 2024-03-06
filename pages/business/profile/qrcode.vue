@@ -5,15 +5,15 @@
 			<view class="container">
 				<view class="header">
 					<view class="logo">
-						<image class="image" :src="appLogo" :mode="'heightFix'" style="width: 100%;height: 100%;">
+						<image class="image" :src="globalConfig.app.logo" :mode="'aspectFill'" style="width: 100%;height: 100%;">
 						</image>
 					</view>
 					<view class="name">
-						{{ appName }}
+						{{ globalConfig.app.name }}
 					</view>
 				</view>
 				<view class="description">
-					For use with the [{{ appName }}] Pi App
+					For use with the [{{ globalConfig.app.name }}] Pi App
 				</view>
 				<view class="content">
 					<view class="qrcode-wrap">
@@ -31,15 +31,13 @@
 		components: {},
 		data() {
 			return {
-				appName: getApp().globalData.app.name || '',
-				appLogo: getApp().globalData.app.logo || '',
 				merchantId: 0,
 			};
 		},
 		computed: {
 			// 基于data中的count计算出双倍的值
 			qrcodeUrl() {
-				return getApp().globalData.app.url + "/#/pages/merchant/detail?id=" + this.merchantId;
+				return getApp().globalData?.app?.url + "/#/pages/merchant/detail?id=" + this.merchantId;
 			}
 		},
 		onLoad() {},

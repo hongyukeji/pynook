@@ -3,7 +3,7 @@
 		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
-				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="merchant.image || appLogo"
+				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="merchant.image || globalConfig.app.logo"
 					:title="merchant.name" tag="0km">
 					<view class="fui-card__content">
 						<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>

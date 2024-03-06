@@ -10,7 +10,7 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="item.image || appLogo"
+						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="item.image || globalConfig.app.logo"
 							:title="item.name" :tag="index + 'km'">
 							<view class="fui-card__content">
 								<uni-icons class="" type="location" color="var(--app-color-slave)"
@@ -54,8 +54,6 @@
 				},
 				items: [], // 列表数据数组
 				loading: 0, // 加载状态: 0-加载前more，1-加载中loading，2-没有更多数据noMore
-				appName: getApp().globalData.app.name || '',
-				appLogo: getApp().globalData.app.logo || '',
 			};
 		},
 		computed: {

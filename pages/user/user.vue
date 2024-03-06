@@ -19,12 +19,12 @@
 			<view class="userinfo-wrap">
 				<view class="userinfo">
 					<view class="avatar-wrap" style="">
-						<image class="avatar" :src="userData?.userInfo?.avatar || appLogo" :mode="'heightFix'"
+						<image class="avatar" :src="userData?.userInfo?.avatar || globalConfig.app.logo" :mode="'aspectFill'"
 							style="width: 100%;height: 100%;">
 						</image>
 					</view>
 					<view class="username">
-						{{userData?.userInfo?.username || appName}}
+						{{userData?.userInfo?.username || globalConfig.app.name}}
 					</view>
 					<view class="login-wrap" v-if="!userData.isLogin">
 						<navigator :url="'/pages/auth/login'">{{$t('common.login')}}</navigator>
@@ -72,8 +72,6 @@
 		components: {},
 		data() {
 			return {
-				appName: getApp().globalData.app.name || '',
-				appLogo: getApp().globalData.app.logo || '',
 				resUrl: '/static/images',
 				menus: [{
 					text: this.$t('common.balance'),

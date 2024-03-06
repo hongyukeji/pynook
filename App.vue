@@ -9,7 +9,7 @@
 	import globalConfig from '@/config';
 	export default {
 		globalData: {
-			...globalConfig,
+			// ...globalConfig,
 		},
 		onLaunch: function() {
 			console.log('App Launch')

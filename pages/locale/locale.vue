@@ -24,7 +24,7 @@
 				<!-- 选择语言 -->
 				<view class="locale-setting">{{$t('common.form.select')}}{{$t('index.language')}}</view>
 				<view class="locale-list">
-					<view class="locale-item" v-for="(item, index) in locales" :key="index"
+					<view class="locale-item" v-for="(item, index) in applicationLocales" :key="index"
 						@click="onLocaleChange(item)">
 						<text class="text">{{item.text}}</text>
 						<text class="icon-check" v-if="item.code == applicationLocale"></text>

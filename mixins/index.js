@@ -3,12 +3,12 @@ export default {
 		return {
 			systemLocale: 'auto',
 			applicationLocale: 'auto',
-			appName: getApp().globalData.app.name || '',
-			appLogo: getApp().globalData.app.logo || '',
+			// appName: getApp().globalData?.app?.name || '',
+			// appLogo: getApp().globalData?.app?.logo || '',
 		};
 	},
 	computed: {
-		locales() {
+		applicationLocales() {
 			return [{
 					text: this.$t('locale.auto'),
 					code: 'auto'

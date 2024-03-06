@@ -9,10 +9,10 @@
 			</view>
 			<view class="page-header-center">
 				<view class="page-header-logo" style="">
-					<image class="logo-image" :src="appLogo" :mode="'heightFix'" style="height: 100%;">
+					<image class="logo-image" :src="globalConfig.app.logo" :mode="'heightFix'" style="height: 100%;">
 					</image>
 				</view>
-				<span class="page-header-name">{{ appName }}</span>
+				<span class="page-header-name">{{ globalConfig.app.name }}</span>
 			</view>
 			<view class="page-header-right">
 				<view class="btn-icon btn-scan" @click="scan">
@@ -43,8 +43,6 @@
 		components: {},
 		data() {
 			return {
-				appName: getApp().globalData.app.name || '',
-				appLogo: getApp().globalData.app.logo || '',
 				languageList: [],
 			}
 		},
@@ -68,9 +66,9 @@
 			// ...mapGetters('app', ['appInfo']),
 		},
 		onLoad() {
-			/* uni.setNavigationBarTitle({
-				title: 'PyNook 派诺客',
-			}) */
+			uni.setNavigationBarTitle({
+				title: this.globalConfig.app.name,
+			})
 			this.getAppData();
 			// this.getData();
 		},

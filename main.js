@@ -38,7 +38,7 @@ Vue.prototype.fui = fui
 Vue.prototype.http = http
 Vue.prototype.$utils = utils
 Vue.prototype.$api = api
-Vue.prototype.$globalConfig = globalConfig
+Vue.prototype.globalConfig = globalConfig
 
 Vue.mixin(globalMixin);
 
@@ -76,7 +76,7 @@ export function createApp() {
 	app.config.globalProperties.http = http;
 	app.config.globalProperties.$utils = utils;
 	app.config.globalProperties.$api = api;
-	app.config.globalProperties.$globalConfig = globalConfig;
+	app.config.globalProperties.globalConfig = globalConfig;
 	app.mixin(globalMixin);
 	return {
 		Vuex,

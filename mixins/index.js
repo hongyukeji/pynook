@@ -2,7 +2,9 @@ export default {
 	data() {
 		return {
 			systemLocale: 'auto',
-			applicationLocale: 'auto'
+			applicationLocale: 'auto',
+			appName: getApp().globalData.app.name || '',
+			appLogo: getApp().globalData.app.logo || '',
 		};
 	},
 	computed: {

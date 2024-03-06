@@ -32,9 +32,7 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		background-color: var(--app-bg-color);
-	}
+	page {}
 
 	.page-wrap {}
 

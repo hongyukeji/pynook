@@ -84,7 +84,8 @@
 						introduction: '',
 					},
 				},
-				typeOptions: [{
+				typeOptions: [
+				/* {
 					label: '咖啡店',
 					text: 'Coffee shop',
 					value: 0
@@ -108,7 +109,8 @@
 					label: '其他',
 					text: 'Other',
 					value: 5
-				}, ],
+				}, */
+				],
 				// 校验规则
 				rules: {
 					"merchant.name": {

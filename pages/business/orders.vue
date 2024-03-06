@@ -34,13 +34,16 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		font-weight: normal;
 		background-color: var(--app-bg-color);
 		box-sizing: border-box;
 	}
 
-	.page-wrap {}
+	.page-wrap {
+		width: 100%;
+		min-height: 100%;
+	}
 
 	.page-hedaer {}
 

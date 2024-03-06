@@ -38,17 +38,17 @@
 					background: '#FFF4F4',
 					page: '/pages/business/products'
 				}, {
-					cn: this.$t('pages.business.profile'),
-					en: 'Business Profile',
-					src: 'gateway',
-					background: '#F2FCF6',
-					page: '/pages/business/profile'
-				}, {
 					cn: this.$t('common.map'),
 					en: 'Map',
 					src: 'vote',
 					background: '#FFF4F4',
 					page: '/'
+				}, {
+					cn: this.$t('pages.business.profile'),
+					en: 'Business Profile',
+					src: 'gateway',
+					background: '#F2FCF6',
+					page: '/pages/business/profile'
 				}, {
 					cn: this.$t('business.button.award-stamps'),
 					en: 'Award Stamps',
@@ -142,7 +142,7 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		font-weight: normal;
 		background-color: var(--app-bg-color);
 		box-sizing: border-box;

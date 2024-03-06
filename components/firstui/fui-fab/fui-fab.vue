@@ -233,7 +233,11 @@
 			showMessageCard: {
 				type: Boolean,
 				default: false
-			}
+			},
+			center: {
+				type: Boolean,
+				default: false
+			},
 		},
 		computed: {
 			getStyles() {
@@ -248,6 +252,9 @@
 					styles += `transform:${this.transform};`
 				}
 				// #endif
+				if(this.center){
+					styles += `left:calc(50% - 28px);`
+				}
 				return styles;
 			},
 			getStyle() {

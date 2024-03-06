@@ -10,10 +10,15 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :margin="['0rpx','0rpx']" :src="item.image || appLogo" :title="item.name"
-							:tag="index + 'km'">
-							<view class="fui-card__content">{{$t('business.form.address')}}: {{item.address}}</view>
-							<view class="fui-card__content">{{$t('business.form.business-introduction')}}:
+						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="item.image || appLogo"
+							:title="item.name" :tag="index + 'km'">
+							<view class="fui-card__content">
+								<uni-icons class="" type="location" color="var(--app-color-slave)"
+									size="18"></uni-icons>
+								{{item.address}}
+							</view>
+							<view class="fui-card__content">
+								<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
 								{{item.introduction}}
 							</view>
 						</fui-card>
@@ -141,7 +146,7 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		font-weight: normal;
 		background-color: var(--app-bg-color);
 		box-sizing: border-box;
@@ -149,7 +154,8 @@
 
 	.page-wrap {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
+		background-color: var(--app-bg-color);
 		display: flex;
 		flex-direction: column;
 	}
@@ -175,7 +181,9 @@
 	}
 
 	.fui-card__content {
-		font-size: 28rpx;
+		color: $uni-text-color-placeholder;
+		font-weight: normal;
+		font-size: 14px;
 		margin: 20rpx 20rpx;
 		box-sizing: border-box;
 	}

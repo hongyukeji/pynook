@@ -41,16 +41,16 @@
 							</uni-forms-item>
 						</uni-forms>
 					</view>
-					<view class="preview-wrap">
-						<view class="preview-icon">
-							<view class="preview-number">
+					<view class="stamps-preview-wrap">
+						<view class="stamps-preview-icon">
+							<view class="stamps-preview-number">
 								{{formData.freeItemNeededStampNumber}}
 							</view>
-							<view class="preview-text">
+							<view class="stamps-preview-text">
 								{{$t('business.common.stamps')}}
 							</view>
 						</view>
-						<view class="preview-desc">
+						<view class="stamps-preview-desc">
 							{{$t('business.common.exchange')}} {{formData.freeItemNumber}} {{formData.freeItemName}}
 						</view>
 					</view>
@@ -122,7 +122,8 @@
 			},
 			submit() {
 				const that = this;
-				const formData = JSON.parse(JSON.stringify(this.formData));
+				// const formData = JSON.parse(JSON.stringify(this.formData));
+				const formData = this.formData;
 				console.log('---> formData :', formData);
 				this.$api.business.setBusinessData(formData).then((res) => {
 					// console.log('---> res :', res);
@@ -147,7 +148,7 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		font-weight: normal;
 		background-color: var(--app-bg-color);
 		box-sizing: border-box;
@@ -211,7 +212,7 @@
 		height: 40rpx;
 	}
 
-	.preview-wrap {
+	.stamps-preview-wrap {
 		margin: $uni-spacing-row-lg;
 		display: flex;
 		align-items: center;
@@ -219,25 +220,25 @@
 		flex-direction: column;
 	}
 
-	.preview-icon {
+	.stamps-preview-icon {
 		padding: 15px 30px;
 		background-color: var(--app-color-master);
 		border-radius: $uni-border-radius-lg;
 	}
 
-	.preview-number {
+	.stamps-preview-number {
 		font-size: 30px;
 		color: var(--app-color-slave);
 		text-align: center;
 	}
 
-	.preview-text {
+	.stamps-preview-text {
 		font-size: 14px;
 		color: #ffffff;
 		text-align: center;
 	}
 
-	.preview-desc {
+	.stamps-preview-desc {
 		font-size: 18px;
 		font-weight: bold;
 		padding: $uni-spacing-col-lg $uni-spacing-row-lg;

@@ -8,15 +8,12 @@
 		</view>
 		<view class="page-body">
 			<view class="container">
-				<view class="items">
-					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						产品列表
-					</view>
-				</view>
+				<product-list-manage :items="items" @update-item="updateItem"
+					@delete-item="deleteItem"></product-list-manage>
 			</view>
 
 			<fui-fab background="var(--app-color-master)" :isDrag="true" :mask="true" :maskClosable="true"
-				:position="'left'" :fabs="fabs" @click="handleClickPopup">
+				:center="true" :position="'left'" :fabs="fabs" @click="handleClickPopup">
 				<fui-icon name="plussign" color="#fff"></fui-icon>
 			</fui-fab>
 
@@ -25,7 +22,7 @@
 					<view class="form-wrap">
 						<view class="form-header">
 							<view class="form-title">
-								{{$t('common.add.product')}}
+								{{formData.id ? $t('common.product.update') : $t('common.product.add')}}
 							</view>
 							<view class="btn-close-popup" @click="closePopup">
 								<uni-icons class="btn-icon" type="close" color="#656D76" size="24"></uni-icons>
@@ -101,7 +98,7 @@
 				loading: 0, // 加载状态: 0-加载前more，1-加载中loading，2-没有更多数据noMore
 				fabs: [{
 					name: 'plus',
-					text: this.$t('common.add.product'),
+					text: this.$t('common.product.add'),
 					link: 'method://addItem',
 					// color: 'var(--app-color-master)',
 				}, {
@@ -142,7 +139,7 @@
 					"image": {
 						rules: [{
 							required: true,
-							errorMessage: this.$t('common.form.please-enter') + ' ' + this.$t(
+							errorMessage: this.$t('common.form.please-upload') + ' ' + this.$t(
 								'common.product.image')
 						}]
 					},
@@ -185,7 +182,6 @@
 				await this.loadData();
 			},
 			async loadData() {
-				const that = this;
 				if (this.loading >= 1) {
 					return;
 				}
@@ -205,29 +201,127 @@
 					// console.log('---> data :', data);
 					// 判断是否是最后一页
 					if (data.current >= data.pages) {
-						that.loading = 2;
+						this.loading = 2;
 					}
 					const items = data.records;
 					// 将数据追加到 items 数组中
-					that.items = that.items.concat(items);
+					this.items = this.items.concat(items);
 				});
 				if (this.loading == 1) {
 					this.loading = 0;
 				}
 			},
+			submit() {
+				// const formData = JSON.parse(JSON.stringify(this.formData));
+				// console.log('---> formData :', this.formData);
+				// const that = this;
+				const formData = this.formData;
+				this.$refs['form'].validate().then(validateFormData => {
+					console.log('success validateFormData:', validateFormData);
+					// uni.showToast({title: `校验通过`})
+					const method = [formData.id ? 'updateMerchantProduct' : 'addMerchantProduct'];
+					console.log('---> method :', method);
+					this.$api.business[method](formData).then((res) => {
+						// console.log('---> res :', res);
+						if (res.data?.code != 200) {
+							uni.showToast({
+								title: res.data?.message || this.$t('common.request-failed'),
+								icon: 'none'
+							})
+							return;
+						}
+						const data = res.data?.data;
+						// this.formData = data;
+						uni.showToast({
+							title: this.$t('common.form.submit-successful')
+						})
+						this.formData = {};
+						this.closePopup();
+						this.refreshData();
+					})
+				}).catch(err => {
+					console.log('err', err);
+				})
+			},
+			deleteProduct(id, index) {
+				const formData = {
+					id: id,
+				}
+				this.$api.business.deleteMerchantProduct(formData).then((res) => {
+					// console.log('---> res :', res);
+					if (res.data?.code != 200) {
+						uni.showToast({
+							title: res.data?.message || this.$t('common.request-failed'),
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					uni.showToast({
+						title: this.$t('common.form.delete-successful')
+					})
+					this.items.splice(index, 1); //删除数组索引2的位置以后的1个元素
+				})
+			},
 			toRedirect(item) {
+				// 编辑商品
+				this.updateItem(item);
+				return;
 				const url = "/pages/product/detail?id=" + item.id;
 				this.$utils.common.redirect(url);
 			},
 			addItem() {
 				console.log('---> addItem :', '添加商品');
+				this.formData = {};
 				this.openPopup();
 			},
+			updateItem(item) {
+				console.log('---> updateItem :', '编辑商品');
+				const formData = {
+					id: item.id,
+				}
+				this.$api.business.getMerchantProductDetail(formData).then((res) => {
+					// console.log('---> res :', res);
+					if (res.data?.code != 200) {
+						uni.showToast({
+							title: res.data?.message || this.$t('common.request-failed'),
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					this.formData = data;
+					this.openPopup();
+				})
+			},
+			deleteItem(item, index) {
+				console.log('---> deleteItem :', '删除商品');
+				const that = this;
+				uni.showModal({
+					title: this.$t('common.tips'),
+					content: `确定删除${item.name}商品吗？`,
+					content: this.$t('common.tips.confirm.delete', {
+						param: item.name
+					}),
+					success: function(res) {
+						if (res.confirm) {
+							console.log('用户点击确定');
+							that.deleteProduct(item.id, index);
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			},
 			openPopup() {
-				this.$refs.popup.open()
+				this.$nextTick(() => {
+					this.$refs.popup.open();
+				});
 			},
 			closePopup() {
-				this.$refs.popup.close()
+				this.$nextTick(() => {
+					this.$refs.popup.close();
+				});
 			},
 			handleClickPopup(e) {
 				console.log(e)
@@ -259,7 +353,7 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		font-weight: normal;
 		background-color: var(--app-bg-color);
 		box-sizing: border-box;
@@ -267,7 +361,7 @@
 
 	.page-wrap {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		display: flex;
 		flex-direction: column;
 	}
@@ -284,12 +378,6 @@
 	.container {
 		box-sizing: border-box;
 		margin: $uni-spacing-col-lg $uni-spacing-row-lg;
-	}
-
-	.items {}
-
-	.items .item {
-		margin: $uni-spacing-col-lg auto;
 	}
 
 	::v-deep .uni-popup .uni-popup__wrapper {
@@ -330,7 +418,7 @@
 		// width: 100%;
 		height: 100%;
 		overflow-y: auto;
-		padding: $uni-spacing-row-base;
+		padding: $uni-spacing-row-lg;
 	}
 
 	.scroll {}

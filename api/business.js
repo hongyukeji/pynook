@@ -1,6 +1,16 @@
 import http from '@/common/request.js'
 
 export default {
+	getBusinessList: (data) => {
+		return http.get('/api/business/list', {
+			data: data
+		})
+	},
+	getBusinessDetail: (data) => {
+		return http.get('/api/business/getBusinessDetail', {
+			data: data
+		})
+	},
 	getBusinessData: (data) => {
 		return http.get('/api/pi/business/getBusinessData', {
 			data: data

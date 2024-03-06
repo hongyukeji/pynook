@@ -135,13 +135,18 @@
 <style lang="scss" scoped>
 	page {
 		width: 100%;
+		height: 100%;
 		min-height: 100%;
-		background-color: var(--app-bg-color);
+		font-weight: normal;
+		background-color: var(--app-bg-color, #F1F7FF);
+		box-sizing: border-box;
 	}
 
 	.page-wrap {
 		width: 100%;
 		height: 100%;
+		min-height: 100%;
+		background-color: var(--app-bg-color);
 		display: flex;
 		flex-direction: column;
 	}

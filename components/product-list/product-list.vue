@@ -22,7 +22,7 @@
 					</view>
 				</slot>
 			</view>
-			<view class="item-right" style="display: none;">
+			<view class="item-right" v-if="type == 'manage'">
 				<slot name="item-right">
 					<view class="item-btn" @click="$emit('updateItem', item)">
 						<uni-icons class="btn-icon" type="compose" color="#656D76" size="24"></uni-icons>
@@ -32,10 +32,10 @@
 					</view>
 				</slot>
 			</view>
-			<view class="item-header"></view>
-			<view class="item-footer">
 
-			</view>
+			<view class="item-header"></view>
+			<view class="item-footer"></view>
+
 		</view>
 	</view>
 </template>
@@ -48,6 +48,13 @@
 				type: Array,
 				default () {
 					return []
+				}
+			},
+			// manage ｜ cart
+			type: {
+				type: String,
+				default () {
+					return ""
 				}
 			},
 		},

@@ -27,7 +27,7 @@
 								<view class="fui-banner__cell" :class="{'fui-item__scale':bannerCurrent!==index}"
 									:style="{background: '#fff',padding: '0px','box-sizing': 'border-box',}">
 									<image class="image" :src="item" :mode="'aspectFill'"
-										style="width: 100%;height: 100%;">
+										style="width: 100%;">
 									</image>
 								</view>
 							</swiper-item>
@@ -58,7 +58,7 @@
 					</template>
 					<template v-if="tabMenuCurrent === 1">
 						<view class="product-wrap">
-							<product-list-cart :items="items"></product-list-cart>
+							<product-list :type="'cart'" :items="items"></product-list>
 						</view>
 						<view class="content-footer">
 							<uni-load-more :status="loadStatus"></uni-load-more>

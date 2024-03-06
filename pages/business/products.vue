@@ -8,8 +8,8 @@
 		</view>
 		<view class="page-body">
 			<view class="container">
-				<product-list-manage :items="items" @update-item="updateItem"
-					@delete-item="deleteItem"></product-list-manage>
+				<product-list :type="'manage'" :items="items" @update-item="updateItem"
+					@delete-item="deleteItem"></product-list>
 			</view>
 
 			<fui-fab background="var(--app-color-master)" :isDrag="true" :mask="true" :maskClosable="true"

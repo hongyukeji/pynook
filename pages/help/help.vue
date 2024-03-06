@@ -24,7 +24,7 @@
 		},
 		computed: {},
 		onLoad() {},
-		onShow() {,
+		onShow() {},
 		onReady() {},
 		methods: {},
 	}

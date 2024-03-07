@@ -4,10 +4,10 @@
 			<view class="fui-img__box">
 				<image :src="`${resUrl}/common/img_coding_3x.png`" class="fui-img" mode="widthFix"></image>
 			</view>
-			<view class="fui-title">开发中</view>
-			<view class="fui-sub__title">功能开发中，敬请期待！</view>
+			<view class="fui-title">{{$t('common.developing')}}</view>
+			<view class="fui-sub__title">{{$t('common.developing.tips')}}</view>
 			<view class="fui-btn__box">
-				<fui-button text="返回上一页" :size="28" width="336rpx" height="84rpx" radius="100rpx" background="#fff"
+				<fui-button :text="$t('common.text.return-previous-page')" :size="28" width="336rpx" height="84rpx" radius="100rpx" background="#fff"
 					borderColor="#465CFF" color="#465CFF" @click="goBackPage"></fui-button>
 			</view>
 		</view>

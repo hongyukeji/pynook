@@ -10,8 +10,9 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="item.image || globalConfig.app.logo"
-							:title="item.name" :tag="index + 'km'">
+						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :size="35" :width="155"
+							:height="155" :src="item.image || globalConfig.app.logo" :title="item.name"
+							:tag="index + 'km'">
 							<view class="fui-card__content">
 								<uni-icons class="" type="location" color="var(--app-color-slave)"
 									size="18"></uni-icons>
@@ -182,5 +183,9 @@
 		font-size: 14px;
 		margin: 20rpx 20rpx;
 		box-sizing: border-box;
+	}
+
+	::v-deep .fui-card__header-title {
+		font-weight: bold;
 	}
 </style>

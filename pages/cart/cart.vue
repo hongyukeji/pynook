@@ -1,38 +1,92 @@
 <template>
-	<view class="page-wrap">
-		<view class="page-header"></view>
-		<view class="page-body">
-			<view class="container">
-				购物车列表
+	<view class="fui-wrap">
+		<view class="fui-content__box">
+			<view class="fui-img__box">
+				<image :src="`${resUrl}/common/img_coding_3x.png`" class="fui-img" mode="widthFix"></image>
+			</view>
+			<view class="fui-title">{{$t('common.developing')}}</view>
+			<view class="fui-sub__title">{{$t('common.developing.tips')}}</view>
+			<view class="fui-btn__box">
+				<fui-button :text="$t('common.text.return-previous-page')" :size="28" width="336rpx" height="84rpx"
+					radius="100rpx" background="#fff" borderColor="#465CFF" color="#465CFF"
+					@click="goIndex"></fui-button>
 			</view>
 		</view>
-		<view class="page-footer"></view>
 	</view>
 </template>
 
 <script>
 	export default {
-		components: {},
 		data() {
-			return {};
+			return {
+				resUrl: "/static/images"
+			}
 		},
-		onLoad() {},
-		onShow() {},
-		onReady() {},
-		methods: {},
+		methods: {
+			goIndex() {
+				uni.switchTab({
+					url: '/pages/index/index'
+				});
+			},
+			goBackPage() {
+				uni.switchTab({
+					url: '/'
+				});
+				//uni.navigateBack() // 默认delta:1
+				uni.navigateBack({
+					delta: 1, // 返回层数，2则上上页
+				})
+			}
+		}
 	}
 </script>
 
-<style lang="scss" scoped>
-	page {}
+<style>
+	page {
+		background-color: #fff;
+		font-weight: normal;
+	}
 
-	.page-wrap {}
+	.fui-content__box {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+	}
 
-	.page-header {}
+	.fui-img__box {
+		width: 100%;
+		height: 320rpx;
+		padding: 0 87rpx;
+		box-sizing: border-box;
+	}
 
-	.page-body {}
+	.fui-img {
+		width: 100%;
+		height: 318rpx;
+		display: block;
+	}
 
-	.page-footer {}
+	.fui-title {
+		text-align: center;
+		font-weight: 500;
+		color: #333333;
+		padding-top: 48rpx;
+	}
 
-	.container {}
+	.fui-sub__title {
+		text-align: center;
+		font-size: 24rpx;
+		font-weight: 400;
+		color: #B2B2B2;
+		padding-top: 8rpx;
+	}
+
+	.fui-btn__box {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		padding-top: 64rpx;
+	}
 </style>

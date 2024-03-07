@@ -86,9 +86,9 @@
 			...mapActions('user', ['syncUserBusinessInfo']),
 			debug() {
 				const globalData = getApp().globalData;
-				console.log('---> globalData :', JSON.stringify(globalData, null, 2));
-				console.log('---> isLogin :', this.isLogin);
-				console.log('---> isMerchant :', this.isMerchant);
+				// console.log('---> globalData :', JSON.stringify(globalData, null, 2));
+				// console.log('---> isLogin :', this.isLogin);
+				// console.log('---> isMerchant :', this.isMerchant);
 			},
 			getData() {
 				let that = this;

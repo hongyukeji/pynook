@@ -40,7 +40,7 @@
 					<uni-icons class="map-footer-button-item-icon" type="gear" color="var(--app-color-slave)"
 						size="32"></uni-icons><span>{{$t('business.button.manage-my-business')}}</span>
 				</view>
-				<view class="map-footer-button-item border-radius-circle" @click="moveToCurrentlocation()">
+				<view class="map-footer-button-item border-radius-circle" @click="moveToCurrentLocation()">
 					<uni-icons class="map-footer-button-item-icon" type="location" color="var(--app-color-slave)"
 						size="32"></uni-icons>
 				</view>
@@ -135,7 +135,7 @@
 					}
 				});
 			},
-			moveToCurrentlocation() {
+			moveToCurrentLocation() {
 				let mapObjs = uni.createMapContext(this.mapId, this)
 				mapObjs.moveToLocation({
 					complete: res => {
@@ -222,7 +222,7 @@
 				// })
 			},
 			focus(e) {
-				console.log('----focus:', res);
+				console.log('----focus:', e);
 				// todo: 关闭选择列表
 				// uni.showToast({
 				// 	title: 'focus事件，输出值为：' + e.value,

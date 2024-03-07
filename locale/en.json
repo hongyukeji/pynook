@@ -140,6 +140,11 @@
 	"common.on": "On",
 	"common.off": "Off",
 	"common.status": "Status",
+	"common.buy-now": "Buy now",
+	"common.customer-service": "Chat",
+	"common.text.return-previous-page": "Return to the previous page",
+	"common.text.return-home-page": "Return to the homepage.",
 	"common.developing": "Developing",
+	"common.developing.tips": "Functional development, please look forward to!",
 	"common.other": "Other"
 }

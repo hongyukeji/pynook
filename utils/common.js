@@ -97,6 +97,13 @@ export default {
 		let currentPage = pages[pages.length - 1]['$page']['fullPath'] //当前页面路径(带参数)
 		return currentPage;
 	},
+	previewImage(url, urls) {
+		uni.previewImage({
+			current: url,
+			loop: true,
+			urls: urls
+		})
+	},
 	redirect(url) {
 		if (url.startsWith('http')) {
 			this.redirectUrl(url);

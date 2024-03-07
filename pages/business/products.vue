@@ -219,7 +219,7 @@
 				this.$refs['form'].validate().then(validateFormData => {
 					console.log('success validateFormData:', validateFormData);
 					// uni.showToast({title: `校验通过`})
-					const method = [formData.id ? 'updateMerchantProduct' : 'addMerchantProduct'];
+					const method = formData.id ? 'updateMerchantProduct' : 'addMerchantProduct';
 					console.log('---> method :', method);
 					this.$api.business[method](formData).then((res) => {
 						// console.log('---> res :', res);

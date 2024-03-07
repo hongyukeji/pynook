@@ -3,13 +3,14 @@
 		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
-				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :src="merchant.image || globalConfig.app.logo"
-					:title="merchant.name" tag="0km">
+				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :size="35" :width="155"
+					:height="155" :src="merchant.image || globalConfig.app.logo" :title="merchant.name" tag="0km"
+					@click="onClickCard">
 					<view class="fui-card__content">
 						<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>
 						{{merchant.address}}
 					</view>
-					<view class="fui-card__content">
+					<view class="fui-card__content" @click="onClickTelephone(merchant.telephone)">
 						<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
 						{{merchant.telephone}}
 					</view>
@@ -24,10 +25,10 @@
 						<swiper class="fui-banner__box" @change="bannerChange" circular :indicator-dots="false" autoplay
 							:interval="5000" :duration="150">
 							<swiper-item v-for="(item,index) in banners" :key="index">
-								<view class="fui-banner__cell" :class="{'fui-item__scale':bannerCurrent!==index}"
+								<view @click="bannerPreviewImage(index)" class="fui-banner__cell"
+									:class="{'fui-item__scale':bannerCurrent!==index}"
 									:style="{background: '#fff',padding: '0px','box-sizing': 'border-box',}">
-									<image class="image" :src="item" :mode="'aspectFill'"
-										style="width: 100%;">
+									<image class="image" :src="item" :mode="'aspectFill'" style="width: 100%;">
 									</image>
 								</view>
 							</swiper-item>
@@ -58,7 +59,9 @@
 					</template>
 					<template v-if="tabMenuCurrent === 1">
 						<view class="product-wrap">
-							<product-list :type="'cart'" :items="items"></product-list>
+							<product-list :type="'cart'" :items="items" :cartList="cartList"
+								@add-cart-item="addCartItem" @update-cart-item="updateCartItem"
+								@delete-cart-item="deleteCartItem"></product-list>
 						</view>
 						<view class="content-footer">
 							<uni-load-more :status="loadStatus"></uni-load-more>
@@ -113,24 +116,29 @@
 						text: this.$t('tabbar.home'),
 						url: '/'
 					},
+					{
+						icon: 'chat',
+						text: this.$t('common.customer-service'),
+						url: 'method://onClickTelephone',
+					},
 					/* {
-					icon: 'chat',
-					text: '客服'
-				}, {
 					icon: 'shop',
 					text: '店铺',
 					info: 2,
 					infoBackgroundColor: '#007aff',
 					infoColor: "#f5f5f5"
-				}, */
+					}, */
 					{
 						icon: 'cart',
 						text: this.$t('tabbar.cart'),
-						url: '/pages/cart/cart'
+						url: '/pages/cart/cart',
+						info: 0,
+						// info: this.$store.getters['cart/cartTotalQuantity'] || 0,
+						// info: this.$store.state.cart.cartTotalQuantity,
 					}
 				],
 				buttonGroup: [{
-					text: '立即购买',
+					text: this.$t('common.buy-now'),
 					// backgroundColor: 'linear-gradient(90deg, #FAD09E, #090C49)',
 					backgroundColor: 'linear-gradient(90deg, var(--app-color-master), var(--app-color-master))',
 					color: '#fff'
@@ -154,19 +162,53 @@
 						return "more";
 				}
 			},
+			...mapState({
+				isLogin: state => state.user.isLogin,
+			}),
+			...mapState({
+				cartList: state => state.cart.cartList,
+				cartTotalQuantity: state => state.cart.cartTotalQuantity,
+			}),
+			// ...mapGetters('cart', ['cartTotalQuantity']),
+		},
+		watch: {
+			cartTotalQuantity: {
+				handler(newVal, oldVal) {
+					// console.log("---> cartTotalQuantity watch newVal: ", newVal);
+					// console.log("---> cartTotalQuantity watch oldVal: ", oldVal);
+					// this.navOptions[1].info = this.cartTotalQuantity;
+					this.navOptions.map(item => {
+						// console.log(item);
+						if (item.url == '/pages/cart/cart') {
+							item.info = this.cartTotalQuantity;
+						}
+					});
+				},
+				immediate: true, // 初始化绑定时就会执行handler方法
+				deep: true, // 对象中任一属性值发生变化，都会触发handler方法
+			},
 		},
 		onLoad(options) {
 			this.merchant.id = options.id
 			this.params.merchantId = options.id
 		},
-		onShow() {},
+		onShow() {
+			// console.log('---> cartList :', this.cartList);
+			// console.log('---> cartTotalQuantity :', this.cartTotalQuantity);
+			// console.log('---> cartTotalQuantity :', this.$store.state.cart.cartTotalQuantity);
+			// console.log('---> cartTotalQuantity :', this.$store.getters['cart/cartTotalQuantity']);
+		},
 		onReady() {},
 		mounted() {
 			this.getMerchantData();
 			this.getBusinessDetail();
 			this.loadData();
+			if (this.isLogin) {
+				this.syncCartData();
+			}
 		},
 		methods: {
+			...mapActions('cart', ['getCartList', 'getCartTotalQuantity', 'addCart', 'updateCart', 'deleteCart']),
 			async getBusinessDetail() {
 				const formData = {
 					merchantId: this.merchant.id,
@@ -253,6 +295,13 @@
 					title: `点击${e.content.text}`,
 					icon: 'none'
 				}) */
+				const link = e.content.url;
+				if (link.startsWith('method://')) {
+					const method = link.substring('method://'.length);
+					console.log(method); // 输出: addItem
+					this[method]();
+					return;
+				}
 				const url = e.content.url;
 				this.$utils.common.redirect(url);
 			},
@@ -274,17 +323,74 @@
 			handleClick(e) {
 				console.log(e);
 			},
-			// 下拉刷新
-			async onPullDownRefresh() {
-				console.log('下拉刷新-->>')
-				await this.refreshData();
-				uni.stopPullDownRefresh() // 停止当前页面刷新
+			async syncCartData() {
+				await this.getCartList();
+				await this.getCartTotalQuantity();
 			},
-			// 触底加载
-			async onReachBottom() {
-				console.log('触底加载-->>')
-				await this.loadData();
+			async addCartItem(item, value, params) {
+				console.log('---> addCartItem :', item);
+				if (!item) {
+					return;
+				}
+				const formData = {
+					productId: item.id,
+					quantity: value,
+				};
+				await this.addCart(formData);
+				await this.syncCartData();
 			},
+			async updateCartItem(item, value, params) {
+				if (!item) {
+					return;
+				}
+				return;
+				console.log('---> updateCartItem :', item);
+				const formData = {
+					productId: item.id,
+					quantity: value,
+				};
+				await this.updateCart(formData);
+				await this.syncCartData();
+			},
+			async deleteCartItem(item, value, params) {
+				console.log('---> deleteCartItem :', item);
+				if (!item) {
+					return;
+				}
+				const formData = {
+					productId: item.id,
+					quantity: value,
+				};
+				await this.deleteCart(formData);
+				await this.syncCartData();
+			},
+			onClickTelephone(telephone) {
+				if (!telephone) {
+					telephone = this.merchant.telephone;
+				}
+				uni.makePhoneCall({
+					phoneNumber: telephone,
+				});
+			},
+			bannerPreviewImage(index) {
+				uni.previewImage({
+					current: this.banners[index],
+					loop: true,
+					urls: this.banners
+				})
+			},
+			onClickCard(index) {},
+		},
+		// 下拉刷新
+		async onPullDownRefresh() {
+			console.log('下拉刷新-->>')
+			await this.refreshData();
+			uni.stopPullDownRefresh() // 停止当前页面刷新
+		},
+		// 触底加载
+		async onReachBottom() {
+			console.log('触底加载-->>')
+			await this.loadData();
 		},
 	}
 </script>
@@ -347,6 +453,7 @@
 		// text-align: center;
 		box-sizing: border-box;
 		padding: $uni-spacing-col-lg 0px;
+		padding-bottom: 50px;
 	}
 
 	.banner-wrap {
@@ -438,5 +545,9 @@
 
 	.fui-item__scale {
 		transform: scale3d(.9, .9, 1);
+	}
+
+	::v-deep .fui-card__header-title {
+		font-weight: bold;
 	}
 </style>

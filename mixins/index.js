@@ -64,6 +64,12 @@ export default {
 				this.$i18n.locale = e.code;
 			}
 		},
+		toPrice(amount) {
+			return this.$utils.common.toPrice(amount);
+		},
+		redirect(url, that, params) {
+			return this.$utils.common.redirect(url, that, params);
+		},
 		printUserAgent() {
 			let that = this;
 			let userAgent = window.navigator.userAgent.toLowerCase();
@@ -91,12 +97,6 @@ export default {
 			Object.keys(commonData).forEach(key => {
 				this.globalData[key] = Object.assign(this.globalData[key] || {}, commonData[key]);
 			});
-		},
-		toPrice(amount) {
-			return this.$utils.common.toPrice(amount);
-		},
-		redirect(url, that, params) {
-			return this.$utils.common.redirect(url, that, params);
 		},
 	},
 }

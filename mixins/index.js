@@ -5,9 +5,10 @@ export default {
 			applicationLocale: 'auto',
 			// appName: getApp().globalData?.app?.name || '',
 			// appLogo: getApp().globalData?.app?.logo || '',
-			// appName: globalConfig?.app?.name || '',
-			// appLogo: globalConfig?.app?.logo || '',
-			// appVersion: globalConfig?.app?.version || '',
+			// appName: this.globalConfig?.app?.name || '',
+			// appLogo: this.globalConfig?.app?.logo || '',
+			// appVersion: this.globalConfig?.app?.version || '',
+			coin: this.globalConfig?.app?.coin || 'π',
 		};
 	},
 	computed: {
@@ -90,6 +91,12 @@ export default {
 			Object.keys(commonData).forEach(key => {
 				this.globalData[key] = Object.assign(this.globalData[key] || {}, commonData[key]);
 			});
+		},
+		toPrice(amount) {
+			return this.$utils.common.toPrice(amount);
+		},
+		redirect(url, that, params) {
+			return this.$utils.common.redirect(url, that, params);
 		},
 	},
 }

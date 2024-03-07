@@ -120,7 +120,7 @@
 			},
 			toProductPage() {
 				const url = "/pages/business/products";
-				this.$utils.common.redirect(url);
+				this.redirect(url);
 			},
 		},
 	}

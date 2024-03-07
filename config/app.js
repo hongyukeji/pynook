@@ -4,6 +4,7 @@ export default {
 	url: 'https://pynook.com',
 	apiUrl: '',
 	apiDevUrl: 'http://localhost:8000',
-	logo: '/static/images/logo.png',
+	logo: '/static/images/common/logo.png',
 	description: '',
+	coin: 'π',
 }

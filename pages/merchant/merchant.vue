@@ -113,7 +113,7 @@
 			},
 			toRedirect(item) {
 				const url = "/pages/merchant/detail?id=" + item.id;
-				this.$utils.common.redirect(url);
+				this.redirect(url);
 			},
 		},
 		// 下拉刷新

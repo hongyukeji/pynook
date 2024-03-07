@@ -56,9 +56,9 @@
 										@change="(val)=>{formData.stock = val.replace(/\.(\d*)/, '').replace(/[^\d]/g, '');}"
 										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.stock')" />
 								</uni-forms-item>
-								<uni-forms-item :label="$t('common.product.delivery-time')" required
-									:name="['deliveryTime']">
-									<uni-easyinput v-model="formData.deliveryTime"
+								<uni-forms-item :label="$t('common.product.delivery-time')"
+									:name="['promiseDeliveryTime']">
+									<uni-easyinput v-model="formData.promiseDeliveryTime"
 										:placeholder="$t('common.form.please-enter')+' '+$t('common.product.delivery-time')" />
 								</uni-forms-item>
 							</uni-forms>
@@ -268,7 +268,7 @@
 				this.updateItem(item);
 				return;
 				const url = "/pages/product/detail?id=" + item.id;
-				this.$utils.common.redirect(url);
+				this.redirect(url);
 			},
 			addItem() {
 				console.log('---> addItem :', '添加商品');
@@ -332,7 +332,7 @@
 					this[method]();
 					return;
 				}
-				this.$utils.common.redirect(link);
+				this.redirect(link);
 			},
 		},
 		// 下拉刷新

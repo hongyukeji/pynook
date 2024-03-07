@@ -9,7 +9,7 @@
 			<view class="fui-btn__box">
 				<fui-button :text="$t('common.text.return-previous-page')" :size="28" width="336rpx" height="84rpx"
 					radius="100rpx" background="#fff" borderColor="#465CFF" color="#465CFF"
-					@click="goIndex"></fui-button>
+					@click="goBackPage"></fui-button>
 			</view>
 		</view>
 	</view>
@@ -29,13 +29,16 @@
 				});
 			},
 			goBackPage() {
-				uni.switchTab({
-					url: '/'
-				});
+				this.$utils.common.toBackPage();
+				this.removeReturnUrl();
+				return;
+				// uni.switchTab({
+				// 	url: '/'
+				// });
 				//uni.navigateBack() // 默认delta:1
-				uni.navigateBack({
-					delta: 1, // 返回层数，2则上上页
-				})
+				// uni.navigateBack({
+				// 	delta: 1, // 返回层数，2则上上页
+				// })
 			}
 		}
 	}

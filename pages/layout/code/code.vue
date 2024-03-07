@@ -53,7 +53,8 @@
 	.page-footer {}
 
 	.container {
-		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
-		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+		// margin: $uni-spacing-row-lg;
+		// padding: $uni-spacing-row-lg;
+		// border-radius: $uni-border-radius-lg;
 	}
 </style>

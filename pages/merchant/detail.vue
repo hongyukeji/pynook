@@ -283,13 +283,16 @@
 				}) */
 				const url = e.content.url;
 				const params = e.content;
-				this.$utils.common.redirect(url, this, params);
+				if (url == '/pages/cart/cart') {
+					this.$utils.common.setReturnUrl();
+				}
+				this.redirect(url, this, params);
 			},
 			onClickNavButton(e) {
 				console.log('---> onClickNavButton :', e);
 				const url = e.content.url;
 				const params = e.content;
-				this.$utils.common.redirect(url, this, params);
+				this.redirect(url, this, params);
 			},
 			onChangeBanner(e) {
 				// console.log('---> onChangeBanner :', e);
@@ -374,7 +377,7 @@
 				// console.log('---> urlParams :', urlParams);
 
 				const url = `/pages/order/confirm?${urlParams}`;
-				this.$utils.common.redirect(url, this, params);
+				this.redirect(url, this, params);
 			},
 		},
 		// 下拉刷新

@@ -133,7 +133,7 @@
 					})
 					return;
 				}
-				this.$utils.common.redirect(url);
+				this.redirect(url);
 			},
 		},
 	}

@@ -59,7 +59,6 @@ export default async function() {
 						title: t('pages.auth.please-login') || '请登录',
 						icon: 'none'
 					})
-					store.commit('user/logout');
 					utils.common.toLoginPage(url);
 					return false
 				}

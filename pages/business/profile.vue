@@ -261,7 +261,7 @@
 
 						// todo：跳转至业务仪表盘
 						// const url = "/pages/business/dashbord";
-						// this.$utils.common.redirect(url);
+						// this.redirect(url);
 
 						if (isSyncStatus) {
 							this.syncUserBusinessInfo();
@@ -292,7 +292,7 @@
 				}
 
 				const link = item.url;
-				this.$utils.common.redirect(link);
+				this.redirect(link);
 			},
 		},
 	}

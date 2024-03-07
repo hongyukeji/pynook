@@ -7,7 +7,7 @@
 			:style="{background:hdBackground,paddingLeft:padding+'rpx',paddingRight:padding+'rpx'}"
 			v-if="panelData[head]">
 			<text :class="{'fui-panel__title-color':!headColor}"
-				:style="{fontSize:headSize+'rpx',color:headColor+'rpx'}">{{panelData[head] || ''}}</text>
+				:style="{fontSize:headSize+'rpx',color:headColor}">{{panelData[head] || ''}}</text>
 			<view v-if="hdBorder" :style="{background:borderColor,left:hdLeft+'rpx',right:hdRight+'rpx'}"
 				class="fui-panel__border" :class="{'fui-panel__border-color':!borderColor}"></view>
 		</view>

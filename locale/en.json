@@ -60,6 +60,7 @@
 	"pages.merchant.detail": "Merchant detail",
 	"pages.locale.locale": "Locale",
 	"pages.common.coding.coding": "Coding",
+	"pages.about.about": "About",
 	"pages.business.profile": "Business profile",
 	"pages.business.dashbord": "Business dashbord",
 	"pages.business.profile.qrcode": "Business QR Code",
@@ -143,8 +144,12 @@
 	"common.buy-now": "Buy now",
 	"common.customer-service": "Chat",
 	"common.text.return-previous-page": "Return to the previous page",
-	"common.text.return-home-page": "Return to the homepage.",
+	"common.text.return-home-page": "Return to the homepage",
+	"common.network-error": "Network error",
 	"common.developing": "Developing",
 	"common.developing.tips": "Functional development, please look forward to!",
+	"common.app.name": "App name",
+	"common.app.version": "App version",
+	"common.app.browser": "App browser",
 	"common.other": "Other"
 }

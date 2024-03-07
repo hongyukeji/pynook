@@ -60,6 +60,7 @@
 	"pages.merchant.merchant": "商户",
 	"pages.merchant.detail": "商户详情",
 	"pages.locale.locale": "语言区域",
+	"pages.about.about": "关于",
 	"pages.common.coding.coding": "开发中",
 	"pages.business.profile": "业务简介",
 	"pages.business.dashbord": "业务仪表盘",
@@ -126,7 +127,6 @@
 	"common.product.stock": "商品库存",
 	"common.product.image": "商品图片",
 	"common.product.description": "商品描述",
-	"common.product.description": "商品描述",
 	"common.product.delivery-time": "商品配送时间",
 	"common.order": "订单",
 	"common.orders": "订单列表",
@@ -148,7 +148,11 @@
 	"common.customer-service": "客服",
 	"common.text.return-previous-page": "返回上一页",
 	"common.text.return-home-page": "返回首页",
+	"common.network-error": "您的网络不给力，请检查网络设置！",
 	"common.developing": "开发中",
 	"common.developing.tips": "功能开发中，敬请期待！",
+	"common.app.name": "应用名称",
+	"common.app.version": "应用版本号",
+	"common.app.browser": "应用浏览器",
 	"common.other": "其他"
 }

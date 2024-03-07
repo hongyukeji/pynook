@@ -5,15 +5,15 @@
 			<view class="container">
 				<view class="header">
 					<view class="logo">
-						<image class="image" :src="globalConfig.app.logo" :mode="'aspectFill'" style="width: 100%;height: 100%;">
+						<image class="image" :src="globalConfig?.app?.logo" :mode="'aspectFill'" style="width: 100%;height: 100%;">
 						</image>
 					</view>
 					<view class="name">
-						{{ globalConfig.app.name }}
+						{{ globalConfig?.app?.name }}
 					</view>
 				</view>
 				<view class="description">
-					For use with the [{{ globalConfig.app.name }}] Pi App
+					For use with the [{{ globalConfig?.app?.name }}] Pi App
 				</view>
 				<view class="content">
 					<view class="qrcode-wrap">

@@ -2,7 +2,7 @@ import globalConfig from '@/config'
 
 export default {
 	getApiUrl() {
-		const url = (process.env.NODE_ENV === 'production' ? globalConfig.app.apiUrl : globalConfig.app.devApiUrl) ||
+		const url = (process.env.NODE_ENV === 'production' ? globalConfig?.app?.apiUrl : globalConfig?.app?.apiDevUrl) ||
 			'';
 		return url;
 	},
@@ -98,13 +98,28 @@ export default {
 		return currentPage;
 	},
 	previewImage(url, urls) {
+		if (!urls) {
+			urls = [url];
+		}
 		uni.previewImage({
 			current: url,
 			loop: true,
 			urls: urls
 		})
 	},
-	redirect(url) {
+	redirect(url, that, params) {
+		// console.log('---> redirect url :', url);
+		if (!url) {
+			throw new Error('[redirect] Url is empty');
+		}
+		if (url.startsWith('method://')) {
+			const method = url.substring('method://'.length);
+			console.log('---> redirect method :', method);
+			console.log('---> redirect params :', params);
+			that[method](params);
+			return;
+		}
+
 		if (url.startsWith('http')) {
 			this.redirectUrl(url);
 			return;

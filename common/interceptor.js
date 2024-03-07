@@ -80,10 +80,19 @@ export default async function() {
 		},
 		success(res) {
 			// console.log('interceptor-success', res)
-			if (res.data.code == 401) {
-				// console.log('interceptor-store', store)
+			const message = res.data?.message || this.$t('common.request-failed');
+			// const data = res.data?.data;
+			if (res.data?.code == 401) {
 				store.commit('user/logout');
 				utils.common.toLoginPage();
+				throw new Error(`[request] ${message}`);
+			}
+			if (res.data?.code != 200) {
+				uni.showToast({
+					title: message,
+					icon: 'none'
+				})
+				throw new Error(`[request] ${message}`);
 			}
 		},
 		fail(err) {

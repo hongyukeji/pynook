@@ -19,12 +19,12 @@
 			<view class="userinfo-wrap">
 				<view class="userinfo">
 					<view class="avatar-wrap" style="">
-						<image class="avatar" :src="userData?.userInfo?.avatar || globalConfig.app.logo" :mode="'aspectFill'"
+						<image class="avatar" :src="userData?.userInfo?.avatar || globalConfig?.app?.logo" :mode="'aspectFill'"
 							style="width: 100%;height: 100%;">
 						</image>
 					</view>
 					<view class="username">
-						{{userData?.userInfo?.username || globalConfig.app.name}}
+						{{userData?.userInfo?.username || globalConfig?.app?.name}}
 					</view>
 					<view class="login-wrap" v-if="!userData.isLogin">
 						<navigator :url="'/pages/auth/login'">{{$t('common.login')}}</navigator>

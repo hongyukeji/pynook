@@ -9,10 +9,10 @@
 			</view>
 			<view class="page-header-center">
 				<view class="page-header-logo" style="">
-					<image class="logo-image" :src="globalConfig.app.logo" :mode="'heightFix'" style="height: 100%;">
+					<image class="logo-image" :src="globalConfig?.app?.logo" :mode="'heightFix'" style="height: 100%;">
 					</image>
 				</view>
-				<span class="page-header-name">{{ globalConfig.app.name }}</span>
+				<span class="page-header-name">{{ globalConfig?.app?.name }}</span>
 			</view>
 			<view class="page-header-right">
 				<view class="btn-icon btn-scan" @click="scan">
@@ -67,7 +67,7 @@
 		},
 		onLoad() {
 			uni.setNavigationBarTitle({
-				title: this.globalConfig.app.name,
+				title: this.globalConfig?.app?.name,
 			})
 			this.getAppData();
 			// this.getData();

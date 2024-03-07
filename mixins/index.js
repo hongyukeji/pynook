@@ -5,6 +5,9 @@ export default {
 			applicationLocale: 'auto',
 			// appName: getApp().globalData?.app?.name || '',
 			// appLogo: getApp().globalData?.app?.logo || '',
+			// appName: globalConfig?.app?.name || '',
+			// appLogo: globalConfig?.app?.logo || '',
+			// appVersion: globalConfig?.app?.version || '',
 		};
 	},
 	computed: {
@@ -59,6 +62,23 @@ export default {
 				uni.setLocale(e.code);
 				this.$i18n.locale = e.code;
 			}
+		},
+		printUserAgent() {
+			let that = this;
+			let userAgent = window.navigator.userAgent.toLowerCase();
+			console.log('---> userAgent', userAgent);
+			// alert(JSON.stringify(userAgent));
+			uni.showModal({
+				title: this.$t('common.tips'),
+				content: JSON.stringify(userAgent),
+				success: function(res) {
+					if (res.confirm) {
+						console.log('用户点击确定');
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
 		}
 	},
 }

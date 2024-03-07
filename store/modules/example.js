@@ -1,25 +1,35 @@
-// store/modules/user.js
-
-const state = {
-	// 模块1的状态
-}
-
-const getters = {
-	// 模块1的getters
-}
-
-const mutations = {
-	// 模块1的mutations
-}
-
-const actions = {
-	// 模块1的actions
-}
+import api from '@/api'
 
 export default {
 	namespaced: true,
-	state,
-	getters,
-	mutations,
-	actions
+	state: {},
+	getters: {
+		data: state => {
+			return JSON.parse(JSON.stringify(state));
+		}
+	},
+	mutations: {
+		setData(state, data) {
+			// console.log('---> setData :', data);
+			Object.keys(data).forEach(key => {
+				state[key] = data[key];
+			});
+		},
+	},
+	actions: {
+		getData({
+			commit
+		}) {
+			return new Promise((resolve, reject) => {
+				api.example.getData().then(res => {
+					const data = res.data.data;
+					// console.log('---> getData :', data);
+					commit('setData', data);
+					resolve(res)
+				}).catch(error => {
+					reject(error)
+				})
+			})
+		},
+	}
 }

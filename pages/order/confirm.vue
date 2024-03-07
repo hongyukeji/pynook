@@ -2,18 +2,8 @@
 	<view class="page-wrap">
 		<view class="page-header"></view>
 		<view class="page-body">
-			<view class="container" style="padding: 30px;">
-				<view class="app-info">
-					<view class="app-name">
-						{{$t('common.app.name')}}: {{ globalConfig?.app?.name }}
-					</view>
-					<view class="app-version">
-						{{$t('common.app.version')}}: {{ globalConfig?.app?.version }}
-					</view>
-				</view>
-				<view class="info">
-					{{$t('common.app.browser')}}: {{userAgent}}
-				</view>
+			<view class="container">
+				功能开发中，敬请期待！
 			</view>
 		</view>
 		<view class="page-footer"></view>
@@ -30,14 +20,13 @@
 	export default {
 		components: {},
 		data() {
-			return {
-				userAgent: window.navigator.userAgent.toLowerCase(),
-			};
+			return {};
 		},
 		computed: {},
 		onLoad() {},
 		onShow() {},
 		onReady() {},
+		mounted() {},
 		methods: {},
 	}
 </script>
@@ -54,7 +43,6 @@
 	.page-footer {}
 
 	.container {
-		box-sizing: border-box;
 		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
 		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
 	}

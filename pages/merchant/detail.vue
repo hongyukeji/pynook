@@ -3,27 +3,11 @@
 		<view class="page-header"></view>
 		<view class="page-body">
 			<view class="container">
-				<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :size="35" :width="155"
-					:height="155" :src="merchant.image || globalConfig.app.logo" :title="merchant.name" tag="0km"
-					@click="onClickCard">
-					<view class="fui-card__content">
-						<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>
-						{{merchant.address}}
-					</view>
-					<view class="fui-card__content" @click="onClickTelephone(merchant.telephone)">
-						<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
-						{{merchant.telephone}}
-					</view>
-					<view class="fui-card__content">
-						<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
-						{{merchant.introduction}}
-					</view>
-				</fui-card>
-
+				<merchant-info :merchant="merchant"></merchant-info>
 				<view class="banner-wrap" v-if="banners && banners.length > 0">
 					<fui-swiper-dot :styles="bannerStyles" :items="banners" :current="bannerCurrent">
-						<swiper class="fui-banner__box" @change="bannerChange" circular :indicator-dots="false" autoplay
-							:interval="5000" :duration="150">
+						<swiper class="fui-banner__box" @change="onChangeBanner" circular :indicator-dots="false"
+							autoplay :interval="5000" :duration="150">
 							<swiper-item v-for="(item,index) in banners" :key="index">
 								<view @click="bannerPreviewImage(index)" class="fui-banner__cell"
 									:class="{'fui-item__scale':bannerCurrent!==index}"
@@ -72,8 +56,8 @@
 		</view>
 		<view class="page-footer">
 			<!-- <view class="goods-carts" v-if="tabMenuCurrent === 1"></view> -->
-			<uni-goods-nav :options="navOptions" :fill="true" :button-group="buttonGroup" @click="navClick"
-				@buttonClick="navButtonClick" />
+			<uni-goods-nav :options="navMenuList" :fill="true" :button-group="navButtonList" @click="onClickNavMenu"
+				@buttonClick="onClickNavButton" />
 		</view>
 	</view>
 </template>
@@ -111,7 +95,7 @@
 					activeWidth: 24,
 					activeBackground: 'var(--app-color-master)',
 				},
-				navOptions: [{
+				navMenuList: [{
 						icon: 'home',
 						text: this.$t('tabbar.home'),
 						url: '/'
@@ -137,11 +121,12 @@
 						// info: this.$store.state.cart.cartTotalQuantity,
 					}
 				],
-				buttonGroup: [{
+				navButtonList: [{
 					text: this.$t('common.buy-now'),
 					// backgroundColor: 'linear-gradient(90deg, #FAD09E, #090C49)',
 					backgroundColor: 'linear-gradient(90deg, var(--app-color-master), var(--app-color-master))',
-					color: '#fff'
+					color: '#fff',
+					url: 'method://onConfirmOrder',
 				}],
 				productList: [],
 			};
@@ -176,8 +161,8 @@
 				handler(newVal, oldVal) {
 					// console.log("---> cartTotalQuantity watch newVal: ", newVal);
 					// console.log("---> cartTotalQuantity watch oldVal: ", oldVal);
-					// this.navOptions[1].info = this.cartTotalQuantity;
-					this.navOptions.map(item => {
+					// this.navMenuList[1].info = this.cartTotalQuantity;
+					this.navMenuList.map(item => {
 						// console.log(item);
 						if (item.url == '/pages/cart/cart') {
 							item.info = this.cartTotalQuantity;
@@ -290,35 +275,30 @@
 					this.tabMenuCurrent = e.currentIndex
 				}
 			},
-			navClick(e) {
+			onClickNavMenu(e) {
+				console.log('---> onClickNavMenu :', e);
 				/* uni.showToast({
 					title: `点击${e.content.text}`,
 					icon: 'none'
 				}) */
-				const link = e.content.url;
-				if (link.startsWith('method://')) {
-					const method = link.substring('method://'.length);
-					console.log(method); // 输出: addItem
-					this[method]();
-					return;
-				}
 				const url = e.content.url;
-				this.$utils.common.redirect(url);
+				const params = e.content;
+				this.$utils.common.redirect(url, this, params);
 			},
-			navButtonClick(e) {
-				console.log(e)
+			onClickNavButton(e) {
+				console.log('---> onClickNavButton :', e);
+				const url = e.content.url;
+				const params = e.content;
+				this.$utils.common.redirect(url, this, params);
 			},
-			bannerChange(e) {
+			onChangeBanner(e) {
+				// console.log('---> onChangeBanner :', e);
 				this.bannerCurrent = e.detail.current;
 			},
 			getPrice(price, type) {
 				if (!price) return ''
 				const arr = price.split('.')
 				return type === 1 ? arr[0] : `.${arr[1]}`
-			},
-			vip() {
-				const url = "/pages/my/qa/qa?index=2&title=VIP专属内容"
-				uni.fui.href(url)
 			},
 			handleClick(e) {
 				console.log(e);
@@ -364,10 +344,8 @@
 				await this.deleteCart(formData);
 				await this.syncCartData();
 			},
-			onClickTelephone(telephone) {
-				if (!telephone) {
-					telephone = this.merchant.telephone;
-				}
+			onClickTelephone() {
+				const telephone = this.merchant.telephone;
 				uni.makePhoneCall({
 					phoneNumber: telephone,
 				});
@@ -379,7 +357,20 @@
 					urls: this.banners
 				})
 			},
-			onClickCard(index) {},
+			onConfirmOrder(params) {
+				// console.log('---> onConfirmOrder params:', params);
+				const merchantId = this.merchant.id;
+				// 发送请求获取数据
+				const formData = {
+					merchantId: merchantId,
+				}
+				this.$api.order.confirmOrder(formData).then((res) => {
+					console.log('---> request res :', res);
+					const data = res.data?.data;
+					console.log('---> request data :', data);
+				})
+
+			},
 		},
 		// 下拉刷新
 		async onPullDownRefresh() {
@@ -428,14 +419,6 @@
 		margin: $uni-spacing-row-lg;
 		padding-bottom: var(--window-bottom);
 		margin-bottom: var(--window-bottom);
-	}
-
-	.fui-card__content {
-		color: $uni-text-color-placeholder;
-		font-weight: normal;
-		font-size: 14px;
-		margin: 20rpx 20rpx;
-		box-sizing: border-box;
 	}
 
 	.uni-common-mt {
@@ -545,9 +528,5 @@
 
 	.fui-item__scale {
 		transform: scale3d(.9, .9, 1);
-	}
-
-	::v-deep .fui-card__header-title {
-		font-weight: bold;
 	}
 </style>

@@ -299,7 +299,6 @@
 				const that = this;
 				uni.showModal({
 					title: this.$t('common.tips'),
-					content: `确定删除${item.name}商品吗？`,
 					content: this.$t('common.tips.confirm.delete', {
 						param: item.name
 					}),

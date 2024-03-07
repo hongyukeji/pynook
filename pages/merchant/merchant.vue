@@ -10,23 +10,7 @@
 			<view class="container">
 				<view class="items">
 					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<fui-card :margin="['0rpx','0rpx']" color="var(--app-color-master)" :size="35" :width="155"
-							:height="155" :src="item.image || globalConfig.app.logo" :title="item.name"
-							:tag="index + 'km'">
-							<view class="fui-card__content">
-								<uni-icons class="" type="location" color="var(--app-color-slave)"
-									size="18"></uni-icons>
-								{{item.address}}
-							</view>
-							<view class="fui-card__content">
-								<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
-								{{item.telephone}}
-							</view>
-							<view class="fui-card__content">
-								<uni-icons class="" type="info" color="var(--app-color-slave)" size="18"></uni-icons>
-								{{item.introduction}}
-							</view>
-						</fui-card>
+						<merchant-info :merchant="item"></merchant-info>
 					</view>
 				</view>
 			</view>

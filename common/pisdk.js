@@ -44,6 +44,7 @@ export default {
         });
     },
     isPiBrowser() {
+		return process.env.NODE_ENV === 'production';
         let that = this;
         let ua = window.navigator.userAgent.toLowerCase();
         // console.log('> pi userAgent', ua);

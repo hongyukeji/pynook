@@ -17,7 +17,7 @@ import globalMixin from './mixins/index.js';
 import interceptor from './common/interceptor.js';
 
 // 拦截器
-interceptor()
+interceptor();
 
 // 国际化配置
 let i18nConfig = {
@@ -29,27 +29,27 @@ let i18nConfig = {
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
-Vue.use(VueI18n)
-const i18n = new VueI18n(i18nConfig)
+Vue.use(VueI18n);
+const i18n = new VueI18n(i18nConfig);
 
-Vue.config.productionTip = false
-Vue.prototype.$store = store
-Vue.prototype.fui = fui
-Vue.prototype.http = http
-Vue.prototype.$utils = utils
-Vue.prototype.$api = api
-Vue.prototype.globalConfig = globalConfig
+Vue.config.productionTip = false;
+Vue.prototype.$store = store;
+Vue.prototype.fui = fui;
+Vue.prototype.http = http;
+Vue.prototype.$utils = utils;
+Vue.prototype.$api = api;
+Vue.prototype.globalConfig = globalConfig;
 
 Vue.mixin(globalMixin);
 
-App.mpType = 'app'
+App.mpType = 'app';
 
 const app = new Vue({
 	i18n,
 	store,
 	...App
 })
-app.$mount()
+app.$mount();
 // #endif
 
 // #ifdef VUE3
@@ -70,8 +70,8 @@ const i18n = createI18n(i18nConfig)
 
 export function createApp() {
 	const app = createSSRApp(App)
-	app.use(i18n)
-	app.use(store)
+	app.use(i18n);
+	app.use(store);
 	app.config.globalProperties.fui = fui;
 	app.config.globalProperties.http = http;
 	app.config.globalProperties.$utils = utils;

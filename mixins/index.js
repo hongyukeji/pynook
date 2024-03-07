@@ -79,6 +79,17 @@ export default {
 					}
 				}
 			});
-		}
+		},
+		async initGlobalData() {
+			// 获取公共数据
+			await this.$store.dispatch('common/getCommonData');
+			// 从 Vuex 中获取模块数据
+			const commonData = this.$store.getters['common/commonData'];
+			// 将模块数据挂载到 globalData 中，配置会覆盖本地的配置项
+			// this.globalData.common = commonData;
+			Object.keys(commonData).forEach(key => {
+				this.globalData[key] = Object.assign(this.globalData[key] || {}, commonData[key]);
+			});
+		},
 	},
 }

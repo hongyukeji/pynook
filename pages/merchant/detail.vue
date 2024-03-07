@@ -357,19 +357,24 @@
 					urls: this.banners
 				})
 			},
-			onConfirmOrder(params) {
-				// console.log('---> onConfirmOrder params:', params);
+			onConfirmOrder() {
+				// console.log('---> onConfirmOrder params :', params);
 				const merchantId = this.merchant.id;
 				// 发送请求获取数据
-				const formData = {
+				const params = {
 					merchantId: merchantId,
 				}
-				this.$api.order.confirmOrder(formData).then((res) => {
-					console.log('---> request res :', res);
-					const data = res.data?.data;
-					console.log('---> request data :', data);
-				})
 
+				// url参数编码
+				const urlParams = new URLSearchParams(params).toString();
+				console.log('---> urlParams :', urlParams);
+
+				// url参数解码
+				// const urlParams = new URLSearchParams(window.location.search);
+				// console.log('---> urlParams :', urlParams);
+
+				const url = `/pages/order/confirm?${urlParams}`;
+				this.$utils.common.redirect(url, this, params);
 			},
 		},
 		// 下拉刷新

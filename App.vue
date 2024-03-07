@@ -13,27 +13,8 @@
 		},
 		onLaunch: function() {
 			console.log('App Launch')
-			// 初始化应用
 			this.initApp();
-			//App2.6.5+ 仅iOS
-			// #ifndef APP-PLUS || H5
-			if (uni.canIUse('getUpdateManager')) {
-				const updateManager = uni.getUpdateManager();
-				updateManager.onCheckForUpdate((res) => {
-					if (res.hasUpdate) {
-						updateManager.onUpdateReady(() => {
-							this.fui.modal('更新提示', '发现新版本，为了获得更好的体验，建议立即更新', (res) => {
-								updateManager.applyUpdate();
-							});
-						});
-						updateManager.onUpdateFailed(() => {
-							this.fui.modal('更新失败', '新版本更新失败，请稍后再试或删除小程序重新搜索打开',
-								(res) => {});
-						});
-					}
-				});
-			}
-			// #endif
+			this.checkAppUpdate();
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -44,19 +25,29 @@
 		created() {},
 		methods: {
 			async initApp() {
-				// 初始化操作...
-				await this.initGlobalData();
+				// 初始化应用
 			},
-			async initGlobalData() {
-				// 获取公共数据
-				await this.$store.dispatch('common/getCommonData');
-				// 从 Vuex 中获取模块数据
-				const commonData = this.$store.getters['common/commonData'];
-				// 将模块数据挂载到 globalData 中，配置会覆盖本地的配置项
-				// this.globalData.common = commonData;
-				Object.keys(commonData).forEach(key => {
-					this.globalData[key] = Object.assign(this.globalData[key] || {}, commonData[key]);
-				});
+			async checkAppUpdate() {
+				// 检查应用更新
+				//App2.6.5+ 仅iOS
+				// #ifndef APP-PLUS || H5
+				if (uni.canIUse('getUpdateManager')) {
+					const updateManager = uni.getUpdateManager();
+					updateManager.onCheckForUpdate((res) => {
+						if (res.hasUpdate) {
+							updateManager.onUpdateReady(() => {
+								this.fui.modal('更新提示', '发现新版本，为了获得更好的体验，建议立即更新', (res) => {
+									updateManager.applyUpdate();
+								});
+							});
+							updateManager.onUpdateFailed(() => {
+								this.fui.modal('更新失败', '新版本更新失败，请稍后再试或删除小程序重新搜索打开',
+									(res) => {});
+							});
+						}
+					});
+				}
+				// #endif
 			},
 		},
 	}

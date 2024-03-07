@@ -218,7 +218,7 @@
 			"style": {
 				"navigationBarTitleText": "%pages.merchant.merchant%",
 				"enablePullDownRefresh": true, // 下拉刷新
-				"onReachBottomDistance": 50 // 页面上拉触底事件触发时距页面底部距离  触底加载
+				"onReachBottomDistance": 50 // 触底加载 页面上拉触底事件触发时距页面底部距离
 			}
 		},
 		{
@@ -350,7 +350,7 @@
 		{
 			"path": "pages/order/confirm",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "%pages.order.confirm%",
 				"enablePullDownRefresh": false
 			}
 		}

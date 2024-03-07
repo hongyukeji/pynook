@@ -114,8 +114,8 @@ export default {
 		}
 		if (url.startsWith('method://')) {
 			const method = url.substring('method://'.length);
-			console.log('---> redirect method :', method);
-			console.log('---> redirect params :', params);
+			// console.log('---> redirect method :', method);
+			// console.log('---> redirect params :', params);
 			that[method](params);
 			return;
 		}

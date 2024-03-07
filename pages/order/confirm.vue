@@ -20,14 +20,31 @@
 	export default {
 		components: {},
 		data() {
-			return {};
+			return {
+				options: {},
+			};
 		},
 		computed: {},
-		onLoad() {},
-		onShow() {},
+		onLoad(options) {
+			this.options = options;
+		},
+		onShow() {
+			console.log('---> onShow options :', this.options);
+		},
 		onReady() {},
-		mounted() {},
-		methods: {},
+		mounted() {
+			this.getData();
+		},
+		methods: {
+			getData() {
+				const params = this.options;
+				this.$api.order.confirmOrder(params).then((res) => {
+					console.log('---> request res :', res);
+					const data = res.data?.data;
+					console.log('---> request data :', data);
+				})
+			},
+		},
 	}
 </script>
 

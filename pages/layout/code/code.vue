@@ -23,7 +23,7 @@
 			return {};
 		},
 		computed: {},
-		onLoad() {},
+		onLoad(options) {},
 		onShow() {},
 		onReady() {},
 		mounted() {},

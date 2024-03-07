@@ -148,7 +148,7 @@
 	"common.customer-service": "客服",
 	"common.text.return-previous-page": "返回上一页",
 	"common.text.return-home-page": "返回首页",
-	"common.network-error": "您的网络不给力，请检查网络设置！",
+	"common.network-error": "网络不给力，请检查网络设置！",
 	"common.developing": "开发中",
 	"common.developing.tips": "功能开发中，敬请期待！",
 	"common.app.name": "应用名称",

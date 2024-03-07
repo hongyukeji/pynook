@@ -348,11 +348,10 @@
 			}
 		},
 		{
-			"path" : "pages/order/confirm",
-			"style" : 
-			{
-				"navigationBarTitleText" : "%pages.order.confirm%",
-				"enablePullDownRefresh" : false
+			"path": "pages/order/confirm",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		}
 	],

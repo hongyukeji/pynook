@@ -74,8 +74,8 @@
 		watch: {
 			orderData: {
 				handler(newVal, oldVal) {
-					console.log("---> orderData watch newVal: ", newVal);
-					console.log("---> orderData watch oldVal: ", oldVal);
+					// console.log("---> orderData watch newVal: ", newVal);
+					// console.log("---> orderData watch oldVal: ", oldVal);
 					// 更新页面数据...
 					this.syncOrderData(newVal);
 				},
@@ -96,10 +96,27 @@
 			getData() {
 				const params = this.options;
 				this.$api.order.confirmOrder(params).then((res) => {
-					console.log('---> request res :', res);
+					// console.log('---> request res :', res);
 					const data = res.data?.data;
-					console.log('---> request data :', data);
+					// console.log('---> request data :', data);
 					this.orderData = data;
+				})
+			},
+			submit() {
+				uni.showToast({
+					title: this.$t('common.developing'),
+					icon: 'none'
+				})
+				// return;
+				const params = this.options;
+				this.$api.order.submitOrder(params).then((res) => {
+					// console.log('---> request res :', res);
+					const data = res.data?.data;
+					// console.log('---> request data :', data);
+					this.orderData = data;
+
+					const paymentInfo = data.paymentInfo;
+					this.piPayment(paymentInfo.amount, paymentInfo.subject, paymentInfo.metadata);
 				})
 			},
 			syncOrderData(orderData) {
@@ -111,7 +128,7 @@
 				const coin = this.coin;
 				const merchant = orderData.merchant;
 				const orderItems = orderData.items;
-				console.log('---> syncOrderData orderItems :', orderItems);
+				// console.log('---> syncOrderData orderItems :', orderItems);
 				let productItems = [];
 				for (let i in orderItems) {
 					const orderItem = orderItems[i];
@@ -132,7 +149,6 @@
 				this.orderPreviewData.list[1].value = `${coin} ` + this.toPrice(orderData.totalPrice);
 				this.orderPreviewData.list[2].value = `${coin} ` + this.toPrice(orderData.discountAmount);
 				this.orderPreviewData.list[3].value = `${coin} ` + this.toPrice(orderData.totalAmount);
-
 			},
 		},
 	}

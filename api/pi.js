@@ -6,4 +6,14 @@ export default {
 			data: data
 		})
 	},
+	approve: (data) => {
+		return http.post('/api/payment/approve', {
+			data: data
+		})
+	},
+	complete: (data) => {
+		return http.post('/api/payment/complete', {
+			data: data
+		})
+	},
 }

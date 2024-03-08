@@ -79,7 +79,7 @@ export default async function() {
 		},
 		success(res) {
 			// console.log('interceptor-success', res)
-			const message = res.data?.message || this.$t('common.request-failed');
+			const message = res.data?.message || t('common.request-failed');
 			// const data = res.data?.data;
 			if (res.data?.code == 401) {
 				store.commit('user/logout');

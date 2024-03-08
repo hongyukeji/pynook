@@ -4,10 +4,16 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="logo-wrap">
-					<image class="logo-image" :src="globalConfig?.app?.logo" :mode="'heightFix'" style="height: 100%;"></image>
+					<image class="logo-image" :src="globalConfig?.app?.logo" :mode="'heightFix'" style="height: 100%;">
+					</image>
 				</view>
 				<uni-section :title="$t('common.login')+$t('common.account')" type="line">
-					<view class="form-wrap" v-if="!isPiBrowser">
+					<view class="form-wrap" v-if="!isPiBrowser || isPiBrowser">
+						<view class="btn-login btn-master-color" @click="piLogin()">
+							π {{$t('common.login')}}
+						</view>
+					</view>
+					<view class="form-wrap" v-else>
 						<fui-form ref="form" top="0" :model="formData" :show="false">
 							<fui-form-item label="用户名" asterisk prop="username">
 								<fui-input :borderBottom="false" :padding="[0]" placeholder="用户名/邮箱/手机号"
@@ -33,11 +39,7 @@
 							</navigator>
 						</view>
 					</view>
-					<view class="form-wrap" v-else>
-						<view class="btn-login btn-master-color" @click="piLogin()">
-							π {{$t('common.login')}}
-						</view>
-					</view>
+
 				</uni-section>
 			</view>
 		</view>
@@ -81,9 +83,6 @@
 			};
 		},
 		computed: {
-			isPiBrowser() {
-				return pisdk.isPiBrowser();
-			},
 			...mapState({
 				userData: state => state.user,
 			}),
@@ -132,121 +131,88 @@
 					console.log(err)
 				})
 			},
+
 			/**
 			 * pi登录
 			 */
 			piLogin() {
 				const that = this;
-				pisdk.loadScript()
-					.then(function() {
-						console.log('---> pi loadScript()');
-						console.log('---> pi login()');
-						uni.showLoading({
-							title: "正在唤醒登录授权..."
-						})
-						pisdk.login({
-							onIncompletePaymentFound: async function(payment) {
-								console.log('> pi onIncompletePaymentFound payment: ', payment);
+        console.log('---> pi login()');
+        uni.showLoading({
+          title: "正在唤醒登录授权..."
+        })
+				pisdk.login({
+					onIncompletePaymentFound: async function(payment) {
+						console.log('> pi onIncompletePaymentFound payment: ', payment);
 
-								let paymentId = payment.identifier;
-								let txid = payment.transaction.txid;
+						const paymentId = payment.identifier;
+						const txid = payment.transaction.txid;
 
-								// TODO: 发现未完成付款业务代码...
-								uni.request({
-									url: that.global.url + '/api/pi/complete?lang=' + uni
-										.getStorageSync('lang'),
-									method: 'POST',
-									header: {
-										'content-type': 'application/x-www-form-urlencoded'
-									},
-									data: {
-										"token": uni.getStorageSync("token").token,
-										"paymentId": paymentId,
-										"txid": txid,
-									},
-									success: (res) => {
-										console.log('>>> Pi onIncompletePaymentFound res',
-											res);
-
-										if (!res.data.code != 1) {
-											let err = res?.data?.message;
-											console.log('>>> Pi onIncompletePaymentFound err',
-												err);
-											uni.showToast({
-												icon: 'none',
-												title: `未付款订单处理失败 ${err}`
-											});
-											return;
-										}
-
-										if (res?.data?.data?.transaction?.verified || res?.data
-											?.transaction?.verified) {
-											uni.showToast({
-												icon: 'none',
-												title: '未付款订单处理成功，请重新发起付款'
-											});
-										} else {
-											uni.showToast({
-												icon: 'none',
-												title: '未付款订单处理失败，请稍后再试！'
-											});
-										}
-
-									},
-									fail: (err) => {
-
-									}
-								});
-
-							},
-						}).then(async function(auth) {
-							console.log('> pi login auth:', auth);
-
-							let accessToken = auth.accessToken;
-							// let uid = auth.user.uid;
-							// let username = auth.user.username;
-							// console.log('> pi accessToken', accessToken);
-
-							// TODO: 登录业务代码
-							let formData = {
-								accessToken: accessToken,
-								inviteCode: uni.getStorageSync('INVITE_CODE'),
-							};
-
-							that.$api.pi.login(formData).then((res) => {
-								console.log('---> res :', res);
-								const code = res.data?.code;
-								const message = res.data?.message;
-								console.log('---> code :', code);
-								console.log('---> message :', message);
-								if (code != 200) {
-									uni.showToast({
-										title: message || '登陆失败',
-										icon: 'none'
-									})
-									return;
-								}
-								const data = res.data?.data;
-								console.log('---> data :', data);
-								that.login(data);
+						// TODO: 发现未完成付款业务代码...
+						const formData = {
+							paymentId: paymentId,
+							txid: txid,
+						};
+						that.$api.pi.complete(formData).then((res) => {
+							// console.log('---> request res :', res);
+							const data = res.data?.data;
+							// console.log('---> request data :', data);
+							if (data?.transaction?.verified || data?.transaction
+								?.verified) {
 								uni.showToast({
-									title: '登陆成功',
-									icon: 'none'
-								})
-								that.$utils.common.toBackPage();
-							});
-
-						}).catch(function(err) {
-							console.error('> pi auth catch:', err);
-						}).finally(function() {
-							uni.hideLoading();
+									icon: 'none',
+									title: '未付款订单处理成功，请重新发起付款'
+								});
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: '未付款订单处理失败，请稍后再试！'
+								});
+							}
 						});
 
-					})
-					.catch(function(err) {
-						console.error(`> pi 环境加载失败 ${err}`);
+					},
+				}).then(async function(auth) {
+					console.log('> pi login auth:', auth);
+
+					const accessToken = auth.accessToken;
+					// const uid = auth.user.uid;
+					// const username = auth.user.username;
+					// console.log('> pi accessToken', accessToken);
+
+					// TODO: 登录业务代码
+					const formData = {
+						accessToken: accessToken,
+						inviteCode: uni.getStorageSync('INVITE_CODE'),
+					};
+					that.$api.pi.login(formData).then((res) => {
+						console.log('---> res :', res);
+						const code = res.data?.code;
+						const message = res.data?.message;
+						console.log('---> code :', code);
+						console.log('---> message :', message);
+						if (code != 200) {
+							uni.showToast({
+								title: message || '登陆失败',
+								icon: 'none'
+							})
+							return;
+						}
+						const data = res.data?.data;
+						console.log('---> data :', data);
+						that.login(data);
+						uni.showToast({
+							title: '登陆成功',
+							icon: 'none'
+						})
+						that.$utils.common.toBackPage();
 					});
 
+				}).catch(function(err) {
+					console.error('> pi auth catch:', err);
+				}).finally(function() {
+					uni.hideLoading();
+				});
 			},
 		},
 	}

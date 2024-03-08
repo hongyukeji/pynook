@@ -7,4 +7,5 @@ export default {
 	logo: '/static/images/common/logo.png',
 	description: '',
 	coin: 'π',
+	decimal: '8',
 }

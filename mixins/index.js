@@ -1,3 +1,5 @@
+import pisdk from '@/common/pisdk.js';
+
 export default {
 	data() {
 		return {
@@ -33,7 +35,10 @@ export default {
 					code: 'ja'
 				}
 			]
-		}
+		},
+		isPiBrowser() {
+			return pisdk.isPiBrowser();
+		},
 	},
 	created() {
 		// console.log("全局混入");
@@ -69,6 +74,145 @@ export default {
 		},
 		redirect(url, that, params) {
 			return this.$utils.common.redirect(url, that, params);
+		},
+		/**
+		 * pi支付
+		 */
+		piPayment(amount, memo, metadata) {
+			console.log('进入pi支付流程...');
+			console.log(result);
+			uni.hideLoading();
+
+			let that = this;
+			let paymentInfo = {
+				amount: amount,
+				memo: memo,
+				metadata: metadata,
+			}
+			pisdk.loadScript().then(function() {
+				console.log('---> pi loadScript()');
+				console.log('---> pi payment()');
+				uni.showLoading({
+					title: "正在唤醒支付..."
+				});
+				pisdk.payment(paymentInfo, {
+					onReadyForServerApproval: async function(paymentId) {
+						console.log('onReadyForServerApproval');
+						console.log('批准付款');
+						console.log(`paymentId：${paymentId}`);
+
+						const formData = {
+							paymentId: paymentId,
+						};
+						that.$api.pi.approve(formData).then((res) => {
+							console.log('---> request res :', res);
+							const data = res.data?.data;
+							// console.log('---> request data :', data);
+						});
+
+					},
+					onReadyForServerCompletion: async function(paymentId, txid) {
+						console.log('onReadyForServerCompletion');
+						console.log('完成付款');
+						console.log(`paymentId：${paymentId}`);
+						console.log(`txid：${txid}`);
+
+						const formData = {
+							paymentId: paymentId,
+							txid: txid,
+						};
+						that.$api.pi.complete(formData).then((res) => {
+							console.log('---> request res :', res);
+							const data = res.data?.data;
+							// console.log('---> request data :', data);
+							if (data?.transaction?.verified || data?.transaction
+								?.verified) {
+								uni.showToast({
+									icon: 'none',
+									title: '支付成功'
+								});
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: '完成付款失败，请稍后再试！'
+								});
+							}
+						});
+					},
+					onIncompletePaymentFound: async function(payment) {
+						console.log('onIncompletePaymentFound');
+						console.log('发现未完成付款...');
+						console.log('>>> Pi onIncompletePaymentFound payment: ', payment);
+
+						let paymentId = payment.identifier;
+						let txid = payment.transaction.txid;
+
+						// TODO: 发现未完成付款业务代码...
+						const formData = {
+							paymentId: paymentId,
+							txid: txid,
+						};
+						that.$api.pi.complete(formData).then((res) => {
+							// console.log('---> request res :', res);
+							const data = res.data?.data;
+							// console.log('---> request data :', data);
+							if (data?.transaction?.verified || data?.transaction
+								?.verified) {
+								uni.showToast({
+									icon: 'none',
+									title: '未付款订单处理成功，请重新发起付款'
+								});
+							} else {
+								uni.showToast({
+									icon: 'none',
+									title: '未付款订单处理失败，请稍后再试！'
+								});
+							}
+						});
+
+					},
+					onCancel: function(paymentId) {
+						console.log('>>> Pi onCancel ...');
+						uni.showToast({
+							icon: 'none',
+							title: `用户取消付款`
+						});
+					},
+					onError: function(error, payment) {
+						console.log('>>> Pi onError ...');
+						uni.showToast({
+							icon: 'none',
+							title: `支付异常 ${error}`
+						});
+					},
+				}).then(function(res) {
+					console.log('>>> pi pay() 支付成功', res);
+					uni.hideLoading();
+					uni.showToast({
+						icon: 'none',
+						title: `支付成功`
+					});
+				}).catch(function(err) {
+					console.log('>>> Pi pay() 支付失败', err);
+					uni.hideLoading();
+					uni.showToast({
+						icon: 'none',
+						title: `支付失败: ${err}`
+					});
+				}).finally(function() {
+					uni.hideLoading();
+				});
+
+				setTimeout(res => {
+					uni.hideLoading();
+				}, 5000)
+			}).catch(function(err) {
+				console.error(`>>> Pi环境加载失败 ${err}`);
+				uni.showToast({
+					icon: 'none',
+					title: `Pi环境加载失败 ${err}`
+				});
+			});
 		},
 		printUserAgent() {
 			let that = this;

@@ -58,9 +58,9 @@ export default {
     piBrowserDebug() {
         // console.log('> pi window.location.host:', window.location.host);
         // return true; // TODO: 开发时打开注释
-        /* if (/localhost/.test(window.location.host)) {
+        if (/localhost/.test(window.location.host)) {
             return true;
-        } */
+        }
         return false;
     },
     init() {

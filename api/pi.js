@@ -7,12 +7,12 @@ export default {
 		})
 	},
 	approve: (data) => {
-		return http.post('/api/payment/approve', {
+		return http.post('/api/pi/payment/approve', {
 			data: data
 		})
 	},
 	complete: (data) => {
-		return http.post('/api/payment/complete', {
+		return http.post('/api/pi/payment/complete', {
 			data: data
 		})
 	},

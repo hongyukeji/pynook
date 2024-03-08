@@ -132,7 +132,7 @@
 				let productItems = [];
 				for (let i in orderItems) {
 					const orderItem = orderItems[i];
-					console.log(orderItem);
+					// console.log('---> syncOrderData orderItem :', orderItem);
 					const productItem = {
 						src: orderItem.productImage,
 						title: orderItem.productName,

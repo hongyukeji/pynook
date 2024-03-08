@@ -76,142 +76,210 @@ export default {
 			return this.$utils.common.redirect(url, that, params);
 		},
 		/**
+		 * pi登录
+		 */
+		piLogin() {
+			console.log('---> pi login()');
+			uni.showLoading({
+				// title: "正在唤醒登录授权...",
+				title: this.$t('common.tips.loading'),
+			})
+			const that = this;
+			pisdk.login({
+				onIncompletePaymentFound: async function(payment) {
+					console.log('> pi onIncompletePaymentFound payment: ', payment);
+
+					const paymentId = payment.identifier;
+					const txid = payment.transaction.txid;
+
+					// TODO: 发现未完成付款业务代码...
+					const formData = {
+						paymentId: paymentId,
+						txid: txid,
+					};
+					that.$api.pi.complete(formData).then((res) => {
+						// console.log('---> request res :', res);
+						const data = res.data?.data;
+						// console.log('---> request data :', data);
+						if (data?.transaction?.verified || data?.transaction
+							?.verified) {
+							uni.showToast({
+								icon: 'none',
+								title: '未付款订单处理成功，请重新发起付款'
+							});
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '未付款订单处理失败，请稍后再试！'
+							});
+						}
+					});
+
+				},
+			}).then(async function(auth) {
+				console.log('> pi login auth:', auth);
+
+				const accessToken = auth.accessToken;
+				// const uid = auth.user.uid;
+				// const username = auth.user.username;
+				// console.log('> pi accessToken', accessToken);
+
+				// TODO: 登录业务代码
+				const formData = {
+					accessToken: accessToken,
+					inviteCode: uni.getStorageSync('INVITE_CODE'),
+				};
+				that.$api.pi.login(formData).then((res) => {
+					console.log('---> res :', res);
+					const code = res.data?.code;
+					const message = res.data?.message;
+					console.log('---> code :', code);
+					console.log('---> message :', message);
+					if (code != 200) {
+						uni.showToast({
+							title: message || '登陆失败',
+							icon: 'none'
+						})
+						return;
+					}
+					const data = res.data?.data;
+					console.log('---> data :', data);
+					that.login(data);
+					uni.showToast({
+						title: '登陆成功',
+						icon: 'none'
+					})
+					that.$utils.common.toBackPage();
+				});
+
+			}).catch(function(err) {
+				console.error('> pi auth catch:', err);
+			}).finally(function() {
+				uni.hideLoading();
+			});
+		},
+		/**
 		 * pi支付
 		 */
 		piPayment(amount, memo, metadata) {
 			console.log('进入pi支付流程...');
-			console.log(result);
-			uni.hideLoading();
-
+			uni.showLoading({
+				// title: "正在唤醒支付...",
+				title: this.$t('common.tips.loading'),
+			});
 			let that = this;
 			let paymentInfo = {
 				amount: amount,
 				memo: memo,
 				metadata: metadata,
 			}
-			pisdk.loadScript().then(function() {
-				console.log('---> pi loadScript()');
-				console.log('---> pi payment()');
-				uni.showLoading({
-					title: "正在唤醒支付..."
-				});
-				pisdk.payment(paymentInfo, {
-					onReadyForServerApproval: async function(paymentId) {
-						console.log('onReadyForServerApproval');
-						console.log('批准付款');
-						console.log(`paymentId：${paymentId}`);
+			console.log('---> piPayment paymentInfo :', paymentInfo);
+			pisdk.payment(paymentInfo, {
+				onReadyForServerApproval: async function(paymentId) {
+					console.log('onReadyForServerApproval');
+					console.log('批准付款');
+					console.log(`paymentId：${paymentId}`);
 
-						const formData = {
-							paymentId: paymentId,
-						};
-						that.$api.pi.approve(formData).then((res) => {
-							console.log('---> request res :', res);
-							const data = res.data?.data;
-							// console.log('---> request data :', data);
-						});
+					const formData = {
+						paymentId: paymentId,
+					};
+					that.$api.pi.approve(formData).then((res) => {
+						console.log('---> request res :', res);
+						const data = res.data?.data;
+						// console.log('---> request data :', data);
+					});
 
-					},
-					onReadyForServerCompletion: async function(paymentId, txid) {
-						console.log('onReadyForServerCompletion');
-						console.log('完成付款');
-						console.log(`paymentId：${paymentId}`);
-						console.log(`txid：${txid}`);
+				},
+				onReadyForServerCompletion: async function(paymentId, txid) {
+					console.log('onReadyForServerCompletion');
+					console.log('完成付款');
+					console.log(`paymentId：${paymentId}`);
+					console.log(`txid：${txid}`);
 
-						const formData = {
-							paymentId: paymentId,
-							txid: txid,
-						};
-						that.$api.pi.complete(formData).then((res) => {
-							console.log('---> request res :', res);
-							const data = res.data?.data;
-							// console.log('---> request data :', data);
-							if (data?.transaction?.verified || data?.transaction
-								?.verified) {
-								uni.showToast({
-									icon: 'none',
-									title: '支付成功'
-								});
-							} else {
-								uni.showToast({
-									icon: 'none',
-									title: '完成付款失败，请稍后再试！'
-								});
-							}
-						});
-					},
-					onIncompletePaymentFound: async function(payment) {
-						console.log('onIncompletePaymentFound');
-						console.log('发现未完成付款...');
-						console.log('>>> Pi onIncompletePaymentFound payment: ', payment);
+					const formData = {
+						paymentId: paymentId,
+						txid: txid,
+					};
+					that.$api.pi.complete(formData).then((res) => {
+						console.log('---> request res :', res);
+						const data = res.data?.data;
+						// console.log('---> request data :', data);
+						if (data?.transaction?.verified || data?.transaction
+							?.verified) {
+							uni.showToast({
+								icon: 'none',
+								title: '支付成功'
+							});
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '完成付款失败，请稍后再试！'
+							});
+						}
+					});
+				},
+				onIncompletePaymentFound: async function(payment) {
+					console.log('onIncompletePaymentFound');
+					console.log('发现未完成付款...');
+					console.log('>>> Pi onIncompletePaymentFound payment: ', payment);
 
-						let paymentId = payment.identifier;
-						let txid = payment.transaction.txid;
+					let paymentId = payment.identifier;
+					let txid = payment.transaction.txid;
 
-						// TODO: 发现未完成付款业务代码...
-						const formData = {
-							paymentId: paymentId,
-							txid: txid,
-						};
-						that.$api.pi.complete(formData).then((res) => {
-							// console.log('---> request res :', res);
-							const data = res.data?.data;
-							// console.log('---> request data :', data);
-							if (data?.transaction?.verified || data?.transaction
-								?.verified) {
-								uni.showToast({
-									icon: 'none',
-									title: '未付款订单处理成功，请重新发起付款'
-								});
-							} else {
-								uni.showToast({
-									icon: 'none',
-									title: '未付款订单处理失败，请稍后再试！'
-								});
-							}
-						});
+					// TODO: 发现未完成付款业务代码...
+					const formData = {
+						paymentId: paymentId,
+						txid: txid,
+					};
+					that.$api.pi.complete(formData).then((res) => {
+						// console.log('---> request res :', res);
+						const data = res.data?.data;
+						// console.log('---> request data :', data);
+						if (data?.transaction?.verified || data?.transaction
+							?.verified) {
+							uni.showToast({
+								icon: 'none',
+								title: '未付款订单处理成功，请重新发起付款'
+							});
+						} else {
+							uni.showToast({
+								icon: 'none',
+								title: '未付款订单处理失败，请稍后再试！'
+							});
+						}
+					});
 
-					},
-					onCancel: function(paymentId) {
-						console.log('>>> Pi onCancel ...');
-						uni.showToast({
-							icon: 'none',
-							title: `用户取消付款`
-						});
-					},
-					onError: function(error, payment) {
-						console.log('>>> Pi onError ...');
-						uni.showToast({
-							icon: 'none',
-							title: `支付异常 ${error}`
-						});
-					},
-				}).then(function(res) {
-					console.log('>>> pi pay() 支付成功', res);
-					uni.hideLoading();
+				},
+				onCancel: function(paymentId) {
+					console.log('>>> Pi onCancel ...');
 					uni.showToast({
 						icon: 'none',
-						title: `支付成功`
+						title: `用户取消付款`
 					});
-				}).catch(function(err) {
-					console.log('>>> Pi pay() 支付失败', err);
-					uni.hideLoading();
+				},
+				onError: function(error, payment) {
+					console.log('>>> Pi onError ...');
 					uni.showToast({
 						icon: 'none',
-						title: `支付失败: ${err}`
+						title: `支付异常 ${error}`
 					});
-				}).finally(function() {
-					uni.hideLoading();
-				});
-
-				setTimeout(res => {
-					uni.hideLoading();
-				}, 5000)
-			}).catch(function(err) {
-				console.error(`>>> Pi环境加载失败 ${err}`);
+				},
+			}).then(function(res) {
+				console.log('>>> pi pay() 支付成功', res);
+				uni.hideLoading();
 				uni.showToast({
 					icon: 'none',
-					title: `Pi环境加载失败 ${err}`
+					title: `支付成功`
 				});
+			}).catch(function(err) {
+				console.log('>>> Pi pay() 支付失败', err);
+				uni.hideLoading();
+				uni.showToast({
+					icon: 'none',
+					title: `支付失败: ${err}`
+				});
+			}).finally(function() {
+				uni.hideLoading();
 			});
 		},
 		printUserAgent() {

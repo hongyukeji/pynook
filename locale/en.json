@@ -155,6 +155,7 @@
 	"common.text.return-previous-page": "Return to the previous page",
 	"common.text.return-home-page": "Return to the homepage",
 	"common.network-error": "Network error",
+	"common.tips.loading": "Loading...",
 	"common.developing": "Developing",
 	"common.developing.tips": "Functional development, please look forward to!",
 	"common.app.name": "App name",

@@ -353,6 +353,14 @@
 				"navigationBarTitleText": "%pages.order.confirm%",
 				"enablePullDownRefresh": false
 			}
+		},
+		{
+			"path" : "pages/layout/code/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "%pages.layout.code.index%",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"easycom": {

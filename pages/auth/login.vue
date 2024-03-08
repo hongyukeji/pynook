@@ -8,7 +8,7 @@
 					</image>
 				</view>
 				<uni-section :title="$t('common.login')+$t('common.account')" type="line">
-					<view class="form-wrap" v-if="!isPiBrowser || isPiBrowser">
+					<view class="form-wrap" v-if="isShowPiLogin">
 						<view class="btn-login btn-master-color" @click="piLogin()">
 							π {{$t('common.login')}}
 						</view>
@@ -88,7 +88,8 @@
 			}),
 		},
 		onLoad() {},
-		onShow() {},
+		onShow() {
+		},
 		onReady() {},
 		methods: {
 			...mapMutations('user', ['login', 'logout']),

@@ -1,0 +1,13 @@
+{
+  "hash": "6f092150",
+  "browserHash": "927d09b7",
+  "optimized": {
+    "bignumber.js": {
+      "src": "../../node_modules/bignumber.js/bignumber.mjs",
+      "file": "bignumber__js.js",
+      "fileHash": "9d1af590",
+      "needsInterop": false
+    }
+  },
+  "chunks": {}
+}

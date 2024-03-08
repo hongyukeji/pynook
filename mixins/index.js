@@ -11,6 +11,7 @@ export default {
 			// appLogo: this.globalConfig?.app?.logo || '',
 			// appVersion: this.globalConfig?.app?.version || '',
 			coin: this.globalConfig?.app?.coin || 'π',
+			isShowPiLogin: (process.env.NODE_ENV === 'production'), // 生产环境不显示
 		};
 	},
 	computed: {
@@ -45,6 +46,12 @@ export default {
 		this.initLocale();
 	},
 	methods: {
+		toFixed(amount, digits) {
+			return this.$utils.common.toFixed(amount, digits);
+		},
+		redirect(url, that, params) {
+			return this.$utils.common.redirect(url, that, params);
+		},
 		initLocale() {
 			let systemInfo = uni.getSystemInfoSync();
 			this.systemLocale = systemInfo.language;
@@ -68,12 +75,6 @@ export default {
 				uni.setLocale(e.code);
 				this.$i18n.locale = e.code;
 			}
-		},
-		toPrice(amount) {
-			return this.$utils.common.toPrice(amount);
-		},
-		redirect(url, that, params) {
-			return this.$utils.common.redirect(url, that, params);
 		},
 		/**
 		 * pi登录
@@ -174,8 +175,8 @@ export default {
 				metadata: metadata,
 			}
 			console.log('---> piPayment paymentInfo :', paymentInfo);
-			pisdk.payment(paymentInfo, {
-				onReadyForServerApproval: async function(paymentId) {
+			return pisdk.payment(paymentInfo, {
+				onReadyForServerApproval: function(paymentId) {
 					console.log('onReadyForServerApproval');
 					console.log('批准付款');
 					console.log(`paymentId：${paymentId}`);
@@ -190,7 +191,7 @@ export default {
 					});
 
 				},
-				onReadyForServerCompletion: async function(paymentId, txid) {
+				onReadyForServerCompletion: function(paymentId, txid) {
 					console.log('onReadyForServerCompletion');
 					console.log('完成付款');
 					console.log(`paymentId：${paymentId}`);
@@ -218,7 +219,7 @@ export default {
 						}
 					});
 				},
-				onIncompletePaymentFound: async function(payment) {
+				onIncompletePaymentFound: function(payment) {
 					console.log('onIncompletePaymentFound');
 					console.log('发现未完成付款...');
 					console.log('>>> Pi onIncompletePaymentFound payment: ', payment);
@@ -264,20 +265,6 @@ export default {
 						title: `支付异常 ${error}`
 					});
 				},
-			}).then(function(res) {
-				console.log('>>> pi pay() 支付成功', res);
-				uni.hideLoading();
-				uni.showToast({
-					icon: 'none',
-					title: `支付成功`
-				});
-			}).catch(function(err) {
-				console.log('>>> Pi pay() 支付失败', err);
-				uni.hideLoading();
-				uni.showToast({
-					icon: 'none',
-					title: `支付失败: ${err}`
-				});
 			}).finally(function() {
 				uni.hideLoading();
 			});

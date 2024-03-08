@@ -24,7 +24,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="page-body" style="flex: 1;">
+		<view class="page-body">
 			<business-map></business-map>
 		</view>
 		<view class="page-footer">
@@ -208,6 +208,7 @@
 
 	.page-body {
 		position: relative;
+		flex: 1;
 	}
 
 	.page-footer {}

@@ -182,18 +182,20 @@
 			// console.log('---> cartTotalQuantity :', this.cartTotalQuantity);
 			// console.log('---> cartTotalQuantity :', this.$store.state.cart.cartTotalQuantity);
 			// console.log('---> cartTotalQuantity :', this.$store.getters['cart/cartTotalQuantity']);
+			this.initData();
 		},
 		onReady() {},
-		mounted() {
-			this.getMerchantData();
-			this.getBusinessDetail();
-			this.loadData();
-			if (this.isLogin) {
-				this.syncCartData();
-			}
-		},
+		mounted() {},
 		methods: {
 			...mapActions('cart', ['getCartList', 'getCartTotalQuantity', 'addCart', 'updateCart', 'deleteCart']),
+			initData() {
+				this.getMerchantData();
+				this.getBusinessDetail();
+				this.loadData();
+				if (this.isLogin) {
+					this.syncCartData();
+				}
+			},
 			async getBusinessDetail() {
 				const formData = {
 					merchantId: this.merchant.id,

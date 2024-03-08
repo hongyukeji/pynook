@@ -152,7 +152,11 @@ export default {
 		// console.log('> pi login');
 		return this.authenticate(onIncompletePaymentFoundCallback);
 	},
-	payment(data, {
+	payment(data = {
+		amount: 0,
+		memo: "",
+		metadata: {},
+	}, {
 		onReadyForServerApproval: onReadyForServerApprovalCallback,
 		onReadyForServerCompletion: onReadyForServerCompletionCallback,
 		onIncompletePaymentFound: onIncompletePaymentFoundCallback,

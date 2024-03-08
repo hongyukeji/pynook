@@ -79,7 +79,8 @@ export default async function() {
 		},
 		success(res) {
 			// console.log('interceptor-success', res)
-			const message = res.data?.message || t('common.request-failed');
+			// uni.hideLoading();
+			// const message = res.data?.message || t('common.request-failed');
 			// const data = res.data?.data;
 			if (res.data?.code == 401) {
 				store.commit('user/logout');
@@ -87,11 +88,13 @@ export default async function() {
 				throw new Error(`[request] ${message}`);
 			}
 			if (res.data?.code != 200) {
-				uni.showToast({
-					title: message,
-					icon: 'none'
-				})
-				throw new Error(`[request] ${message}`);
+				if (res.data?.message) {
+					uni.showToast({
+						title: res.data?.message,
+						icon: 'none'
+					})
+				}
+				// throw new Error(`[request] ${message}`);
 			}
 		},
 		fail(err) {
@@ -99,6 +102,7 @@ export default async function() {
 		},
 		complete(res) {
 			// console.log('interceptor-complete', res)
+			uni.hideLoading();
 		}
 	})
 

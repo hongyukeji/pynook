@@ -4,9 +4,9 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="order-wrap">
-					<fui-panel :panelData="orderPanelData" :marginTop="30" :size="28" :radius="12" :headSize="30"
+					<fui-panel :panelData="orderPanelData" :marginTop="30" :size="26" :radius="12" :headSize="30"
 						headColor="var(--app-color-master)" :descSize="24" descColor="var(--fui-color-subtitle)"
-						:infoSize="28" infoColor="var(--app-color-slave)">
+						:infoSize="26" infoColor="var(--app-color-slave)">
 						<!-- <fui-list-cell arrow :bottomBorder="false" topBorder topLeft="32">
 							<text class="fui-text__link" style="color: var(--app-color-master);">返回修改</text>
 						</fui-list-cell> -->
@@ -19,7 +19,10 @@
 			</view>
 		</view>
 		<view class="page-footer">
-			<button class="page-footer-btn" type="default" @click="submit()">{{$t('common.button.payment.pi')}}</button>
+			<button class="page-footer-btn" type="default" @click="submit"
+				v-if="!(orderData.id)">{{$t('common.form.submit.order')}}</button>
+			<button class="page-footer-btn btn-payment" type="default" @click="onPayment"
+				v-else>{{$t('common.button.payment.pi')}}</button>
 		</view>
 	</view>
 </template>
@@ -88,10 +91,11 @@
 		},
 		onShow() {
 			// console.log('---> onShow options :', this.options);
-			this.getData();
 		},
 		onReady() {},
-		mounted() {},
+		mounted() {
+			this.getData();
+		},
 		methods: {
 			getData() {
 				const params = this.options;
@@ -114,10 +118,31 @@
 					const data = res.data?.data;
 					// console.log('---> request data :', data);
 					this.orderData = data;
-
-					const paymentInfo = data.paymentInfo;
-					this.piPayment(paymentInfo.amount, paymentInfo.subject, paymentInfo.metadata);
 				})
+			},
+			onPayment() {
+				const that = this;
+				const paymentInfo = this.orderData?.paymentInfo;
+				const amount = paymentInfo.amount;
+				const memo = paymentInfo.subject;
+				const metadata = paymentInfo.metadata;
+				this.piPayment(amount, memo, metadata).then(function(res) {
+					console.log('>>> pi pay() 支付成功', res);
+					uni.hideLoading();
+					uni.showToast({
+						icon: 'none',
+						title: `支付成功`
+					});
+					that.redirect('/pages/user/order/order');
+				}).catch(function(err) {
+					console.log('>>> Pi pay() 支付失败', err);
+					uni.hideLoading();
+					uni.showToast({
+						icon: 'none',
+						title: `支付失败: ${err}`
+					});
+					that.redirect('/pages/user/order/order');
+				});
 			},
 			syncOrderData(orderData) {
 				if (!orderData) {
@@ -137,18 +162,18 @@
 						src: orderItem.productImage,
 						title: orderItem.productName,
 						desc: orderItem.promiseDeliveryTime,
-						source: `${coin} ` + this.toPrice(orderItem.productPrice),
+						source: `${coin} ` + this.toFixed(orderItem.productPrice),
 						time: 'x ' + orderItem.productQuantity,
-						extra: `${coin} ` + this.toPrice(orderItem.subtotalAmount),
+						extra: `${coin} ` + this.toFixed(orderItem.subtotalAmount),
 					}
 					productItems.push(productItem);
 				}
 				this.orderPanelData.list = productItems;
 				this.orderPanelData.head = merchant?.name;
 				this.orderPreviewData.list[0].value = 'x ' + orderData.totalQuantity
-				this.orderPreviewData.list[1].value = `${coin} ` + this.toPrice(orderData.totalPrice);
-				this.orderPreviewData.list[2].value = `${coin} ` + this.toPrice(orderData.discountAmount);
-				this.orderPreviewData.list[3].value = `${coin} ` + this.toPrice(orderData.totalAmount);
+				this.orderPreviewData.list[1].value = `${coin} ` + this.toFixed(orderData.totalPrice);
+				this.orderPreviewData.list[2].value = `${coin} ` + this.toFixed(orderData.discountAmount);
+				this.orderPreviewData.list[3].value = `${coin} ` + this.toFixed(orderData.totalAmount);
 			},
 		},
 	}
@@ -177,6 +202,11 @@
 			color: #ffffff;
 			background-color: var(--app-color-master);
 			border-color: var(--app-color-master);
+		}
+
+		.btn-payment {
+			background-color: #FAB249;
+			border-color: #FAB249;
 		}
 	}
 

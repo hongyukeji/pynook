@@ -1,8 +1,15 @@
 import store from '@/store'
 import globalConfig from '@/config'
-
+import BigNumber from "bignumber.js";
 
 export default {
+	toFixed(amount, digits = 7) {
+		// console.log('---> amount :', amount);
+		if (this.isEmpty(amount)) {
+			return new BigNumber(0).toFixed();
+		}
+		return new BigNumber(amount).toFixed();
+	},
 	getApiUrl() {
 		const url = (process.env.NODE_ENV === 'production' ? globalConfig?.app?.apiUrl : globalConfig?.app
 				?.apiDevUrl) ||
@@ -179,7 +186,6 @@ export default {
 			})
 		})
 	},
-
 	// 检查 URL 是否匹配给定的列表
 	checkUrlPattern(url, list) {
 		for (let i = 0; i < list.length; i++) {
@@ -219,8 +225,5 @@ export default {
 		}
 
 		return false;
-	},
-	toPrice(amount) {
-		return parseFloat(amount || 0);
 	},
 }

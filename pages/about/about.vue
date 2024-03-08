@@ -36,7 +36,9 @@
 		},
 		computed: {},
 		onLoad() {},
-		onShow() {},
+		onShow() {
+			console.log(this.toFixed("0.00000000100"))
+		},
 		onReady() {},
 		methods: {},
 	}

@@ -11,4 +11,14 @@ export default {
 			data: data
 		})
 	},
+	getUserOrderList: (data) => {
+		return http.get('/api/user/order/list', {
+			data: data
+		})
+	},
+	getUserOrderDetail: (data) => {
+		return http.get('/api/user/order/detail', {
+			data: data
+		})
+	},
 }

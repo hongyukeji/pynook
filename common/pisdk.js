@@ -56,6 +56,7 @@ export default {
         return isPiBrowser;
     },
     piBrowserDebug() {
+        return !(process.env.NODE_ENV === 'production');
         // console.log('> pi window.location.host:', window.location.host);
         // return true; // TODO: 开发时打开注释
         if (/localhost/.test(window.location.host)) {

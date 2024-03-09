@@ -158,6 +158,8 @@
 	"common.text.return-home-page": "Return to the homepage",
 	"common.network-error": "Network error",
 	"common.tips.loading": "Loading...",
+	"common.longitude": "Longitude",
+	"common.latitude": "Latitude",
 	"common.developing": "Developing",
 	"common.developing.tips": "Functional development, please look forward to!",
 	"common.app.name": "App name",

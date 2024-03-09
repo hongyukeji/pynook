@@ -115,7 +115,8 @@
 					{
 						icon: 'cart',
 						text: this.$t('tabbar.cart'),
-						url: '/pages/cart/cart',
+						// url: '/pages/cart/cart',
+						url: 'method://onConfirmOrder',
 						info: 0,
 						// info: this.$store.getters['cart/cartTotalQuantity'] || 0,
 						// info: this.$store.state.cart.cartTotalQuantity,
@@ -349,8 +350,10 @@
 				await this.deleteCart(formData);
 				await this.syncCartData();
 			},
-			onClickTelephone() {
-				const telephone = this.merchant.telephone;
+			onClickTelephone(telephone) {
+				if(!telephone){
+					telephone = this.merchant.telephone;
+				}
 				uni.makePhoneCall({
 					phoneNumber: telephone,
 				});

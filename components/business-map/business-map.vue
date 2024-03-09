@@ -119,7 +119,9 @@
 				*/
 				// 获取经纬度
 				uni.getLocation({
-					type: 'gcj02', // 国家测绘局坐标
+					// 谷歌地图使用 wgs84 坐标，其他地图使用 gcj02 坐标，用错坐标类型会显示偏移。
+					// type: 'gcj02', // 国家测绘局坐标
+					type: 'wgs84', // 谷歌地图
 					altitude: true, // 高精度定位
 					// 定位成功，更新定位结果
 					success: function(res) {

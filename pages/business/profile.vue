@@ -4,7 +4,7 @@
 		<view class="page-body">
 			<view class="container">
 
-				<uni-section :title="$t('business.title.contact-information')" type="line">
+				<uni-section class="form-wrap" :title="$t('business.title.contact-information')" type="line">
 					<view class="form-body">
 						<!-- 基础表单校验 -->
 						<uni-forms ref="form" :rules="rules" :modelValue="formData" label-position="top"
@@ -40,7 +40,29 @@
 									:placeholder="$t('common.form.please-enter')+' '+$t('business.form.telephone')" />
 							</uni-forms-item>
 						</uni-forms>
+					</view>
+				</uni-section>
 
+				<uni-section class="form-wrap" :title="$t('business.form.location')" type="line">
+					<view class="form-body" style="padding-top: 0rpx;">
+						<uni-forms-item :label="$t('common.longitude')" required :name="['merchant', 'longitude']">
+							<uni-easyinput type="number" v-model="formData.merchant.longitude"
+								:placeholder="$t('common.form.please-enter')+' '+$t('common.longitude')" />
+						</uni-forms-item>
+						<uni-forms-item :label="$t('common.latitude')" required :name="['merchant', 'latitude']">
+							<uni-easyinput type="number" v-model="formData.merchant.latitude"
+								:placeholder="$t('common.form.please-enter')+' '+$t('common.latitude')" />
+						</uni-forms-item>
+						<uni-forms-item>
+							<map-choose-location ref="mapChooseLocation" v-model="formData.merchant.longitude"
+								v-model:longitude.sync="formData.merchant.longitude"
+								v-model:latitude.sync="formData.merchant.latitude"></map-choose-location>
+						</uni-forms-item>
+					</view>
+				</uni-section>
+
+				<uni-section class="form-wrap" :title="$t('business.button.manage-my-business')" type="line">
+					<view class="form-body" style="padding-top: 0rpx;">
 						<view class="btn-group">
 							<view class="btn-item" v-for="(item,index) in menus" :key="index"
 								@click="toRedirect(item, $event)">
@@ -52,7 +74,6 @@
 								</view>
 							</view>
 						</view>
-
 					</view>
 				</uni-section>
 
@@ -82,34 +103,36 @@
 						typeId: '',
 						address: '',
 						introduction: '',
+						longitude: '',
+						latitude: '',
 					},
 				},
 				typeOptions: [
-				/* {
-					label: '咖啡店',
-					text: 'Coffee shop',
-					value: 0
-				}, {
-					label: '餐馆',
-					text: 'Restaurant',
-					value: 1
-				}, {
-					label: '杂货店',
-					text: 'Grocery Store',
-					value: 2
-				}, {
-					label: '书店',
-					text: 'Bookstore',
-					value: 3
-				}, {
-					label: '面包店',
-					text: 'Bakery',
-					value: 4
-				}, {
-					label: '其他',
-					text: 'Other',
-					value: 5
-				}, */
+					/* {
+						label: '咖啡店',
+						text: 'Coffee shop',
+						value: 0
+					}, {
+						label: '餐馆',
+						text: 'Restaurant',
+						value: 1
+					}, {
+						label: '杂货店',
+						text: 'Grocery Store',
+						value: 2
+					}, {
+						label: '书店',
+						text: 'Bookstore',
+						value: 3
+					}, {
+						label: '面包店',
+						text: 'Bakery',
+						value: 4
+					}, {
+						label: '其他',
+						text: 'Other',
+						value: 5
+					}, */
 				],
 				// 校验规则
 				rules: {
@@ -232,8 +255,9 @@
 			},
 			submit(ref = 'form') {
 				const that = this;
-				this.$refs[ref].validate().then(formData => {
-					console.log('success formData:', formData);
+				const formData = this.formData;
+				this.$refs[ref].validate().then(validateFormData => {
+					console.log('success validateFormData:', validateFormData);
 					// uni.showToast({title: `校验通过`})
 					this.$api.business.setBusinessData(formData).then((res) => {
 						// console.log('---> res :', res);
@@ -366,4 +390,8 @@
 	}
 
 	.btn-confirm {}
+
+	.form-wrap {
+		background-color: var(--app-bg-color);
+	}
 </style>

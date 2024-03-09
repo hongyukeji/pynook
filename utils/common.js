@@ -6,9 +6,16 @@ export default {
 	toFixed(amount, digits = 7) {
 		// console.log('---> amount :', amount);
 		if (this.isEmpty(amount)) {
-			return new BigNumber(0).toFixed();
+			amount = 0;
 		}
-		return new BigNumber(amount).toFixed();
+		return new BigNumber(amount).toNumber();
+		// return new BigNumber(amount).toFixed();
+	},
+	toNumber(amount, digits = 7) {
+		if (this.isEmpty(amount)) {
+			amount = 0;
+		}
+		return new BigNumber(amount).toNumber();
 	},
 	getApiUrl() {
 		const url = (process.env.NODE_ENV === 'production' ? globalConfig?.app?.apiUrl : globalConfig?.app
@@ -18,7 +25,7 @@ export default {
 	},
 	getToken() {
 		const tokenPrefix = "Bearer ";
-		const token = uni.getStorageSync('token') || '';
+		const token = uni.getStorageSync('TOKEN') || '';
 		if (token && token != '' && !this.isEmpty(token)) {
 			return tokenPrefix + token;
 		}

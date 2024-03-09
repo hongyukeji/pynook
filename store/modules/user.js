@@ -5,9 +5,9 @@ export default {
 	namespaced: true,
 	state: {
 		// 是否登录
-		isLogin: uni.getStorageSync("token") ? true : false,
+		isLogin: uni.getStorageSync("TOKEN") ? true : false,
 		// 令牌
-		token: uni.getStorageSync('token') || '',
+		token: uni.getStorageSync('TOKEN') || '',
 		// 用户信息
 		userInfo: uni.getStorageSync('USER_INFO') || {},
 		// 是否商户
@@ -29,7 +29,7 @@ export default {
 				state.userInfo = payload.userInfo
 				uni.setStorageSync('USER_INFO', payload.userInfo)
 				state.token = payload.token
-				uni.setStorageSync('token', payload.token)
+				uni.setStorageSync('TOKEN', payload.token)
 			}
 			state.isLogin = true;
 			// 同步用户业务信息
@@ -37,13 +37,13 @@ export default {
 		},
 		// 退出登录
 		logout(state) {
-			state.isLogin = false
-			state.token = ""
-			uni.removeStorageSync('token')
-			state.userInfo = {}
-			uni.removeStorageSync('USER_INFO')
+			state.isLogin = false;
+			state.token = "";
+			state.userInfo = {};
 			state.isMerchant = false
-			uni.removeStorageSync('IS_MERCHANT')
+			uni.removeStorageSync('TOKEN');
+			uni.removeStorageSync('USER_INFO');
+			uni.removeStorageSync('IS_MERCHANT');
 		},
 		// 设置用户信息
 		setUserInfo(state, userInfo) {

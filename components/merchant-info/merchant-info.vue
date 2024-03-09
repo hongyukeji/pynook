@@ -6,7 +6,7 @@
 			<uni-icons class="" type="location" color="var(--app-color-slave)" size="18"></uni-icons>
 			{{merchant.address}}
 		</view>
-		<view class="fui-card__content" @click="onClickTelephone(merchant.telephone)">
+		<view class="fui-card__content" @click="onClickTelephone(merchant)">
 			<uni-icons class="" type="phone" color="var(--app-color-slave)" size="18"></uni-icons>
 			{{merchant.telephone}}
 		</view>
@@ -33,6 +33,14 @@
 		},
 		methods: {
 			onClickCard(index) {},
+			onClickTelephone(telephone) {
+				if(!telephone){
+					telephone = this.merchant.telephone;
+				}
+				uni.makePhoneCall({
+					phoneNumber: telephone,
+				});
+			},
 		}
 	}
 </script>

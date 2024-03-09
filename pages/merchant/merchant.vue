@@ -66,9 +66,9 @@
 		},
 		methods: {
 			search() {
-				this.refreshData();
+				this.getData();
 			},
-			async refreshData() {
+			async getData() {
 				this.params.current = 0;
 				this.items = [];
 				if (this.loading == 2) {
@@ -100,10 +100,6 @@
 						that.loading = 2;
 					}
 					let items = data.records;
-					// 开发测试
-					for (var i = 0; i < 50; i++) {
-						// items.push(items[0] || that.items[0]);
-					}
 					// 将数据追加到 items 数组中
 					that.items = that.items.concat(items);
 				});
@@ -119,7 +115,7 @@
 		// 下拉刷新
 		async onPullDownRefresh() {
 			console.log('下拉刷新-->>')
-			await this.refreshData();
+			await this.getData();
 			uni.stopPullDownRefresh() // 停止当前页面刷新
 		},
 		// 触底加载

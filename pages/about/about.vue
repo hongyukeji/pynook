@@ -16,7 +16,9 @@
 				</view>
 			</view>
 		</view>
-		<view class="page-footer"></view>
+		<view class="page-footer">
+			<!-- <custom-tab-bar class="tab-bar-flex" direction="vertical" :show-icon="false" :selected="selected" @onTabItemTap="onTabItemTap" /> -->
+		</view>
 	</view>
 </template>
 
@@ -32,6 +34,13 @@
 		data() {
 			return {
 				userAgent: window.navigator.userAgent.toLowerCase(),
+				selected: {
+					component: 0,
+					API: 1,
+					extUI: 2,
+					template: 3
+				},
+				current: 0,
 			};
 		},
 		computed: {},
@@ -57,7 +66,9 @@
 
 	.container {
 		box-sizing: border-box;
-		// margin: $uni-spacing-col-lg $uni-spacing-row-lg;
-		// padding: $uni-spacing-col-lg $uni-spacing-row-lg;
+	}
+
+	.tab-bar-flex {
+		width: 360px;
 	}
 </style>

@@ -5,7 +5,12 @@
 				// #ifdef H5
 				"titleNView": false,
 				// #endif
-				"navigationBarTitleText": "%pages.index.index%"
+				"navigationBarTitleText": "%pages.index.index%",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"scrollIndicator": false //禁用原生导航栏
+				}
 			}
 		},
 		{
@@ -355,11 +360,28 @@
 			}
 		},
 		{
-			"path" : "pages/layout/code/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : "%pages.layout.code.index%",
-				"enablePullDownRefresh" : false
+			"path": "pages/layout/code/index",
+			"style": {
+				"navigationBarTitleText": "%pages.layout.code.index%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/payment/result",
+			"style": {
+				"navigationBarTitleText": "%pages.payment.result%",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/map/map",
+			"style": {
+				"navigationBarTitleText": "%pages.map.map%",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"scrollIndicator": false //禁用原生导航栏
+				}
 			}
 		}
 	],
@@ -419,7 +441,7 @@
 					"selectedColor": "#FAD09E"
 				}
 			},
-			{
+			/* {
 				"pagePath": "pages/cart/cart",
 				"text": "%tabbar.cart%",
 				"iconPath": "static/images/tabbar/mod_default_3x.png",
@@ -431,7 +453,7 @@
 					"color": "#090C49",
 					"selectedColor": "#FAD09E"
 				}
-			},
+			}, */
 			{
 				"pagePath": "pages/user/user",
 				"text": "%tabbar.user%",

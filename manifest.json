@@ -58,7 +58,12 @@
             },
             /* SDK配置 */
             "sdkConfigs" : {
-                "maps" : {}
+                "maps" : {
+                    "google" : {
+                        "APIKey_ios" : "",
+                        "APIKey_android" : ""
+                    }
+                }
             },
             "icons" : {
                 "android" : {

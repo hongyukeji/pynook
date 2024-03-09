@@ -35,7 +35,7 @@ export default async function() {
 			invoke(e) { // 调用前拦截
 				//获取用户的token
 				// console.log(e, 'routerjs invoke')
-				const token = localStorage.getItem('token')
+				const token = utils.common.getToken();
 				//获取当前页面路径（即url去掉"?"和"?"后的参数）
 				// console.log(token, 'router index token')
 				// 网址

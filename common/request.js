@@ -24,7 +24,7 @@ http.interceptors.request.use(config => {
 	config.errorMsg = t('common.network-error');
 	//请求之前可在请求头中加入token等信息
 	// const tokenPrefix = "Bearer ";
-	// const token = uni.getStorageSync('token') || '';
+	// const token = uni.getStorageSync('TOKEN') || '';
 	const token = utils.common.getToken();
 	if (token && token != '') {
 		if (config.header) {

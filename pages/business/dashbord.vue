@@ -122,6 +122,7 @@
 		onLoad() {},
 		onShow() {},
 		onReady() {},
+		mounted() {},
 		methods: {
 			toRedirect(item) {
 				console.log("toRedirect item:", item);

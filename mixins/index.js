@@ -12,6 +12,7 @@ export default {
 			// appVersion: this.globalConfig?.app?.version || '',
 			coin: this.globalConfig?.app?.coin || 'π',
 			isShowPiLogin: (process.env.NODE_ENV === 'production'), // 生产环境不显示
+			isDebug: !(process.env.NODE_ENV === 'production'), // 生产环境不显示
 		};
 	},
 	computed: {
@@ -48,6 +49,9 @@ export default {
 	methods: {
 		toFixed(amount, digits) {
 			return this.$utils.common.toFixed(amount, digits);
+		},
+		toNumber(amount, digits) {
+			return this.$utils.common.toNumber(amount, digits);
 		},
 		redirect(url, that, params) {
 			return this.$utils.common.redirect(url, that, params);

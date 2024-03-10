@@ -158,6 +158,7 @@
 	"common.text.return-home-page": "Return to the homepage",
 	"common.network-error": "Network error",
 	"common.tips.loading": "Loading...",
+	"common.drag-select-position": "Drag select position",
 	"common.longitude": "Longitude",
 	"common.latitude": "Latitude",
 	"common.developing": "Developing",

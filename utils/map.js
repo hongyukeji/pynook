@@ -30,9 +30,9 @@ const getCenterLocation = (mapId, that) => {
 			// altitude: true, // 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
 			// isHighAccuracy: true, // 开启高精度定位
 			success: res => {
-				console.log('---> getCenterLocation res :', res);
-				console.log('中心位置的经度：' + res.longitude);
-				console.log('中心位置的纬度：' + res.latitude);
+				// console.log('---> getCenterLocation res :', res);
+				// console.log('中心位置的经度：' + res.longitude);
+				// console.log('中心位置的纬度：' + res.latitude);
 				// this.longitude = res.longitude;
 				// this.latitude = res.latitude;
 				if (res?.longitude && res?.latitude) {

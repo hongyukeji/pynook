@@ -134,7 +134,7 @@
 			},
 			// 视野发生变化时触发
 			onMapRegionchange(e) {
-				console.log('---> onMapRegionchange :', e);
+				// console.log('---> onMapRegionchange :', e);
 			},
 			initMarkerCluster() {
 				const map = uni.createMapContext(this.mapId, this);

@@ -161,6 +161,7 @@
 	"common.text.return-home-page": "返回首页",
 	"common.network-error": "网络不给力，请检查网络设置！",
 	"common.tips.loading": "加载中...",
+	"common.drag-select-position": "拖动选择位置",
 	"common.longitude": "经度",
 	"common.latitude": "纬度",
 	"common.developing": "开发中",

@@ -51,6 +51,10 @@
 					</view>
 				</template>
 			</map-plus>
+			<!-- 压屏窗 -->
+			<!-- <fui-landscape :show="show" maskClosable @close="closePopup">
+				<image class="fui-hd__img" src="/static/images/member/light/img_layer_3x.png" mode="widthFix"></image>
+			</fui-landscape> -->
 		</view>
 		<view class="page-footer"></view>
 	</view>
@@ -97,8 +101,10 @@
 
 					let markers = [];
 					newVal.forEach((v, i) => {
-						let latitude = v.latitude || (this.$refs.map.latitude + i / 1000);
-						let longitude = v.longitude || (this.$refs.map.longitude + i / 1000);
+						// let latitude = v.latitude || (this.$refs.map.latitude + i / 1000);
+						// let longitude = v.longitude || (this.$refs.map.longitude + i / 1000);
+						let latitude = v.latitude;
+						let longitude = v.longitude;
 						let marker = {
 							...v,
 							joinCluster: true, // 指定了该参数才会参与聚合
@@ -155,15 +161,16 @@
 				});
 			}
 		},
-		onShow() {},
+		onShow() {
+			this.$nextTick(() => {
+				this.getData();
+			});
+		},
 		onReady() {},
 		mounted() {
 			// uni.hideTabBar(); // 隐藏tab 
 			// uni.showTabBar(); //显示tab
 			// this.initData();
-			this.$nextTick(() => {
-				this.getData();
-			});
 		},
 		methods: {
 			async initData() {

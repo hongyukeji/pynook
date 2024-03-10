@@ -12,7 +12,7 @@
 						<view class="map-control-btn block" @click="onClickChooseLocation()">
 							<uni-icons class="map-control-icon" type="map-pin-ellipse" color="var(--app-color-slave)"
 								size="30"></uni-icons>
-							<view class="map-control-text">{{$t('common.form.select')+$t('business.form.location')}}
+							<view class="map-control-text">{{$t('common.drag-select-position')}}
 							</view>
 						</view>
 					</template>
@@ -65,7 +65,7 @@
 			},
 			// 视野发生变化时触发
 			async onMapRegionchange(e) {
-				console.log('---> onMapRegionchange 11 :', e);
+				// console.log('---> onMapRegionchange :', e);
 				this.setCenterLocation();
 			},
 			async setCenterLocation() {
@@ -111,7 +111,7 @@
 		// padding: $uni-spacing-row-lg;
 		margin: $uni-spacing-row-lg;
 		width: 100vw;
-		height: 50vh;
+		height: 60vh;
 		background-color: #fff;
 		border-radius: $uni-border-radius-lg;
 		box-sizing: border-box;

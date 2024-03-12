@@ -8,7 +8,9 @@
 			<slot name="map">
 				<slot name="map-header">
 					<cover-view class="map-header-wrap">
-						<view class="map-header"></view>
+						<view class="map-header">
+							<!-- <cover-image></cover-image> -->
+						</view>
 					</cover-view>
 				</slot>
 
@@ -205,41 +207,80 @@
 					.catch(err => {})
 					.finally(() => {});
 			},
-			async onClickLocation() {
+			async onClickLocationMap() {
 				uni.showLoading();
 				await this.getLocation();
 				await this.moveToLocation();
 				uni.hideLoading();
 				this.$emit('clicklocation', {});
 			},
-			async onClickCenterLocation() {
-				const map = uni.createMapContext(this.mapId, this);
-				const iconPath = 'https://pynook.com/static/images/common/logo.png';
-				await this.getCenterLocation();
-				uni.showToast({
-					title: `【地图中心位置】经度：${this.longitude}，纬度：${this.latitude}`,
-					icon: 'none',
-					duration: 3000,
-				})
-				this.circles = [{
+			async onClickLocation() {
+				/*
+				this.moveToLocation({
 					latitude: this.latitude,
 					longitude: this.longitude,
+				});
+				this.$emit('clicklocation', {});
+				return;
+				*/
+
+				uni.showLoading();
+				const that = this;
+				await this.$utils.common.getCurrentLocation().then(res => {
+					this.longitude = res.longitude;
+					this.latitude = res.latitude;
+				}).catch(err => {}).finally(() => {});
+				await this.moveToLocation({
+					latitude: this.latitude,
+					longitude: this.longitude,
+				});
+				this.markMapCircles();
+				this.$emit('clicklocation', {});
+				uni.hideLoading();
+			},
+			markMapCircles() {
+				const latitude = this.latitude;
+				const longitude = this.longitude;
+
+				let circles = [{
+					latitude: latitude,
+					longitude: longitude,
 					color: '#00AE8F11',
 					fillColor: '#00AE8F30',
 					radius: 200
 				}, {
-					latitude: this.latitude,
-					longitude: this.longitude,
+					latitude: latitude,
+					longitude: longitude,
 					color: '#FFFFFF',
 					fillColor: '#FFFFFF',
 					radius: 24
 				}, {
-					latitude: this.latitude,
-					longitude: this.longitude,
+					latitude: latitude,
+					longitude: longitude,
 					color: '#00AE8F',
 					fillColor: '#00AE8F',
 					radius: 12
 				}, ]
+				circles[2] = {
+					latitude: latitude,
+					longitude: longitude,
+					color: '#090C49',
+					fillColor: '#090C49',
+					radius: 12
+				};
+
+				this.circles = circles;
+			},
+			async onClickCenterLocation() {
+				const map = uni.createMapContext(this.mapId, this);
+				const iconPath = this.globalConfig?.app?.url + '/static/images/common/logo.png';
+				await this.getCenterLocation();
+				/* uni.showToast({
+					title: `【地图中心位置】经度：${this.longitude}，纬度：${this.latitude}`,
+					icon: 'none',
+					duration: 3000,
+				}) */
+				this.markMapCircles();
 			},
 		}
 	}

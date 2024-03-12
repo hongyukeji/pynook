@@ -43,14 +43,14 @@
 					</view>
 				</uni-section>
 
-				<uni-section class="form-wrap" :title="$t('business.form.location')" type="line">
+				<uni-section class="form-wrap" :title="$t('business.form.map-location')" type="line">
 					<view class="form-body" style="padding-top: 0rpx;">
 						<uni-forms-item :label="$t('common.longitude')" required :name="['merchant', 'longitude']">
-							<uni-easyinput type="number" v-model="formData.merchant.longitude"
+							<uni-easyinput type="number" v-model="formData.merchant.longitude" disabled
 								:placeholder="$t('common.form.please-enter')+' '+$t('common.longitude')" />
 						</uni-forms-item>
 						<uni-forms-item :label="$t('common.latitude')" required :name="['merchant', 'latitude']">
-							<uni-easyinput type="number" v-model="formData.merchant.latitude"
+							<uni-easyinput type="number" v-model="formData.merchant.latitude" disabled
 								:placeholder="$t('common.form.please-enter')+' '+$t('common.latitude')" />
 						</uni-forms-item>
 						<uni-forms-item>

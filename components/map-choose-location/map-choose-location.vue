@@ -1,7 +1,7 @@
 <template>
 	<view class="map-choose-location">
 		<slot name="button">
-			<button type="primary" @click="open()">{{$t('common.form.select')+$t('business.form.location')}}</button>
+			<button type="primary" @click="open()">{{$t('common.form.select')+$t('business.form.map-location')}}</button>
 		</slot>
 
 		<!-- 普通弹窗 -->
@@ -12,7 +12,7 @@
 						<view class="map-control-btn block" @click="onClickChooseLocation()">
 							<uni-icons class="map-control-icon" type="map-pin-ellipse" color="var(--app-color-slave)"
 								size="30"></uni-icons>
-							<view class="map-control-text">{{$t('common.drag-select-position')}}
+							<view class="map-control-text">{{$t('common.select-position')}}
 							</view>
 						</view>
 					</template>
@@ -54,9 +54,13 @@
 			open() {
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open(this.type);
-				this.$nextTick(() => {
-					this.$refs.map.latitude = this.toNumber(this.latitude);
-					this.$refs.map.longitude = this.toNumber(this.longitude);
+				this.$nextTick(async () => {
+					if (this.latitude && this.longitude) {
+						this.$refs.map.latitude = this.toNumber(this.latitude);
+						this.$refs.map.longitude = this.toNumber(this.longitude);
+					} else {
+						await this.$refs.map.onClickLocation();
+					}
 					this.setCenterLocation();
 				});
 			},

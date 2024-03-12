@@ -233,4 +233,59 @@ export default {
 
 		return false;
 	},
+	getH5Location() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				position => {
+					this.longitude = position.coords.longitude;
+					this.latitude = position.coords.latitude;
+					console.log('纬度：' + this.latitude + '，经度：' + this.longitude);
+				},
+				error => {
+					console.error('获取位置失败：', error);
+					uni.showToast({
+						title: `获取位置失败`,
+						icon: 'none',
+					})
+				}, {
+					// enableHighAccuracy: true, // 是否要求高精度的位置信息
+					// timeout: 10000, // 请求的超时时间
+					// maximumAge: 0 // 对获取的地理位置信息的缓存时间
+				}
+			);
+		} else {
+			console.error('Geolocation is not supported by this browser.');
+			uni.showToast({
+				title: `当前浏览器不支持地理定位`,
+				icon: 'none',
+			})
+		}
+	},
+	getCurrentLocation() {
+		return new Promise((resolve, reject) => {
+			uni.request({
+				url: 'https://ipapi.co/json',
+				data: {},
+				success: res => {
+					console.log('---> getUserLocation res :', res);
+					const latitude = res?.data.latitude;
+					const longitude = res?.data.longitude;
+					console.log('当前位置的经度：' + longitude);
+					console.log('当前位置的纬度：' + latitude);
+					if (latitude && longitude) {
+						const position = {
+							latitude: latitude,
+							longitude: longitude,
+						};
+						resolve(position);
+					} else {
+						reject(err);
+					}
+				},
+				fail: err => {
+					reject(err);
+				}
+			});
+		});
+	},
 }

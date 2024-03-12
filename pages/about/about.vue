@@ -11,9 +11,19 @@
 						{{$t('common.app.version')}}: {{ globalConfig?.app?.version }}
 					</view>
 				</view>
+				<!-- <hr />
 				<view class="info">
 					{{$t('common.app.browser')}}: {{userAgent}}
+				</view> -->
+				<!-- <hr />
+				<view class="client-info">
+					{{$t('common.client-info')}}:
+					<text style="word-break: break-all;">
+						{{JSON.stringify(clientInfo)}}
+					</text>
 				</view>
+				<hr />
+				<button @click="toClientInfo">getClientInfo</button> -->
 			</view>
 		</view>
 		<view class="page-footer">
@@ -41,15 +51,25 @@
 					template: 3
 				},
 				current: 0,
+				clientInfo: {},
 			};
 		},
 		computed: {},
 		onLoad() {},
 		onShow() {
-			console.log(this.toFixed("0.00000000100"))
+			// console.log(this.toFixed("0.00000000100"))
+			// this.getClientInfo();
 		},
 		onReady() {},
-		methods: {},
+		methods: {
+			async getClientInfo() {
+				const formData = {}
+				await this.$api.common.getClientInfo(formData).then((res) => {
+					const data = res.data?.data;
+					this.clientInfo = data;
+				})
+			},
+		},
 	}
 </script>
 

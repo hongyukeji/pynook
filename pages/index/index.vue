@@ -171,6 +171,10 @@
 			// uni.hideTabBar(); // 隐藏tab 
 			// uni.showTabBar(); //显示tab
 			// this.initData();
+      // 组件加载完成后执行
+			this.$nextTick(() => {
+				this.$refs.map.onClickLocation();
+			});
 		},
 		methods: {
 			async initData() {

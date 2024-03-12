@@ -100,10 +100,17 @@
 						text: this.$t('tabbar.home'),
 						url: '/'
 					},
-					{
+					/* {
 						icon: 'chat',
 						text: this.$t('common.customer-service'),
 						url: 'method://onClickTelephone',
+					}, */
+					{
+						icon: 'phone',
+						// text: this.$t('common.telephone'),
+						text: this.$t('common.customer-service'),
+						url: 'method://onClickTelephone',
+						type: 'telephone',
 					},
 					/* {
 					icon: 'shop',
@@ -120,6 +127,7 @@
 						info: 0,
 						// info: this.$store.getters['cart/cartTotalQuantity'] || 0,
 						// info: this.$store.state.cart.cartTotalQuantity,
+						type: 'cart',
 					}
 				],
 				navButtonList: [{
@@ -160,13 +168,13 @@
 		watch: {
 			cartTotalQuantity: {
 				handler(newVal, oldVal) {
-					// console.log("---> cartTotalQuantity watch newVal: ", newVal);
-					// console.log("---> cartTotalQuantity watch oldVal: ", oldVal);
+					console.log("---> cartTotalQuantity watch newVal: ", newVal);
+					console.log("---> cartTotalQuantity watch oldVal: ", oldVal);
 					// this.navMenuList[1].info = this.cartTotalQuantity;
 					this.navMenuList.map(item => {
-						// console.log(item);
-						if (item.url == '/pages/cart/cart') {
-							item.info = this.cartTotalQuantity;
+						console.log(item);
+						if (item.type == 'cart') {
+							item.info = newVal;
 						}
 					});
 				},
@@ -193,6 +201,7 @@
 				this.getMerchantData();
 				this.getBusinessDetail();
 				this.loadData();
+				console.log('---> isLogin :', this.isLogin);
 				if (this.isLogin) {
 					this.syncCartData();
 				}
@@ -285,7 +294,7 @@
 					icon: 'none'
 				}) */
 				const url = e.content.url;
-				const params = e.content;
+				const params = this.merchant;
 				if (url == '/pages/cart/cart') {
 					this.$utils.common.setReturnUrl();
 				}
@@ -350,9 +359,20 @@
 				await this.deleteCart(formData);
 				await this.syncCartData();
 			},
-			onClickTelephone(telephone) {
-				if(!telephone){
-					telephone = this.merchant.telephone;
+			onClickTelephone(merchant) {
+				console.log('---> onClickTelephone merchant :', merchant);
+				if (!merchant) {
+					merchant = this.merchant;
+				}
+				const telephone = merchant?.telephone;
+				console.log('---> onClickTelephone telephone :', telephone);
+				if (!telephone) {
+					// 商户未设置联系电话
+					uni.showToast({
+						title: this.$t('business.common.merchant-not-set-telephone'),
+						icon: 'none'
+					})
+					return;
 				}
 				uni.makePhoneCall({
 					phoneNumber: telephone,

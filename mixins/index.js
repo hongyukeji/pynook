@@ -79,6 +79,8 @@ export default {
 				uni.setLocale(e.code);
 				this.$i18n.locale = e.code;
 			}
+			// uniapp 刷新当前页面
+			this.$router.go(0);
 		},
 		/**
 		 * pi登录

@@ -52,9 +52,21 @@
 				</template>
 			</map-plus>
 			<!-- 压屏窗 -->
-			<!-- <fui-landscape :show="show" maskClosable @close="closePopup">
-				<image class="fui-hd__img" src="/static/images/member/light/img_layer_3x.png" mode="widthFix"></image>
-			</fui-landscape> -->
+			<view class="landscape-wrap">
+				<fui-landscape :show="isShowLandscape" :closable="true" :position="3" @close="closeLandscape">
+					<view class="fui-ani__box">
+						<image class="fui-hd__img" src="/static/images/member/light/img_layer_3x.png" mode="widthFix">
+						</image>
+						<view class="fui-flex__center fui-flex__column">
+							<view class="fui-ani__title">{{notice?.title}}</view>
+							<view class="fui-desc" v-html="notice?.content"></view>
+							<fui-button btn-size="medium" radius="100rpx"
+								background="linear-gradient(180deg, #E3BF82 0%, #997B4A 100%)" borderColor="rgba(0,0,0,0)"
+								border-width="0" @click="onClickLandscape">{{$t('welcome.button-text')}}</fui-button>
+						</view>
+					</view>
+				</fui-landscape>
+			</view>
 		</view>
 		<view class="page-footer"></view>
 	</view>
@@ -82,6 +94,11 @@
 				},
 				items: [], // 列表数据数组
 				loading: 0, // 加载状态: 0-加载前more，1-加载中loading，2-没有更多数据noMore
+				isShowLandscape: false, // 是否显示压屏窗
+				notice: {
+					title: this.$t('welcome.title'),
+					content: this.$t('welcome.content', {param: this.globalConfig?.app?.name}),
+				},
 			};
 		},
 		computed: {
@@ -163,6 +180,9 @@
 		},
 		onShow() {
 			this.$nextTick(() => {
+				// 地图点击定位
+				this.$refs.map.onClickLocation();
+				// 获取数据
 				this.getData();
 			});
 		},
@@ -171,8 +191,12 @@
 			// uni.hideTabBar(); // 隐藏tab 
 			// uni.showTabBar(); //显示tab
 			// this.initData();
-      // 组件加载完成后执行
+
+			// 组件加载完成后执行
 			this.$nextTick(() => {
+				// 显示压屏窗
+				this.showLandscape();
+				// 地图点击定位
 				this.$refs.map.onClickLocation();
 			});
 		},
@@ -316,6 +340,19 @@
 					this.loading = 0;
 				}
 			},
+			showLandscape() {
+				this.$nextTick(() => {
+					this.isShowLandscape = true;
+				});
+			},
+			closeLandscape() {
+				this.$nextTick(() => {
+					this.isShowLandscape = false;
+				});
+			},
+			onClickLandscape() {
+				this.closeLandscape();
+			},
 		},
 	}
 </script>
@@ -427,5 +464,40 @@
 			}
 		}
 
+	}
+
+	.landscape-wrap {
+		.fui-ani__box {
+			width: 640rpx;
+			background: #FFFFFF;
+			border-radius: 24rpx;
+			padding-bottom: 64rpx;
+		}
+
+		.fui-hd__img {
+			width: 100%;
+			height: 192rpx;
+			display: block;
+		}
+
+		.fui-ani__title {
+			font-size: 36rpx;
+			font-weight: 600;
+			padding: 54rpx 0 32rpx;
+			text-align: center;
+		}
+
+		.fui-desc {
+			padding: 0 54rpx 82rpx;
+			font-size: 24rpx;
+			line-height: 48rpx;
+			font-weight: 400;
+			color: #333333;
+			box-sizing: border-box;
+		}
+
+		.fui-desc text {
+			color: #FF2B2B;
+		}
 	}
 </style>

@@ -56,6 +56,9 @@ export default {
 		redirect(url, that, params) {
 			return this.$utils.common.redirect(url, that, params);
 		},
+		toBackPage() {
+			return this.$utils.common.toBackPage();
+		},
 		initLocale() {
 			let systemInfo = uni.getSystemInfoSync();
 			this.systemLocale = systemInfo.language;

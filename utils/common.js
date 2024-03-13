@@ -33,8 +33,22 @@ export default {
 	},
 	toBackPage() {
 		const that = this;
-		const url = this.getReturnUrl();
+		let url = this.getReturnUrl();
 		console.log('RETURN_URL:', url);
+
+		if (!url) {
+			var pages = getCurrentPages()
+			// console.log('pages:', pages);
+			// console.log('pages.length:', pages.length);
+			// 判断上一页路由是否存在
+			if (pages.length <= 1) {
+				url = '/';
+			}
+		}
+
+		// console.log('url:', url);
+		// return;
+
 		// 返回上一页
 		uni.redirectTo({
 			url: url,
@@ -42,14 +56,14 @@ export default {
 				that.removeReturnUrl();
 			},
 			fail(err) {
-				console.log(err)
+				console.log('---> redirectTo fail err :', err)
 				uni.switchTab({
 					url: url,
 					success(res) {
 						that.removeReturnUrl();
 					},
 					fail(err) {
-						console.log(err)
+						console.log('---> switchTab fail err :', err)
 						uni.navigateBack({
 							delta: 1
 						});

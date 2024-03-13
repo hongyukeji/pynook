@@ -65,7 +65,7 @@ export default async function() {
 				return true
 			},
 			fail(err) { // 失败回调拦截 
-				console.log(err);
+				console.log('---> addInterceptor fail err :', err);
 			},
 		})
 	})

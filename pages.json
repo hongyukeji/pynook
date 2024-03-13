@@ -6,7 +6,7 @@
 				"titleNView": false,
 				// #endif
 				"navigationBarTitleText": "%pages.index.index%",
-				"enablePullDownRefresh" : false,
+				"enablePullDownRefresh": false,
 				"navigationStyle": "custom",
 				"app-plus": {
 					"scrollIndicator": false //禁用原生导航栏
@@ -382,6 +382,13 @@
 				"app-plus": {
 					"scrollIndicator": false //禁用原生导航栏
 				}
+			}
+		},
+		{
+			"path": "pages/location/location",
+			"style": {
+				"navigationBarTitleText": "%pages.location.location%",
+				"enablePullDownRefresh": false
 			}
 		}
 	],

@@ -26,7 +26,7 @@
 								<uni-icons class="map-control-icon" type="map" color="var(--app-color-slave)"
 									size="30"></uni-icons>
 							</view>
-							<view class="map-control-btn circle" @click="onClickLocation()">
+							<view class="map-control-btn circle" @click="onClickLocation(true)">
 								<uni-icons class="map-control-icon" type="location" color="var(--app-color-slave)"
 									size="30"></uni-icons>
 							</view>
@@ -191,6 +191,22 @@
 					this.latitude = res.latitude;
 				}).catch(err => {}).finally(() => {});
 			},
+			async getCurrentLocation() {
+				// 是否开启VPN
+				const isOpenVpn = uni.getStorageSync("IS_OPEN_VPN") ? true : false;
+				if (isOpenVpn) {
+					const longitude = uni.getStorageSync("MAP_LONGITUDE");
+					const latitude = uni.getStorageSync("MAP_LATITUDE");
+					this.longitude = longitude;
+					this.latitude = latitude;
+				} else {
+					// 获取当前位置
+					await this.$utils.common.getCurrentLocation().then(res => {
+						this.longitude = res.longitude;
+						this.latitude = res.latitude;
+					}).catch(err => {}).finally(() => {});
+				}
+			},
 			async getCenterLocation() {
 				await this.$utils.map.getCenterLocation(this.mapId, this).then(res => {
 					this.longitude = res.longitude;
@@ -207,14 +223,30 @@
 					.catch(err => {})
 					.finally(() => {});
 			},
-			async onClickLocationMap() {
+			async handleLocation() {
+				// console.log('---> handleLocation :', '处理定位');
+				uni.showLoading();
+				// 获取位置
+				await this.getCurrentLocation();
+				// 移动位置
+				await this.moveToLocation({
+					latitude: this.latitude,
+					longitude: this.longitude,
+				});
+				// 创建地图点
+				this.markMapCircles();
+				// 触发点击位置事件
+				this.$emit('clicklocation', {});
+				uni.hideLoading();
+
+				/* 
 				uni.showLoading();
 				await this.getLocation();
 				await this.moveToLocation();
 				uni.hideLoading();
 				this.$emit('clicklocation', {});
-			},
-			async onClickLocation() {
+				 */
+
 				/*
 				this.moveToLocation({
 					latitude: this.latitude,
@@ -223,20 +255,34 @@
 				this.$emit('clicklocation', {});
 				return;
 				*/
-
-				uni.showLoading();
+			},
+			async onClickLocation(vnpCheck = false) {
 				const that = this;
-				await this.$utils.common.getCurrentLocation().then(res => {
-					this.longitude = res.longitude;
-					this.latitude = res.latitude;
-				}).catch(err => {}).finally(() => {});
-				await this.moveToLocation({
-					latitude: this.latitude,
-					longitude: this.longitude,
-				});
-				this.markMapCircles();
-				this.$emit('clicklocation', {});
-				uni.hideLoading();
+				// VPN检查
+				if (vnpCheck) {
+					uni.showModal({
+						title: this.$t('common.vpn.title'),
+						content: this.$t('common.vpn.content'),
+						cancelText: this.$t('common.button.no'),
+						confirmText: this.$t('common.button.yes'),
+						success: function(res) {
+							if (res.confirm) {
+								console.log('用户点击确定');
+								uni.setStorageSync("IS_OPEN_VPN", true);
+								const url = '/pages/location/location';
+								that.redirect(url);
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+								uni.setStorageSync("IS_OPEN_VPN", false);
+								that.handleLocation();
+							}
+							return;
+						}
+					});
+					return;
+				}
+
+				await this.handleLocation();
 			},
 			markMapCircles() {
 				const latitude = this.latitude;

@@ -97,7 +97,7 @@ const moveToLocation = (location = {}, mapId, that) => {
 			longitude: location?.longitude, // 经度
 			latitude: location?.latitude, // 纬度
 			success: res => {
-				console.log('---> moveToLocation res :', res);
+				// console.log('---> moveToLocation res :', res);
 				resolve(res);
 			},
 			fail: err => {

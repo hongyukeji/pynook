@@ -11,4 +11,9 @@ export default {
 			data: data
 		})
 	},
+	getClientInfo: (data) => {
+		return http.get('/api/common/getClientInfo', {
+			data: data
+		})
+	},
 }

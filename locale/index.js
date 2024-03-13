@@ -6,5 +6,5 @@ export default {
 	'zh-Hans': zhHans,
 	'zh-Hant': zhHant,
 	en,
-	ja
+	ja,
 }

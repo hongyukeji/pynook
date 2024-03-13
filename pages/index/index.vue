@@ -181,7 +181,7 @@
 		onShow() {
 			this.$nextTick(() => {
 				// 地图点击定位
-				this.$refs.map.onClickLocation();
+				// this.$refs.map.onClickLocation();
 				// 获取数据
 				this.getData();
 			});
@@ -284,7 +284,9 @@
 				this.getData();
 			},
 			async getCenterLocation() {
-				this.$refs.map.getCenterLocation();
+				// this.$refs.map.getCenterLocation();
+				this.$refs.map.getCurrentLocation();
+				// this.$refs.map.onClickLocation();
 				// this.params.latitude = this.$refs.map.latitude;
 				// this.params.longitude = this.$refs.map.longitude;
 				this.params.distance = this.distance;

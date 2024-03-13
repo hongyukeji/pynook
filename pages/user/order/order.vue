@@ -9,39 +9,7 @@
 		<view class="page-body">
 			<view class="container">
 				<view class="items">
-					<view class="item" v-for="(item,index) in items" :key="index" @click="toRedirect(item)">
-						<!-- <merchant-info :merchant="item"></merchant-info> -->
-						<fui-card :src="item?.merchant?.image" :title="item?.merchant?.name || '平台商户'"
-							:tag="item.createdAt">
-							<view class="fui-card__content">
-								<fui-preview :previewData="{
-									label: '订单金额',
-									value: `${coin} ` + this.toFixed(item.totalAmount),
-									list: [{
-										label: this.$t('common.order.total-quantity'),
-										value: 'x ' + item.totalQuantity,
-									}, {
-										label: this.$t('common.order.total-price'),
-										value: `${coin} ` + this.toFixed(item.totalPrice),
-									}, {
-										label: this.$t('common.order.discount-amount'),
-										value: `${coin} ` + this.toFixed(item.discountAmount),
-									}, {
-										label: this.$t('common.button.payment.amount'),
-										value: `${coin} ` + this.toFixed(item.totalAmount),
-										valueColor: 'var(--app-color-slave)',
-									}, {
-										label: this.$t('common.order.status'),
-										value: item.status <= 0 ? '待支付' : '已支付',
-									}, ],
-									buttons: [{
-										text: '查看详情'
-									}]
-								}" :isBorder="false">
-								</fui-preview>
-							</view>
-						</fui-card>
-					</view>
+					<order-item class="item" :order="item" v-for="(item,index) in items" :key="index"></order-item>
 				</view>
 			</view>
 		</view>
@@ -186,10 +154,6 @@
 	}
 
 	.items {}
-
-	.items .item {
-		margin: $uni-spacing-col-lg auto;
-	}
 
 	.fui-card__content {
 		color: $uni-text-color-placeholder;

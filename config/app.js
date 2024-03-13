@@ -1,6 +1,6 @@
 export default {
 	name: 'PyNook 派诺客',
-	version: '1.1.8',
+	version: '1.2.1',
 	url: 'https://pynook.com',
 	apiUrl: '',
 	apiDevUrl: 'http://localhost:8000',

@@ -21,4 +21,14 @@ export default {
 			data: data
 		})
 	},
+	getMerchantOrderList: (data) => {
+		return http.get('/api/merchant/order/list', {
+			data: data
+		})
+	},
+	getMerchantOrderDetail: (data) => {
+		return http.get('/api/merchant/order/detail', {
+			data: data
+		})
+	},
 }

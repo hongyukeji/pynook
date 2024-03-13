@@ -204,7 +204,12 @@
 			},
 		},
 		onLoad() {},
-		onShow() {},
+		onShow() {
+			this.$nextTick(() => {
+				// 地图点击定位
+				this.$refs.mapChooseLocation.onClickLocation();
+			});
+		},
 		mounted() {
 			this.getData();
 		},

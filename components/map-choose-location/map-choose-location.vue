@@ -1,7 +1,8 @@
 <template>
 	<view class="map-choose-location">
 		<slot name="button">
-			<button type="primary" @click="open()">{{$t('common.form.select')+$t('business.form.map-location')}}</button>
+			<button type="primary"
+				@click="open()">{{$t('common.form.select')+$t('business.form.map-location')}}</button>
 		</slot>
 
 		<!-- 普通弹窗 -->
@@ -59,13 +60,16 @@
 						this.$refs.map.latitude = this.toNumber(this.latitude);
 						this.$refs.map.longitude = this.toNumber(this.longitude);
 					} else {
-						await this.$refs.map.onClickLocation();
+						await this.onClickLocation();
 					}
 					this.setCenterLocation();
 				});
 			},
 			close() {
 				this.$refs.popup.close()
+			},
+			async onClickLocation() {
+				await this.$refs.map.onClickLocation();
 			},
 			// 视野发生变化时触发
 			async onMapRegionchange(e) {

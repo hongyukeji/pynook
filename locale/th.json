@@ -191,7 +191,7 @@
 	"welcome.button-text": "ฉันเข้าใจแล้ว",
 	"pages.location.location": "ตำแหน่ง",
 	"pages.help.help": "ช่วยเหลือ",
-	"common.getlocation": "รับตำแหน่ง",
+	"common.get-location": "รับตำแหน่ง",
 	"common.vpn.title": "คำเตือนตำแหน่ง",
 	"common.vpn.content": "คุณใช้ VPN proxy หรือไม่?",
 	"common.vpn.step.one.title": "ขั้นตอนที่หนึ่ง, ปิด VPN proxy",

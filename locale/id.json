@@ -190,7 +190,7 @@
 	"welcome.button-text": "Saya mengerti",
 	"pages.location.location": "Lokasi",
 	"pages.help.help": "Bantuan",
-	"common.getlocation": "Dapatkan Lokasi",
+	"common.get-location": "Dapatkan Lokasi",
 	"common.vpn.title": "Pemberitahuan Lokasi",
 	"common.vpn.content": "Apakah Anda menggunakan proxy VPN?",
 	"common.vpn.step.one.title": "Langkah Satu, Matikan proxy VPN",

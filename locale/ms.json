@@ -191,7 +191,7 @@
 	 "welcome.button-text": "Saya Faham",
 	 "pages.location.location": "Lokasi",
 	 "pages.help.help": "Bantuan",
-	 "common.getlocation": "Dapatkan Lokasi",
+	 "common.get-location": "Dapatkan Lokasi",
 	 "common.vpn.title": "Peringatan Lokasi",
 	 "common.vpn.content": "Adakah anda menggunakan proksi VPN?",
 	 "common.vpn.step.one.title": "Langkah Satu, Matikan proksi VPN",

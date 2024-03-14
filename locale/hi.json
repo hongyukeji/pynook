@@ -191,7 +191,7 @@
 	"welcome.button-text": "मैं समझ गया",
 	"pages.location.location": "स्थान",
 	"pages.help.help": "सहायता",
-	"common.getlocation": "स्थान प्राप्त करें",
+	"common.get-location": "स्थान प्राप्त करें",
 	"common.vpn.title": "स्थान सूचना",
 	"common.vpn.content": "क्या आप VPN प्रॉक्सी का उपयोग कर रहे हैं?",
 	"common.vpn.step.one.title": "चरण एक, VPN प्रॉक्सी बंद करें",

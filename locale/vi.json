@@ -191,7 +191,7 @@
 	"welcome.button-text": "Tôi đã hiểu",
 	"pages.location.location": "Vị trí",
 	"pages.help.help": "Trợ giúp",
-	"common.getlocation": "Lấy vị trí",
+	"common.get-location": "Lấy vị trí",
 	"common.vpn.title": "Cảnh báo vị trí",
 	"common.vpn.content": "Bạn có đang sử dụng proxy VPN không?",
 	"common.vpn.step.one.title": "Bước Một, Tắt proxy VPN",

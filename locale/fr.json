@@ -191,7 +191,7 @@
 	"welcome.button-text": "J'ai compris",
 	"pages.location.location": "Emplacement",
 	"pages.help.help": "Aide",
-	"common.getlocation": "Obtenir l'emplacement",
+	"common.get-location": "Obtenir l'emplacement",
 	"common.vpn.title": "Avertissement de localisation",
 	"common.vpn.content": "Utilisezvous un proxy VPN ?",
 	"common.vpn.step.one.title": "Étape un, désactivez le proxy VPN",

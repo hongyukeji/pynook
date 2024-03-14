@@ -191,7 +191,7 @@
 	"welcome.button-text": "Anladım",
 	"pages.location.location": "Konum",
 	"pages.help.help": "Yardım",
-	"common.getlocation": "Konumu Al",
+	"common.get-location": "Konumu Al",
 	"common.vpn.title": "Konum Uyarısı",
 	"common.vpn.content": "VPN proxy'sini kullanıyor musunuz?",
 	"common.vpn.step.one.title": "Adım bir, VPN proxy'sini kapatın",

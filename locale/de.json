@@ -191,7 +191,7 @@
 	"welcome.button-text": "Verstanden",
 	"pages.location.location": "Ort",
 	"pages.help.help": "Hilfe",
-	"common.getlocation": "Standort abrufen",
+	"common.get-location": "Standort abrufen",
 	"common.vpn.title": "Standort Hinweis",
 	"common.vpn.content": "Verwenden Sie einen VPNProxy?",
 	"common.vpn.step.one.title": "Schritt eins, deaktivieren Sie den VPNProxy",

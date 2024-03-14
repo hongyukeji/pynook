@@ -5,7 +5,8 @@
 			<view class="container">
 				<view class="header">
 					<view class="logo">
-						<image class="image" :src="globalConfig?.app?.logo" :mode="'aspectFill'" style="width: 100%;height: 100%;">
+						<image class="image" :src="globalConfig?.app?.logo" :mode="'aspectFill'"
+							style="width: 100%;height: 100%;">
 						</image>
 					</view>
 					<view class="name">
@@ -37,7 +38,9 @@
 		computed: {
 			// 基于data中的count计算出双倍的值
 			qrcodeUrl() {
-				return getApp().globalData?.app?.url + "/#/pages/merchant/detail?id=" + this.merchantId;
+				const url = this.globalConfig?.app?.url + "/#/pages/merchant/detail?id=" + this.merchantId;
+				// console.log('---> url : ', url);
+				return url;
 			}
 		},
 		onLoad() {},

@@ -27,7 +27,7 @@
 
 				<view class="content">
 					<template v-if="tabMenuCurrent === 0">
-						<view class="stamps-preview-wrap" v-if="business.loyaltyCardStatus">
+						<view class="stamps-preview-wrap" v-if="business?.loyaltyCardStatus == 1">
 							<view class="stamps-preview-icon">
 								<view class="stamps-preview-number">
 									{{business.freeItemNeededStampNumber}}

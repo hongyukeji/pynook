@@ -1,3 +1,4 @@
+import locales from '@/locale/index';
 import pisdk from '@/common/pisdk.js';
 
 export default {
@@ -17,10 +18,12 @@ export default {
 	},
 	computed: {
 		applicationLocales() {
-			return [{
+			// console.log('---> locales : ', locales);
+			let applicationLocales = [{
 					text: this.$t('locale.auto'),
 					code: 'auto'
-				}, {
+				},
+				/* {
 					text: this.$t('locale.en'),
 					code: 'en'
 				},
@@ -35,8 +38,16 @@ export default {
 				{
 					text: this.$t('locale.ja'),
 					code: 'ja'
-				}
-			]
+				}, */
+			];
+			for (let locale in locales) {
+				let applicationLocale = {
+					text: this.$t(`locale.${locale}`),
+					code: locale
+				};
+				applicationLocales.push(applicationLocale);
+			}
+			return applicationLocales;
 		},
 		isPiBrowser() {
 			return pisdk.isPiBrowser();

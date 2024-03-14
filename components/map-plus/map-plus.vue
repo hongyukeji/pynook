@@ -116,7 +116,7 @@
 		methods: {
 			// 在地图渲染更新完成时触发
 			onMapUpdated(e) {
-				console.log('---> onMapUpdated :', e);
+				// console.log('---> onMapUpdated :', e);
 			},
 			// 点击定位标时触发，e.detail = {longitude, latitude}
 			onClickMapAnchorpointtap(e) {

@@ -105,9 +105,9 @@ const moveToLocation = (location = {}, mapId, that) => {
 				reject(err);
 			},
 			complete: res => {
-				console.log('---> moveToLocation location :', location);
+				// console.log('---> moveToLocation location :', location);
 				if (res.errMsg == 'moveToLocation:ok') {
-					console.log('---> moveToLocation ok :', res);
+					// console.log('---> moveToLocation ok :', res);
 				} else {
 					console.log('---> moveToLocation err :', res);
 				}
